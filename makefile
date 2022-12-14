@@ -30,6 +30,7 @@
 ##   |   `-- (...)
 ##   |-- target --> ./build/target
 ##   `-- src
+##       |-- main.c
 ##       |-- fold1
 ##       |   | -- src1.c
 ##       |   | -- src2.c
@@ -57,7 +58,7 @@ VERBOSE := FALSE
 DOXOUT  := FALSE
 
 # List the source directories
-DIRS      := affichages menus part1 part2 part3 part4
+DIRS      := . affichages menus part1 part2 part3 part4
 SRCDIRS    = $(foreach dir, $(DIRS), $(addprefix $(SRCDIR)/, $(dir)))
 #INCDIRS    = $(foreach dir, $(DIRS), $(addprefix $(INCDIR)/, $(dir)))
 
@@ -174,7 +175,7 @@ doc:
 	@echo "${YELLOW}[-] Generate doc...${RESET}"
 	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(DOCDIR))
 	$(HIDE)doxygen $(DOXINGORE)
-	@echo "\n${YELLOW}[-] PATH TO THE DOC:${RESET}\n${PWD}/html/index.html"
+	@echo "\n${YELLOW}[-] PATH TO THE DOC:${RESET}\n$(DOCDIR)/html/index.html"
 
 # gen the compile flags for clang
 clflags: compile_flags.txt

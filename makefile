@@ -53,7 +53,7 @@ DOCDIR   := $(PROJDIR)/doc
 TARGET := sae1.02
 
 # Verbose the commands
-VERBOSE := TRUE
+VERBOSE := FALSE
 DOXOUT  := FALSE
 
 # List the source directories
@@ -138,7 +138,7 @@ endif
 
 .PHONY: all clean directories doc clflags
 
-all: directories $(TARGET)
+all: directories $(DEPS) $(TARGET)
 
 # link and create final executable
 $(TARGET): $(OBJS)
@@ -152,16 +152,15 @@ $(BINDIR)/%.o: %.c
 
 #gen deps rules
 $(DEPSDIR)/%.d: %.c
-	@echo "${YELLOW}[-] Making dependency${RESET} $@"
-	$(HIDE)$(CC) -MF"$(subst /,$(PSEP),$@)" -MG -MM -MP -MT"$(subst /,$(PSEP),$(<:.c=.o))" $(subst /,$(PSEP),$<)
+	@echo "${PURPLE}[-] Making dependency${RESET} $@"
+	$(HIDE)$(CC) $(CFLAGS) -MF"$(subst /,$(PSEP),$@)" -MG -MM -MP -MT"$(subst /,$(PSEP),$(<:.c=.o))" "$(subst /,$(PSEP),$<)"
 
-# include dependencies
--include $(DEPS)
 
 # make dirs
 directories:
 	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(BINDIR))
 	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(DEPSDIR))
+
 
 # clean objects, deps and executable
 clean:
@@ -183,3 +182,6 @@ clflags: compile_flags.txt
 compile_flags.txt:
 	@echo "${PURPLE}[-] Generate $@...${RESET}"
 	$(HIDE)echo "$(foreach inc, $(INCLUDES), $(addprefix \n, $(inc)))" > $@
+
+# include dependencies
+#-include $(DEPS)

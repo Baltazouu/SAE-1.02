@@ -16,6 +16,7 @@
 ##   |   |   ` -- ...
 ##   |   `-- target
 ##   |-- compile_flags.txt
+##   |-- config.h
 ##   |-- include
 ##   |   |-- inc1
 ##   |   |-- inc2
@@ -45,7 +46,7 @@ BINDIR   := $(BUILDDIR)/bin
 TARGET := sae1.02
 
 # Verbose the commands
-VERBOSE := TRUE
+VERBOSE := FALSE
 
 # List the source directories
 DIRS      := affichages menus part1 part2 part3 part4
@@ -94,22 +95,40 @@ else
 	HIDE = @
 endif
 
-define generateRule
-$(1): $(2)
-	@echo "[-] Building $$@"
-	$(HIDE)$(CC) -c $$(CFLAGS) -o $$(subst /,$$(PSEP),$$@) $$(subst /,$$(PSEP),$$<) -MMD
-endef
+# define standard colors
+ifneq (,$(findstring xterm,${TERM}))
+	BLACK        := $(shell tput -Txterm setaf 0)
+	RED          := $(shell tput -Txterm setaf 1)
+	GREEN        := $(shell tput -Txterm setaf 2)
+	YELLOW       := $(shell tput -Txterm setaf 3)
+	LIGHTPURPLE  := $(shell tput -Txterm setaf 4)
+	PURPLE       := $(shell tput -Txterm setaf 5)
+	BLUE         := $(shell tput -Txterm setaf 6)
+	WHITE        := $(shell tput -Txterm setaf 7)
+	RESET := $(shell tput -Txterm sgr0)
+else
+	BLACK        := ""
+	RED          := ""
+	GREEN        := ""
+	YELLOW       := ""
+	LIGHTPURPLE  := ""
+	PURPLE       := ""
+	BLUE         := ""
+	WHITE        := ""
+	RESET        := ""
+endif
+
 
 .PHONY: all clean directories doc clflags
 
 all: directories $(TARGET)
 
 $(TARGET): $(OBJS)
-	@echo "[-] Linking $@"
+	@echo "${BLUE}[-] Linking${RESET} $@"
 	$(HIDE)$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 $(BINDIR)/%.o: %.c
-	@echo "[-] Building $@"
+	@echo "${LIGHTPURPLE}[-] Building${RESET} $@"
 	$(HIDE)$(CC) -c $(CFLAGS) -o $(subst /,$(PSEP),$@) $(subst /,$(PSEP),$<) -MMD
 
 # include dependencies
@@ -126,17 +145,17 @@ directories:
 clean:
 	$(HIDE)$(RMDIR) $(subst /,$(PSEP),$(BUILDDIR)) $(ERRIGNORE)
 	$(HIDE)$(RM) $(TARGET) $(ERRIGNORE)
-	@echo "[-] Cleaning done."
+	@echo "${GREEN}[-] Cleaning done.${RESET}"
 
 # gen the Doxygen doc
 doc:
-	@echo "[-] Generate doc..."
+	@echo "${YELLOW}[-] Generate doc...${RESET}"
 	$(HIDE)doxygen
-	@echo -e "\n[-] PATH TO THE DOC:\n${PWD}/html/index.html"
+	@echo -e "\n${YELLOW}[-] PATH TO THE DOC:${RESET}\n${PWD}/html/index.html"
 
 # gen the compile flags for clang
 clflags: compile_flags.txt
 
 compile_flags.txt:
-	@echo "[-] Generate $@..."
-	$(HIDE)echo -e "$(foreach inc, $(INCLUDES), $(addprefix \n, $(inc)))" > $@
+	@echo "${PURPLE}[-] Generate $@...${RESET}"
+	$(HIDE)echo "$(foreach inc, $(INCLUDES), $(addprefix \n, $(inc)))" > $@

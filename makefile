@@ -10,28 +10,33 @@
 ##   |-- build
 ##   |   |-- bin
 ##   |   |   | -- src1.o
-##   |   |   | -- src1.d
 ##   |   |   | -- src2.o
+##   |   |   ` -- (...)
+##   |   |-- deps
+##   |   |   | -- src1.d
 ##   |   |   | -- src2.d
-##   |   |   ` -- ...
+##   |   |   ` -- (...)
 ##   |   `-- target
 ##   |-- compile_flags.txt
 ##   |-- config.h
+##   |-- doc
+##   |   `-- html
+##   |       ` -- (doxygen output)...
 ##   |-- include
 ##   |   |-- inc1
 ##   |   |-- inc2
-##   |   |-- ...
+##   |   |-- (...)
 ##   |   |-- target.h
-##   |   `-- ...
+##   |   `-- (...)
 ##   |-- target --> ./build/target
 ##   `-- src
 ##       |-- fold1
 ##       |   | -- src1.c
 ##       |   | -- src2.c
-##       |   ` -- ...
+##       |   ` -- (...)
 ##       |-- fold2
 ##       |-- fold3
-##       `-- ...
+##       `-- (...)
 ##
 
 
@@ -41,12 +46,15 @@ SRCDIR   := $(PROJDIR)/src
 INCDIR   := $(PROJDIR)/include
 BUILDDIR := $(PROJDIR)/build
 BINDIR   := $(BUILDDIR)/bin
+DEPSDIR  := $(BUILDDIR)/deps
+DOCDIR   := $(PROJDIR)/doc
 
 # Name of the final executables
 TARGET := sae1.02
 
 # Verbose the commands
-VERBOSE := FALSE
+VERBOSE := TRUE
+DOXOUT  := FALSE
 
 # List the source directories
 DIRS      := affichages menus part1 part2 part3 part4
@@ -55,7 +63,7 @@ SRCDIRS    = $(foreach dir, $(DIRS), $(addprefix $(SRCDIR)/, $(dir)))
 
 # generate GCC param
 INCLUDES = -I$(INCDIR) #$(foreach dir, $(INCDIRS), $(addprefix -I, $(dir)))
-CFLAGS   = $(INCLUDES) -MP -Wall
+CFLAGS   = $(INCLUDES) -Wall
 LDFLAGS  =
 LDLIBS   = -lncurses
 
@@ -65,7 +73,7 @@ VPATH = $(SRCDIRS)
 # create list of sources, objects and deps
 SOURCES = $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.c))
 OBJS    = $(patsubst %.c, $(BINDIR)/%.o, $(notdir $(SOURCES)))
-DEPS    = $(OBJS:.o=.d)
+DEPS    = $(patsubst %.c, $(DEPSDIR)/%.d, $(notdir $(SOURCES)))
 
 # name the compiler
 CC := gcc
@@ -75,12 +83,14 @@ ifeq ($(OS), Windows_NT)
 	RM        = del /F /Q
 	RMDIR     = -RMDIR /S /Q
 	MKDIR     = -mkdir
+	STDINGORE = >NUL || true
 	ERRIGNORE = 2>NUL || true
 	SEP       =\\
 else
 	RM        = rm -rf
 	RMDIR     = rm -rf
 	MKDIR     = mkdir -p
+	STDINGORE = 1>/dev/null
 	ERRIGNORE = 2>/dev/null
 	SEP       =/
 endif
@@ -93,6 +103,13 @@ ifeq ($(VERBOSE), TRUE)
 	HIDE =
 else
 	HIDE = @
+endif
+
+# hide or not the doxygen output
+ifeq ($(DOXOUT), TRUE)
+	DOXINGORE =
+else
+	DOXINGORE = $(STDINGORE)
 endif
 
 # define standard colors
@@ -123,35 +140,42 @@ endif
 
 all: directories $(TARGET)
 
+# link and create final executable
 $(TARGET): $(OBJS)
 	@echo "${BLUE}[-] Linking${RESET} $@"
-	$(HIDE)$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
+	$(HIDE)$(CC) $(LDFLAGS) $(subst /,$(PSEP),$^) $(LDLIBS) -o $(subst /,$(PSEP),$@)
 
+#gen output rules
 $(BINDIR)/%.o: %.c
 	@echo "${LIGHTPURPLE}[-] Building${RESET} $@"
-	$(HIDE)$(CC) -c $(CFLAGS) -o $(subst /,$(PSEP),$@) $(subst /,$(PSEP),$<) -MMD
+	$(HIDE)$(CC) -c $(CFLAGS) -o $(subst /,$(PSEP),$@) $(subst /,$(PSEP),$<)
+
+#gen deps rules
+$(DEPSDIR)/%.d: %.c
+	@echo "${YELLOW}[-] Making dependency${RESET} $@"
+	$(HIDE)$(CC) -MF"$(subst /,$(PSEP),$@)" -MG -MM -MP -MT"$(subst /,$(PSEP),$(<:.c=.o))" $(subst /,$(PSEP),$<)
 
 # include dependencies
 -include $(DEPS)
 
-# gen rule
-#$(eval $(call generateRules, $(OBJS), $(SOURCES)))
-
 # make dirs
 directories:
 	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(BINDIR))
+	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(DEPSDIR))
 
 # clean objects, deps and executable
 clean:
 	$(HIDE)$(RMDIR) $(subst /,$(PSEP),$(BUILDDIR)) $(ERRIGNORE)
+	$(HIDE)$(RMDIR) $(subst /,$(PSEP),$(DOCDIR)) $(ERRIGNORE)
 	$(HIDE)$(RM) $(TARGET) $(ERRIGNORE)
 	@echo "${GREEN}[-] Cleaning done.${RESET}"
 
 # gen the Doxygen doc
 doc:
 	@echo "${YELLOW}[-] Generate doc...${RESET}"
-	$(HIDE)doxygen
-	@echo -e "\n${YELLOW}[-] PATH TO THE DOC:${RESET}\n${PWD}/html/index.html"
+	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(DOCDIR))
+	$(HIDE)doxygen $(DOXINGORE)
+	@echo "\n${YELLOW}[-] PATH TO THE DOC:${RESET}\n${PWD}/html/index.html"
 
 # gen the compile flags for clang
 clflags: compile_flags.txt

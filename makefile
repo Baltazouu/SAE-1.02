@@ -65,6 +65,7 @@ TESTF := test.c
 # Verbose the commands
 VERBOSE := FALSE
 DOXOUT  := FALSE
+TESTVER := TRUE
 
 # List the source directories
 DIRS      := tests
@@ -126,6 +127,13 @@ else
 	DOXINGORE = $(STDINGORE)
 endif
 
+# verbose output of unit testing
+ifeq ($(TESTVER), TRUE)
+	TESTV = -v
+else
+	TESTV =
+endif
+
 # define standard colors
 ifneq (,$(findstring xterm,${TERM}))
 	BLACK        := $(shell tput -Txterm setaf 0)
@@ -150,9 +158,9 @@ else
 endif
 
 
-.PHONY: all clean directories doc clflags test init
+.PHONY: build clean directories doc clflags test init run run_test
 
-all: directories $(DEPS) $(TARGET)
+build: directories $(DEPS) $(TARGET)
 
 test: directories $(DEPS) $(TESTTARG)
 
@@ -179,6 +187,16 @@ $(DEPSDIR)/%.d: %.c
 directories:
 	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(BINDIR))
 	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(DEPSDIR))
+
+run: build
+	@echo "${GREEN}[-] Running program...${RESET}"
+	@echo
+	$(HIDE)./$(TARGET)
+
+run_test: test
+	@echo "${GREEN}[-] Running tests...${RESET}"
+	@echo
+	$(HIDE)./$(TESTTARG) $(TESTV)
 
 # clean objects, deps and executable
 clean:

@@ -59,8 +59,8 @@ TESTTARG := sae1.02_test
 DEBUG = TRUE
 
 # Name the main files
-MAINF := $(SRCDIR)/main.c
-TESTF := $(SRCDIR)/test.c
+MAINF := main.c
+TESTF := test.c
 
 # Verbose the commands
 VERBOSE := FALSE
@@ -85,7 +85,7 @@ LDFLAGS  =
 LDLIBS   =
 
 # add source dirs to VPATH
-VPATH = $(SRCDIRS) .
+VPATH = $(SRCDIRS):$(SRCDIR)
 
 # create list of sources, test sources, objects and deps
 SOURCES = $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.c))
@@ -157,11 +157,11 @@ all: directories $(DEPS) $(TARGET)
 test: directories $(DEPS) $(TESTTARG)
 
 # link and create final executable
-$(TARGET): $(OBJS) $(MAINF:.c=.o)
+$(TARGET): $(OBJS) $(BINDIR)/$(MAINF:.c=.o)
 	@echo "${BLUE}[-] Linking main${RESET} $@"
 	$(HIDE)$(CC) $(LDFLAGS) $(subst /,$(PSEP),$^) $(LDLIBS) -o $(subst /,$(PSEP),$@)
 
-$(TESTTARG): $(OBJS) $(TESTF:.c=.o)
+$(TESTTARG): $(OBJS) $(BINDIR)/$(TESTF:.c=.o)
 	@echo "${BLUE}[-] Linking tests${RESET} $@"
 	$(HIDE)$(CC) $(LDFLAGS) $(subst /,$(PSEP),$^) $(LDLIBS) -o $(subst /,$(PSEP),$@)
 

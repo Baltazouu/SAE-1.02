@@ -29,6 +29,7 @@
 ##   |   |-- target.h
 ##   |   `-- (...)
 ##   |-- target --> ./build/target
+##   |-- target-test --> ./build/target
 ##   `-- src
 ##       |-- main.c
 ##       |-- fold1
@@ -50,41 +51,53 @@ BINDIR   := $(BUILDDIR)/bin
 DEPSDIR  := $(BUILDDIR)/deps
 DOCDIR   := $(PROJDIR)/doc
 
-# Name of the final executables
-TARGET := sae1.02
+# Name of the finals executables
+TARGET   := sae1.02
+TESTTARG := sae1.02_test
+
+# Gen debug info
+DEBUG = TRUE
+
+# Name the main files
+MAINF := $(SRCDIR)/main.c
+TESTF := $(SRCDIR)/test.c
 
 # Verbose the commands
 VERBOSE := FALSE
 DOXOUT  := FALSE
 
 # List the source directories
-DIRS      := . affichages menus part1 part2 part3 part4
+DIRS      := tests
 SRCDIRS    = $(foreach dir, $(DIRS), $(addprefix $(SRCDIR)/, $(dir)))
-#INCDIRS    = $(foreach dir, $(DIRS), $(addprefix $(INCDIR)/, $(dir)))
-
-# generate GCC param
-INCLUDES = -I$(INCDIR) #$(foreach dir, $(INCDIRS), $(addprefix -I, $(dir)))
-CFLAGS   = $(INCLUDES) -Wall
-LDFLAGS  =
-LDLIBS   = -lncurses
-
-# add source dirs to VPATH
-VPATH = $(SRCDIRS)
-
-# create list of sources, objects and deps
-SOURCES = $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.c))
-OBJS    = $(patsubst %.c, $(BINDIR)/%.o, $(notdir $(SOURCES)))
-DEPS    = $(patsubst %.c, $(DEPSDIR)/%.d, $(notdir $(SOURCES)))
 
 # name the compiler
 CC := gcc
+
+# generate compiler param
+ifeq ($(DEBUG), TRUE)
+	DEBUGFLAG = -g
+else
+	DEBUGFLAG =
+endif
+INCLUDES = -I$(INCDIR)
+CFLAGS   = $(INCLUDES) $(DEBUGFLAG) -Wall
+LDFLAGS  =
+LDLIBS   =
+
+# add source dirs to VPATH
+VPATH = $(SRCDIRS) .
+
+# create list of sources, test sources, objects and deps
+SOURCES = $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.c))
+OBJS    = $(patsubst %.c, $(BINDIR)/%.o, $(notdir $(SOURCES)))
+DEPS    = $(patsubst %.c, $(DEPSDIR)/%.d, $(notdir $(SOURCES)))
 
 # OS specific part
 ifeq ($(OS), Windows_NT)
 	RM        = del /F /Q
 	RMDIR     = -RMDIR /S /Q
 	MKDIR     = -mkdir
-	STDINGORE = >NUL || true
+	STDINGORE = 1>NUL || true
 	ERRIGNORE = 2>NUL || true
 	SEP       =\\
 else
@@ -137,13 +150,19 @@ else
 endif
 
 
-.PHONY: all clean directories doc clflags
+.PHONY: all clean directories doc clflags test init
 
 all: directories $(DEPS) $(TARGET)
 
+test: directories $(DEPS) $(TESTTARG)
+
 # link and create final executable
-$(TARGET): $(OBJS)
-	@echo "${BLUE}[-] Linking${RESET} $@"
+$(TARGET): $(OBJS) $(MAINF:.c=.o)
+	@echo "${BLUE}[-] Linking main${RESET} $@"
+	$(HIDE)$(CC) $(LDFLAGS) $(subst /,$(PSEP),$^) $(LDLIBS) -o $(subst /,$(PSEP),$@)
+
+$(TESTTARG): $(OBJS) $(TESTF:.c=.o)
+	@echo "${BLUE}[-] Linking tests${RESET} $@"
 	$(HIDE)$(CC) $(LDFLAGS) $(subst /,$(PSEP),$^) $(LDLIBS) -o $(subst /,$(PSEP),$@)
 
 #gen output rules
@@ -156,18 +175,17 @@ $(DEPSDIR)/%.d: %.c
 	@echo "${PURPLE}[-] Making dependency${RESET} $@"
 	$(HIDE)$(CC) $(CFLAGS) -MF"$(subst /,$(PSEP),$@)" -MG -MM -MP -MT"$(subst /,$(PSEP),$(<:.c=.o))" "$(subst /,$(PSEP),$<)"
 
-
 # make dirs
 directories:
 	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(BINDIR))
 	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(DEPSDIR))
-
 
 # clean objects, deps and executable
 clean:
 	$(HIDE)$(RMDIR) $(subst /,$(PSEP),$(BUILDDIR)) $(ERRIGNORE)
 	$(HIDE)$(RMDIR) $(subst /,$(PSEP),$(DOCDIR)) $(ERRIGNORE)
 	$(HIDE)$(RM) $(TARGET) $(ERRIGNORE)
+	$(HIDE)$(RM) $(TESTTARG) $(ERRIGNORE)
 	@echo "${GREEN}[-] Cleaning done.${RESET}"
 
 # gen the Doxygen doc
@@ -184,5 +202,6 @@ compile_flags.txt:
 	@echo "${PURPLE}[-] Generate $@...${RESET}"
 	$(HIDE)echo "$(foreach inc, $(INCLUDES), $(addprefix \n, $(inc)))" > $@
 
-# include dependencies
-#-include $(DEPS)
+init:
+	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(SRCDIR))
+	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(INCDIR))

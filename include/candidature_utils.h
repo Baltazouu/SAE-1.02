@@ -8,8 +8,24 @@
  *  SAE 1.02 - Comparaison d'approches algorithmiques
  */
 
+#ifndef CANDIDATURE_UTILS_H
+#define CANDIDATURE_UTILS_H
+
 #include "config.h"
 
+
+/**
+ * @struct Choix
+ * @brief Represente un choix d'un étudiant
+ * 
+ *  Un choix est définie par la ville choisie, le département
+ *  et la décision du département.
+ */
+typedef struct {
+    Ville villeChoisie; /*!< ville choisie */
+    Departement dept; /*!< département */
+    Decision decs; /*!< décision du département */
+} Choix;
 
 
 /*! @struct Candidature
@@ -19,9 +35,12 @@
  *  et ses notes en Maths, Français, Anglais et de Spécialité.
  */
 typedef struct {
+    int numCand; /*!< numéro du candidat */
     Nom nom; /*!< nom du candidat */
     Prenom prenom; /*!< prénom du candidat */
     Moyennes moy; /*!< Tableau des moyennes [Maths, Franç, Angl, Spé] */
+    int nbChoix; /*!< nombre de choix */
+    Choix choix[MAX_CHOIX]; /*!< tableau des choix */
 } Candidature;
 
 
@@ -32,7 +51,7 @@ typedef struct {
  *  Définie aussi un pointeur sur le premier maillon.
  */
 typedef struct liste {
-    Candidature *cand; /*!< pointeur sur struct Candidature */
+    Candidature cand; /*!< pointeur sur struct Candidature */
     struct liste *suiv; /*!< pointeur sur le maillon suivant */
 } CandMaillon, *CandListe;
 
@@ -40,7 +59,13 @@ typedef struct liste {
 
 // Déclaration de fonctions
 
-Candidature* initCand(Nom nom, Prenom prenom, Moyennes moy);
-CandListe chargCand_TXT(CandListe candl, char *filepath, int *nbCand);
-CandListe chargCand_BIN(CandListe candl, char *binepath, int *nbCand);
-int sauvCand(CandListe candl, int nbCand);
+CandListe initCandListe(void);
+CandListe addCand(CandListe candl, Candidature cand);
+CandListe supprCand(CandListe candl, int numCand);
+
+//CandListe chargCand_TXT(CandListe candl, char *filepath, int *nbCand);
+//CandListe chargCand_BIN(CandListe candl, char *binepath, int *nbCand);
+//int sauvCand(CandListe candl, int nbCand);
+
+
+#endif /* CANDIDATURE_UTILS_H */

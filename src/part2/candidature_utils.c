@@ -11,25 +11,62 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "candidature_utils.h"
 #include "errors.h"
 
+
 /**
- * @brief Initialisation d'un candidat
+ * @brief Initialise une liste de candidature
  * 
- *  Allocation mémoire d'une structure Candidature.
- * 
- * @return Candidature* - l'addresse de l'allocation
+ * @return CandListe -> NULL
  */
-Candidature*
-initCand(Nom nom, Prenom prenom, Moyennes moy)
+CandListe
+initCandListe(void)
 {
-    Candidature* cand = (Candidature *)malloc(sizeof(Candidature));
-    if (cand == NULL) { eprintf("malloc error on line __LINE__"); exit(1); }
+    return NULL;
+}
 
-    strcpy(cand->nom, nom);
-    strcpy(cand->prenom, prenom);
-    for (int i = 0; i < 4; i++) cand->moy[i] = moy[i];
 
-    return cand;
+/**
+ * @brief Ajoute une candidature à la liste
+ * 
+ *  Ajoute une candidature à la liste de candidature.
+ *  La candidature est ajoutée en tête de liste.
+ * 
+ * @param candl liste de candidature
+ * @param cand candidature à ajouter
+ * @return le nouveau pointeur de liste de candidature
+ */
+CandListe
+addCand(CandListe candl, Candidature cand)
+{
+    CandListe newCand = (Candidature *) malloc(sizeof(Candidature));
+    if (newCand == NULL) {
+        exit( err(ERR_NULL_MALLOC, "on addCand") );
+    }
+
+    newCand->cand = cand;
+    newCand->suiv = candl;
+
+    return newCand;
+}
+
+
+/**
+ * @brief Supprime une candidature de la liste
+ * 
+ *  Recherche une candidature dans la liste de candidature
+ *  et la supprime de la liste.
+ * 
+ * @param candl liste de candidature
+ * @param numCand numéro de la candidature à supprimer 
+ * @return le pointeur de liste de candidature
+ */
+CandListe
+supprCand(CandListe candl, int numCand)
+{
+    // TODO
+    err(ERR_NOT_IMPLEMENTED, "on supprCand");
+    return NULL;
 }

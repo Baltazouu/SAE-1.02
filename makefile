@@ -22,7 +22,6 @@ TESTTARG := sae1.02_test
 
 # Gen debug info
 DEBUG = TRUE
-
 # Name the main files
 MAINF := main.c
 TESTF := test.c

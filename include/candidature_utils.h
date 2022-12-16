@@ -40,7 +40,7 @@ typedef struct liste {
 
 // Déclaration de fonctions
 
-Candidature* initCand(void);
+Candidature* initCand(Nom nom, Prenom prenom, Moyennes moy);
 CandListe chargCand_TXT(CandListe candl, char *filepath, int *nbCand);
 CandListe chargCand_BIN(CandListe candl, char *binepath, int *nbCand);
 int sauvCand(CandListe candl, int nbCand);

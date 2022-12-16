@@ -1,26 +1,43 @@
+#include <string.h>
+
 #include "acutest.h"
+#include "candidature_utils.h"
 
-void test_add(void)
+
+void test_initCand(void)
 {
-    int expected[] = { 2, 4, 7, -2, 0 };
-    int returned[] = {
-        add(1, 1),
-        add(2, 2),
-        add(1, 2),
-        add(-4, 3),
-        add(-4, 4)
-    };
+    Candidature* res = initCand("test", "pretest", { 12.2, 14.8, 11.6, 9.2 });
 
-    for (int i = 0; i < 5; i++) {
-        TEST_CHECK_(returned[i] == expected[i], "add(%d)", i);
-        TEST_MSG("Expected: %d", expected[i]);
-        TEST_MSG("Returned: %d", returned[i]);
-    }
+    TEST_CHECK_(res != NULL, "test nullptr");
+    TEST_MSG("initCand return NULL ptr");
+
+    TEST_CHECK_(strcmp(res->nom, "test"), "test nom");
+    TEST_MSG("returned: %s", res->nom);
+    TEST_MSG("expected: %s", "test");
+
+    TEST_CHECK_(strcmp(res->prenom, "pretest"), "test prenom");
+    TEST_MSG("returned: %s", res->prenom);
+    TEST_MSG("expected: %s", "pretest");
+
+    free(res);
+}
+
+void test_addCand(void)
+{
+    Candidature* cand = initCand();
+    cand->nom = "test";
+    cand->prenom = "retest";
+    cand->
+}
+
+void test_chargCand_TXT(void)
+{
+    Can
+    CandListe = chargCand_TXT()
 }
 
 
 TEST_LIST = {
-    { "int add(int, int);", test_add },
-    { "int supp(int, int);", test_supp },
-    {0}
+    { "Candidature initCand(void);", test_initCand },
+    {NULL, NULL}
 };

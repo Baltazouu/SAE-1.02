@@ -5,41 +5,6 @@
 ##	(credits: https://riptutorial.com/makefile/example/21376/building-from-different-source-folders-to-different-target-folders)
 ##
 
-## Structure:
-##   .
-##   |-- build
-##   |   |-- bin
-##   |   |   | -- src1.o
-##   |   |   | -- src2.o
-##   |   |   ` -- (...)
-##   |   |-- deps
-##   |   |   | -- src1.d
-##   |   |   | -- src2.d
-##   |   |   ` -- (...)
-##   |   `-- target
-##   |-- compile_flags.txt
-##   |-- config.h
-##   |-- doc
-##   |   `-- html
-##   |       ` -- (doxygen output)...
-##   |-- include
-##   |   |-- inc1
-##   |   |-- inc2
-##   |   |-- (...)
-##   |   |-- target.h
-##   |   `-- (...)
-##   |-- target --> ./build/target
-##   |-- target-test --> ./build/target
-##   `-- src
-##       |-- main.c
-##       |-- fold1
-##       |   | -- src1.c
-##       |   | -- src2.c
-##       |   ` -- (...)
-##       |-- fold2
-##       |-- fold3
-##       `-- (...)
-##
 
 
 # Set project directories

@@ -24,10 +24,11 @@ void test_initCand(void)
 
 void test_addCand(void)
 {
-    Candidature* cand = initCand();
+    Candidature* cand = initCand("test", "pretest", { 12.2, 14.8, 11.6, 9.2 });
     cand->nom = "test";
     cand->prenom = "retest";
-    cand->
+    int moy[4] = { 12.2, 14.8, 11.6, 9.2 };
+    for (int i = 0; i < 4; i++) cand->moy[i] = moy[i];
 }
 
 void test_chargCand_TXT(void)

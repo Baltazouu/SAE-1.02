@@ -1,5 +1,4 @@
 #include "acutest.h"
-#include "add.h"
 
 void test_add(void)
 {
@@ -17,16 +16,6 @@ void test_add(void)
         TEST_MSG("Expected: %d", expected[i]);
         TEST_MSG("Returned: %d", returned[i]);
     }
-}
-
-void test_supp(void)
-{
-    int expected = 1;
-    int returned = supp(3, 2);
-    TEST_CHECK_(returned==1, "supp(3, 2)");
-
-    TEST_MSG("Expected: %d", expected);
-    TEST_MSG("Returned: %d", returned);
 }
 
 

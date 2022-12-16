@@ -10,6 +10,9 @@ doc
 # ---> tags
 tags
 
+# ---> CLANG
+compile_flags.txt
+
 # ---> C
 # Prerequisites
 *.d

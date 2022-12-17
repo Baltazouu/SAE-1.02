@@ -19,19 +19,21 @@
 /**
  * @brief Test de la fonction initCandListe
  */
-void test_initCandListe(void)
+void test_initCandFile(void)
 {
-    CandListe candl = initCandListe();
-    TEST_CHECK_(candl == NULL, "test initCandListe return NULL");
-    TEST_MSG("initCandListe need to return NULL");
+    CandFile candf = initCandFile();
+    TEST_CHECK_(candf.head == NULL, "test initCandFile candf.head return NULL");
+    TEST_MSG("candf.head need to return NULL");
+    TEST_CHECK_(candf.tail == NULL, "test initCandFile candf.tail return NULL");
+    TEST_MSG("candf.tail need to return NULL");
 }
 
 /**
  * @brief Test de la fonction addCand
  */
-void test_addCand(void)
+void test_enqueueCand(void)
 {
-    CandListe candl = initCandListe();
+    CandFile candf = initCandFile();
     Candidature cand = {
         1,
         "test",
@@ -44,18 +46,18 @@ void test_addCand(void)
         }
     };
 
-    candl = addCand(candl, cand);
+    candf = enqueueCand(candf, cand);
 
     // Tests returns NULL ptr
-    TEST_CHECK_(candl != NULL, "test candl != NULL");
-    TEST_MSG("addCand candl can't return NULL");
+    TEST_CHECK_(candf.head != NULL, "test candf != NULL");
+    TEST_MSG("enqueue candf.head can't return NULL");
 
-    TEST_CHECK_(candl->suiv == NULL, "test ->suiv == NULL");
-    TEST_MSG("addCand candl->suiv need to return NULL");
+    TEST_CHECK_(candf.tail != NULL, "test ->suiv == NULL");
+    TEST_MSG("enqueue candf.tail cant' return NULL");
 
     // Tests acces correct
-    TEST_CHECK_(!strcmp(candl->cand.nom, "test"), "test acess correct");
-    TEST_MSG("returned: %s", candl->cand.nom);
+    TEST_CHECK_(!strcmp(candf.head->cand.nom, "test"), "test acess correct");
+    TEST_MSG("returned: %s", candf.head->cand.nom);
     TEST_MSG("expected: %s", "test");
 
     // Tests returns NULL ptr of new element
@@ -71,27 +73,31 @@ void test_addCand(void)
             { "testVille3", "testDept3", LISTE_ATTENTE }
         }
     };
-    candl = addCand(candl, cand2);
+    candf = enqueueCand(candf, cand2);
 
-    TEST_CHECK_(candl->suiv != NULL, "test candl->suiv->suiv != NULL");
-    TEST_MSG("addCand candl->suiv can't return NULL");
+    TEST_CHECK_(candf.head->suiv != NULL, "test candf.head->suiv != NULL");
+    TEST_MSG("enqueue candf.head->suiv can't return NULL");
 
-    TEST_CHECK_(candl->suiv->suiv == NULL, "test ->suiv->suiv == NULL");
-    TEST_MSG("addCand candl->suiv->suiv need to return NULL");
+    TEST_CHECK_(candf.head->suiv->suiv == NULL, "test candf.head->suiv->suiv == NULL");
+    TEST_MSG("enqueue candf.head->suiv->suiv need to return NULL");
+
+    TEST_CHECK_(candf.tail != candf.head->suiv, "test candf.tail != canf.head->suiv");
+    TEST_MSG("enqueue candf.tail can't be the same as candf.head->suiv");
 
     // Tests order
-    TEST_CHECK_(candl->suiv->cand.numCand == 1, "test order");
-    TEST_MSG("returned: %d", candl->suiv->cand.numCand);
+    TEST_CHECK_(candf.head->cand.numCand == 1, "test order");
+    TEST_MSG("returned: %d", candf.head->cand.numCand);
     TEST_MSG("expected: %d", 1);
 }
 
+
 /**
- * @brief Test de la fonction suppCand
+ * @brief Test de la fonction dequeueCand
  */
-void test_suppCand(void)
+void test_dequeueCand(void)
 {
     // Create list
-    CandListe candl = initCandListe();
+    CandFile candf = initCandFile();
     Candidature cand1 = {
         1,
         "test",
@@ -104,7 +110,7 @@ void test_suppCand(void)
         }
     };
 
-    candl = addCand(candl, cand1);
+    candf = enqueueCand(candf, cand1);
     
     Candidature cand2 = {
         2,
@@ -118,7 +124,50 @@ void test_suppCand(void)
         }
     };
 
-    candl = addCand(candl, cand2);
+    // Test null ptr
+    TEST_CHECK_(candf.head->suiv->suiv == NULL, "test candf.head->suiv->suiv == NULL");
+    TEST_MSG("candf.head->suiv->suiv must be NULL");
+
+    // Test order
+    TEST_CHECK_(candf.head->cand.numCand == 2, "test order");
+    TEST_MSG("returned: %d", candf.head->cand.numCand);
+    TEST_MSG("expected: %d", 1);
+}
+
+/**
+ * @brief Test de la fonction suppCand
+ */
+void test_suppCand(void)
+{
+    // Create list
+    CandFile candf = initCandFile();
+    Candidature cand1 = {
+        1,
+        "test",
+        "pretest",
+        { 12.2, 14.8, 11.6, 9.2 },
+        2,
+        {
+            { "testVille1", "testDept1", ADMIS },
+            { "testVille2", "testDept2", LISTE_ATTENTE }
+        }
+    };
+
+    candf = enqueueCand(candf, cand1);
+    
+    Candidature cand2 = {
+        2,
+        "test",
+        "pretest",
+        { 12.2, 14.8, 11.6, 9.2 },
+        2,
+        {
+            { "testVille1", "testDept1", ADMIS },
+            { "testVille2", "testDept2", LISTE_ATTENTE }
+        }
+    };
+
+    candf = enqueueCand(candf, cand2);
     Candidature cand3 = {
         3,
         "test",
@@ -131,38 +180,11 @@ void test_suppCand(void)
         }
     };
 
-    candl = addCand(candl, cand3);
+    candf = enqueueCand(candf, cand3);
 
-    // Test delete cand2
-    supprCand(candl, 2);
-
-    TEST_CHECK_(candl->suiv->cand.numCand == 1, "test delete cand2");
-    TEST_MSG("returned: %d", candl->suiv->cand.numCand);
-    TEST_MSG("expected: %d", 1);
-
-    // Test delete cand1
-    supprCand(candl, 1);
-
-    TEST_CHECK_(candl->cand.numCand == 1, "test delete cand1");
-    TEST_MSG("returned: %d", candl->cand.numCand);
-    TEST_MSG("expected: %d", 1);
-
-    // Test cand3->suiv == NULL
-    TEST_CHECK_(candl->suiv == NULL, "test cand3->suiv == NULL");
-    TEST_MSG("returned: %p", candl->suiv);
-    TEST_MSG("expected: %p", NULL);
-
-    // Test delete cand3
-    supprCand(candl, 3);
-
-    TEST_CHECK_(candl->cand.numCand == 3, "test delete cand1");
-    TEST_MSG("returned: %d", candl->cand.numCand);
-    TEST_MSG("expected: %d", 3);
-
-    // Test candl == NULL
-    TEST_CHECK_(candl == NULL, "test candl == NULL");
-    TEST_MSG("returned: %p", candl);
-    TEST_MSG("expected: %p", NULL);
+    // TODO
+    err(ERR_NOT_IMPLEMENTED, "test_suppCand");
+    TEST_ASSERT_(0, "suppCand not implemented");
 }
 
 /**
@@ -172,7 +194,7 @@ void test_chargCand_TXT(void)
 {
     // TODO
     err(ERR_NOT_IMPLEMENTED, "test_chargCand_TXT");
-    TEST_ASSERT_(0, "test_chargCand_TXT");
+    TEST_ASSERT_(0, "chargCand_TXT not implemented");
 }
 
 /**
@@ -182,13 +204,14 @@ void test_chargCand_BIN(void)
 {
     // TODO
     err(ERR_NOT_IMPLEMENTED, "test_chargCand_BIN");
-    TEST_ASSERT_(0, "test_chargCand_BIN");
+    TEST_ASSERT_(0, "chargCand_BIN not implemented");
 }
 
 
 TEST_LIST = {
-    { "initCandListe", test_initCandListe },
-    { "addCand", test_addCand },
+    { "initCandFile", test_initCandFile },
+    { "enqueueCand", test_enqueueCand },
+    { "dequeueCand", test_dequeueCand },
     { "suppCand", test_suppCand },
     { "chargCand_TXT", test_chargCand_TXT },
     { "chargCand_BIN", test_chargCand_BIN },

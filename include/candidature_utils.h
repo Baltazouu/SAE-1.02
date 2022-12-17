@@ -12,6 +12,7 @@
 #define CANDIDATURE_UTILS_H
 
 #include "config.h"
+#include <stdbool.h>
 
 
 /**
@@ -53,19 +54,32 @@ typedef struct {
 typedef struct liste {
     Candidature cand; /*!< pointeur sur struct Candidature */
     struct liste *suiv; /*!< pointeur sur le maillon suivant */
-} CandMaillon, *CandListe;
+} CandMaillon;
 
-
+/*! @struct Candfile
+ *  @brief défini la file des candidats
+ * 
+ *  Implémentée par 2 pointeurz sur tête et fin de file
+ */
+typedef struct {
+    CandMaillon *head; /*!< tête de file */
+    CandMaillon *tail; /*!< queue de files */
+} CandFile;
 
 // Déclaration de fonctions
 
-CandListe initCandListe(void);
-CandListe addCand(CandListe candl, Candidature cand);
-CandListe supprCand(CandListe candl, int numCand);
+bool isCandfEmpty(CandFile candf);
+bool researchCand(CandFile candf, int numCand, int *ins);
 
-//CandListe chargCand_TXT(CandListe candl, char *filepath, int *nbCand);
-//CandListe chargCand_BIN(CandListe candl, char *binepath, int *nbCand);
-//int sauvCand(CandListe candl, int nbCand);
+CandFile initCandFile(void);
+CandFile enqueueCand(CandFile candf, Candidature cand);
+CandFile dequeueCand(CandFile candf);
+CandFile supprCand(CandFile candf, int numCand);
+
+CandFile chargCand_TXT(CandFile candf, char *filepath, int *nbCand);
+CandFile chargCand_BIN(CandFile candf, char *binpath, int *nbCand);
+int sauvCand(CandFile candf, char *path, int nbCand);
+int exportCand(CandFile candf, char *path, int nbCand);
 
 
 #endif /* CANDIDATURE_UTILS_H */

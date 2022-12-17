@@ -38,7 +38,7 @@ typedef enum {
  * @param errcode code d'erreur
  * @param msg message d'erreur (optionnel) 
  */
-#define err(errcode, msg) (errcode != OK) ? eprintf("error: " #errcode " (" msg ")") : 0
+#define err(errcode, fun) (errcode != OK) ? eprintf("error: " #errcode " on (" #fun ")") : 0
 
 
 #endif /* ERRORS_H */

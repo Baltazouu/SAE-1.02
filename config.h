@@ -14,6 +14,7 @@
 // -- PARTIE 2 - Candidatures
 
 // constantes
+#define MAX_CANDIDATURES 100
 #define MAX_CHOIX 10
 
 // definition des variable

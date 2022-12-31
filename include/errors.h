@@ -18,6 +18,7 @@ typedef enum {
     OK = 0,                 /*!< OK */
     ERR_NULL_MALLOC,        /*!< Erreur d'allocation mémoire */
     ERR_NULL_LIST,          /*!< Liste vide */
+    ERR_TAB_FULL,           /*!< Tableau plein */
     ERR_NOT_IMPLEMENTED,    /*!< Fonctionnalité non implémentée */
     ERR_INVALID_ARG,        /*!< Argument invalide */
     ERR_INVALID_FILE,       /*!< Fichier invalide */
@@ -38,7 +39,11 @@ typedef enum {
  * @param errcode code d'erreur
  * @param msg message d'erreur (optionnel) 
  */
-#define err(errcode, fun) (errcode != OK) ? eprintf("error: " #errcode " on (" #fun ")") : 0
+#define err(errcode, fun) ({                            \
+    if (errcode != OK)                                  \
+        eprintf("error: " #errcode " on (" #fun ")");   \
+    -errcode;                                           \
+})
 
 
 #endif /* ERRORS_H */

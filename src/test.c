@@ -15,205 +15,45 @@
 #include "errors.h"
 #include "candidature_utils.h"
 
+#define TEST(cond, msg, ret, expt) {(                       \
+    if (!TEST_CHECK_(cond, msg)) {                          \
+        TEST_MSG("return: %d, expected: %d", ret, expt);    \
+    }                                                       \
+)}
 
-/**
- * @brief Test de la fonction initCandListe
- */
-void test_initCandFile(void)
-{
-    CandFile candf = initCandFile();
-    TEST_CHECK_(candf.head == NULL, "test initCandFile candf.head return NULL");
-    TEST_MSG("candf.head need to return NULL");
-    TEST_CHECK_(candf.tail == NULL, "test initCandFile candf.tail return NULL");
-    TEST_MSG("candf.tail need to return NULL");
-}
+void test_chargeCandidaturesTxt(void) {
+    Candidature *tcand = NULL;
+    int nbCand = 0;
 
-/**
- * @brief Test de la fonction addCand
- */
-void test_enqueueCand(void)
-{
-    CandFile candf = initCandFile();
-    Candidature cand = {
-        1,
-        "test",
-        "pretest",
-        { 12.2, 14.8, 11.6, 9.2 },
-        2,
-        {
-            { "testVille1", "testDept1", ADMIS },
-            { "testVille2", "testDept2", LISTE_ATTENTE }
-        }
-    };
+    int ret = chargeCandidaturesTxt(tcand, &nbCand, "data/candidatures.txt");
 
-    candf = enqueueCand(candf, cand);
+    TEST_ASSERT_(ret != -ERR_NOT_IMPLEMENTED, "test not implemented");
 
-    // Tests returns NULL ptr
-    TEST_CHECK_(candf.head != NULL, "test candf != NULL");
-    TEST_MSG("enqueue candf.head can't return NULL");
+    // general errors
 
-    TEST_CHECK_(candf.tail != NULL, "test ->suiv == NULL");
-    TEST_MSG("enqueue candf.tail cant' return NULL");
+    TEST_CHECK_(ret != -ERR_INVALID_FILE, "test invalid file");
+    TEST_CHECK_(ret != -ERR_INVALID_FILE_FORMAT, "test invalid file format");
+    TEST_CHECK_(ret != -ERR_NULL_MALLOC, "test null malloc");
+    TEST_CHECK_(ret != -ERR_TAB_FULL, "test tab full");
 
-    // Tests acces correct
-    TEST_CHECK_(!strcmp(candf.head->cand.nom, "test"), "test acess correct");
-    TEST_MSG("returned: %s", candf.head->cand.nom);
-    TEST_MSG("expected: %s", "test");
+    TEST_CHECK_(nbCand == ret, "test logic size");
 
-    // Tests returns NULL ptr of new element
-    Candidature cand2 = {
-        2,
-        "test2",
-        "pretest2",
-        { 13.2, 15.8, 12.6, 10.2 },
-        3,
-        {
-            { "testVille1", "testDept2", REFUSE },
-            { "testVille2", "testDept2", ADMIS},
-            { "testVille3", "testDept3", LISTE_ATTENTE }
-        }
-    };
-    candf = enqueueCand(candf, cand2);
+    // specific errors
 
-    TEST_CHECK_(candf.head->suiv != NULL, "test candf.head->suiv != NULL");
-    TEST_MSG("enqueue candf.head->suiv can't return NULL");
-
-    TEST_CHECK_(candf.head->suiv->suiv == NULL, "test candf.head->suiv->suiv == NULL");
-    TEST_MSG("enqueue candf.head->suiv->suiv need to return NULL");
-
-    TEST_CHECK_(candf.tail != candf.head->suiv, "test candf.tail != canf.head->suiv");
-    TEST_MSG("enqueue candf.tail can't be the same as candf.head->suiv");
-
-    // Tests order
-    TEST_CHECK_(candf.head->cand.numCand == 1, "test order");
-    TEST_MSG("returned: %d", candf.head->cand.numCand);
-    TEST_MSG("expected: %d", 1);
-}
-
-
-/**
- * @brief Test de la fonction dequeueCand
- */
-void test_dequeueCand(void)
-{
-    // Create list
-    CandFile candf = initCandFile();
-    Candidature cand1 = {
-        1,
-        "test",
-        "pretest",
-        { 12.2, 14.8, 11.6, 9.2 },
-        2,
-        {
-            { "testVille1", "testDept1", ADMIS },
-            { "testVille2", "testDept2", LISTE_ATTENTE }
-        }
-    };
-
-    candf = enqueueCand(candf, cand1);
-    
-    Candidature cand2 = {
-        2,
-        "test",
-        "pretest",
-        { 12.2, 14.8, 11.6, 9.2 },
-        2,
-        {
-            { "testVille1", "testDept1", ADMIS },
-            { "testVille2", "testDept2", LISTE_ATTENTE }
-        }
-    };
-
-    // Test null ptr
-    TEST_CHECK_(candf.head->suiv->suiv == NULL, "test candf.head->suiv->suiv == NULL");
-    TEST_MSG("candf.head->suiv->suiv must be NULL");
-
-    // Test order
-    TEST_CHECK_(candf.head->cand.numCand == 2, "test order");
-    TEST_MSG("returned: %d", candf.head->cand.numCand);
-    TEST_MSG("expected: %d", 1);
-}
-
-/**
- * @brief Test de la fonction suppCand
- */
-void test_suppCand(void)
-{
-    // Create list
-    CandFile candf = initCandFile();
-    Candidature cand1 = {
-        1,
-        "test",
-        "pretest",
-        { 12.2, 14.8, 11.6, 9.2 },
-        2,
-        {
-            { "testVille1", "testDept1", ADMIS },
-            { "testVille2", "testDept2", LISTE_ATTENTE }
-        }
-    };
-
-    candf = enqueueCand(candf, cand1);
-    
-    Candidature cand2 = {
-        2,
-        "test",
-        "pretest",
-        { 12.2, 14.8, 11.6, 9.2 },
-        2,
-        {
-            { "testVille1", "testDept1", ADMIS },
-            { "testVille2", "testDept2", LISTE_ATTENTE }
-        }
-    };
-
-    candf = enqueueCand(candf, cand2);
-    Candidature cand3 = {
-        3,
-        "test",
-        "pretest",
-        { 12.2, 14.8, 11.6, 9.2 },
-        2,
-        {
-            { "testVille1", "testDept1", ADMIS },
-            { "testVille2", "testDept2", LISTE_ATTENTE }
-        }
-    };
-
-    candf = enqueueCand(candf, cand3);
-
-    // TODO
-    err(ERR_NOT_IMPLEMENTED, "test_suppCand");
-    TEST_ASSERT_(0, "suppCand not implemented");
-}
-
-/**
- * @brief Test de la fonction chargCand_TXT
- */
-void test_chargCand_TXT(void)
-{
-    // TODO
-    err(ERR_NOT_IMPLEMENTED, "test_chargCand_TXT");
-    TEST_ASSERT_(0, "chargCand_TXT not implemented");
-}
-
-/**
- * @brief Test de la fonction chargCand_BIN
- */
-void test_chargCand_BIN(void)
-{
-    // TODO
-    err(ERR_NOT_IMPLEMENTED, "test_chargCand_BIN");
-    TEST_ASSERT_(0, "chargCand_BIN not implemented");
+    TEST_CHECK_(nbCand == 2, "test file logic size"); TEST
+    TEST_CHECK_(tcand[0].numCand == 1, "test numCand");
+    TEST_CHECK_(!strcmp(tcand[0].nom, "Durand"), "test name");
+    TEST_CHECK_(!strcmp(tcand[0].prenom, "Jean Jaques"), "test surname");
+    TEST_CHECK_(tcand[0].moy[2] == 12.25, "test moy");
+    TEST_CHECK_(tcand[0].nbChoix == 3, "test nbChoix");
+    TEST_CHECK_(tcand[0].choix[1].numChoix == 2, "test num choix");
+    TEST_CHECK_(!strcmp(tcand[0].choix[1].villeChoisie, "Grenoble"), "test choix");
+    TEST_CHECK_(!strcmp(tcand[0].choix[1].dept, "Isere"), "test dept");
+    TEST_CHECK_(tcand[0].choix[1].decs == ADMIS, "test decision");
+    TEST_CHECK_(tcand[0].choix[1].validation == false, "test validation");
 }
 
 
 TEST_LIST = {
-    { "initCandFile", test_initCandFile },
-    { "enqueueCand", test_enqueueCand },
-    { "dequeueCand", test_dequeueCand },
-    { "suppCand", test_suppCand },
-    { "chargCand_TXT", test_chargCand_TXT },
-    { "chargCand_BIN", test_chargCand_BIN },
     {NULL, NULL}
 };

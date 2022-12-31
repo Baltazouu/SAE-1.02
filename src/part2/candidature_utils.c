@@ -17,181 +17,150 @@
 
 
 /**
- * @brief Initialise une liste de candidature
- *  
- *  Retourne une structure CandFile avec ses pointeurs initialisé à <NULL>.
+ * @brief Affiche une candidature
  * 
- * @return CandFile -> { NULL, NULL }
+ *  Affiche les informations d'une candidature
+ *  !NOT IMPLEMENTED
+ * @param cand candidature à afficher
  */
-CandFile
-initCandFile(void)
-{
-    return (CandFile){ NULL, NULL };
+void afficherCandidature(Candidature cand) {
+    err(ERR_NOT_IMPLEMENTED, afficherCandidature);
+    return;
 }
 
 
 /**
- * @brief Test si la file est vide.
+ * @brief Affiche toutes les candidatures
  * 
- *  La file est vide si la tête et la queue sont <NULL>.
- *  Renvoie une erreur si un des deux est à autre chose que <NULL> quand l'un l'est.
- * 
- * ! NOT IMPLEMENTED
- * 
- * @param candf la file de candidat
- * @return true si la file es vide
- * @return false si la file contient des éléments
+ *  Affiche les informations de toutes les candidatures
+ *  !NOT IMPLEMENTED
+ * @param tcand tableau de candidatures à afficher
+ * @param nbCand nombre de candidatures
  */
-bool
-isCandfEmpty(CandFile candf)
-{
-    // TODO
-    err(ERR_NOT_IMPLEMENTED, isCandfEmpty);
-    return false;
+void afficherToutesCandidatures(Candidature *tcand, int nbCand) {
+    err(ERR_NOT_IMPLEMENTED, afficherToutesCandidatures);
+    return;
 }
 
 
 /**
- * @brief Recherche si un candidat est présent dans la file
+ * @brief Créé et remplie une candidature
  * 
- *  Recherche la présence d'un candidat dans la file et sa posisiton d'insertion.
+ *  Création d'une nouvelle candidature
+ *  et remplissage des informations la concernant.
+ * !NOT IMPLEMENTED
  * 
- * ! NOT IMPLEMENTED
- * 
- * @param candf file de candidats
- * @param numCand numéro du candidat à rechercher
- * @param ins position d'insertion du candidat
- * @return true si le candidat est présent dans la file
- * @return false si la candidat n'est pas dans la file
+ * @return Candidature remplie
  */
-bool
-researchCand(CandFile candf, int numCand, int *ins)
-{
-    // TODO
-    err(ERR_NOT_IMPLEMENTED, researchCand);
-    return false;
+Candidature remplireCandidature(void) {
+    err(ERR_NOT_IMPLEMENTED, remplireCandidature);
+    return (Candidature){0};
 }
 
 
 /**
- * @brief Enfile une candidature à la file
+ * @brief Ajoute une candidature
  * 
- *  Enfile une candidature à la file de candidature.
- *  La candidature est ajoutée en queue de file.
+ *  Ajoute une candidature à la liste des candidatures
+ *  !NOT IMPLEMENTED
  * 
- * ! NOT IMPLEMENTED
- * 
- * @param candf liste de candidature
+ * @param tcand tabmleau de candidatures
+ * @param nbCand nombre de candidatures 
  * @param cand candidature à ajouter
- * @return le nouveau pointeur de liste de candidature
+ * @return int le nouveau nombre de candidatures ou -<ERRCODE> en cas d'erreur
  */
-CandFile
-enqueueCand(CandFile candf, Candidature cand)
-{
-    // TODO
-    err(ERR_NOT_IMPLEMENTED, enqueueCand);
-    return (CandFile){NULL, NULL};
+int ajouterCandidature(Candidature *tcand, int nbCand, Candidature cand) {
+    return err(ERR_NOT_IMPLEMENTED, ajouterCandidature);
+}
+
+/**
+ * @brief Retire une candidature
+ * 
+ *  Retire une candidature du tableau de candidatures
+ *  !NOT IMPLEMENTED
+ * 
+ * @param tcand tableau de candidatures
+ * @param nbCand nombre de candidatures
+ * @param numCand numéro de la candidature à retirer
+ * @return int le nouveau nombre de candidatures ou -<ERRCODE> en cas d'erreur
+ */
+int retirerCandidature(Candidature *tcand, int nbCand, int numCand) {
+    return err(ERR_NOT_IMPLEMENTED, retirerCandidature);
 }
 
 
 /**
- * @brief Défile une candidature à la file
+ * @brief Ajoute un choix
  * 
- *  Défile une candidature à la file de candidature.
- *  La candidature en tête de liste est supprimé.
+ *  Ajoute un choix à la liste des choix d'une candidature
+ *  !NOT IMPLEMENTED
  * 
- * ! NOT IMPLEMENTED
- * 
- * @param candf liste de candidature
- * @param cand candidature à ajouter
- * @return le nouveau pointeur de liste de candidature
+ * @param tcand tableau de candidatures
+ * @param nbCand nombre de candidatures
+ * @param numCand numéro de la candidature à laquelle ajouter le choix
+ * @param choix choix à ajouter
+ * @return int le nouveau nombre de choix ou -<ERRCODE> en cas d'erreur
  */
-CandFile
-dequeueCand(CandFile candf)
-{
-    // TODO
-    err(ERR_NOT_IMPLEMENTED, dequeueCand);
-    return (CandFile){NULL, NULL};
+int ajouterChoix(Candidature *tcand, int nbCand, int numCand, Choix choix) {
+    return err(ERR_NOT_IMPLEMENTED, ajouterChoix);
+}
+
+/**
+ * @brief Retire un choix
+ * 
+ *  Retire un choix de la liste des choix d'une candidature
+ *  !NOT IMPLEMENTED
+ * 
+ * @param tcand tableau de candidatures
+ * @param nbCand nombre de candidatures
+ * @param numCand numéro de la candidature à laquelle retirer le choix
+ * @param numChoix numéro du choix à retirer
+ * @return int le nouveau nombre de choix ou -<ERRCODE> en cas d'erreur
+ */
+int retirerChoix(Candidature *tcand, int nbCand, int numCand, int numChoix) {
+    return err(ERR_NOT_IMPLEMENTED, retirerChoix);
 }
 
 
 /**
- * @brief Supprime une candidature de la liste
+ * @brief Charge les candidatures depuis un fichier texte
  * 
- *  Recherche une candidature dans la liste de candidature
- *  et la supprime de la liste.
+ *  Charge les candidatures depuis un fichier texte
+ *  !NOT IMPLEMENTED
  * 
- * ! NOT IMPLEMENTED
- * 
- * @param candf liste de candidature
- * @param numCand numéro de la candidature à supprimer 
- * @return le pointeur de liste de candidature
+ * @param tcand tableau de candidatures
+ * @param filename nom du fichier
+ * @return int le nombre de candidatures chargées ou -<ERRCODE> en cas d'erreur
  */
-CandFile
-supprCand(CandFile candf, int numCand)
-{
-    // TODO
-    err(ERR_NOT_IMPLEMENTED, supprCand);
-    return (CandFile){NULL, NULL};
+int chargerCandidaturesTxt(Candidature *tcand, char *filename) {
+    return err(ERR_NOT_IMPLEMENTED, chargerCandidaturesTxt);
 }
 
-
 /**
- * @brief Chargement d'une file de candidat à partir d'un fichier .txt
+ * @brief Charge les candidatures depuis un fichier binaire
  * 
- *  Ouvre un fichier de type 'txt' et charge les données qui y son renseignés
- *  dans une file de candidats.
+ *  Charge les candidatures depuis un fichier binaire
+ *  !NOT IMPLEMENTED
  * 
- * ! NOT IMPLEMENTED
- * ? Implémentation du check de format
- * 
- * @param candf la liste de candidat à charger
- * @param filepath le chemin du fichier à charger
- * @param nbCand* le nombre de candidats chargé
- * @return CandFile la liste de candidat chargée
+ * @param tcand tableau de candidatures
+ * @param filename nom du fichier
+ * @return int le nombre de candidatures chargées ou -<ERRCODE> en cas d'erreur
  */
-CandFile
-chargCand_TXT(CandFile candf, char *filepath, int *nbCand)
-{
-    // TODO
-    err(ERR_NOT_IMPLEMENTED, chargCand_TXT);
-    return (CandFile){NULL, NULL};
+int chargerCandidaturesBin(Candidature *tcand, char *filename) {
+    return err(ERR_NOT_IMPLEMENTED, chargerCandidaturesBin);
 }
 
-
 /**
- * @brief Chargement d'une file de candidat à partir d'un fichier .don
+ * @brief Sauvegarde les candidatures dans un fichier texte
  * 
- *  Ouvre un fichier de type 'binaire' et charge les données qui y son renseignés
- *  dans une file de candidats.
+ *  Sauvegarde les candidatures dans un fichier texte
+ *  !NOT IMPLEMENTED
  * 
- * ! NOT IMPLEMENTED
- * 
- * @param candf la liste de candidat à charger
- * @param binpath le chemin du binaire à charger
- * @param nbCand* le nombre de candidats chargé
- * @return CandFile la liste de candidat chargée
+ * @param tcand tableau de candidatures
+ * @param nbCand nombre de candidatures
+ * @param filename nom du fichier
+ * @return int le nombre de candidatures sauvegardées ou -<ERRCODE> en cas d'erreur
  */
-CandFile
-chargCand_BIN(CandFile candf, char *binpath, int *nbCand)
-{
-    // TODO
-    err(ERR_NOT_IMPLEMENTED, chargCand_BIN);
-    return (CandFile){NULL, NULL};
-}
-
-
-/**
- * @brief sauvegarde de la file de candidats dans un fichier binaire
- *
- * @param candf la file de candidat à sauvgarder
- * @param path le chemein où enregistrer le fichier
- * @param nbCand le nombre de candidats à enregistrer
- * @return <ERR_CODE>
- */
-int
-sauvCand(CandFile candf, char *path, int nbCand)
-{
-    // TODO
-    return err(ERR_NOT_IMPLEMENTED, chargCand_BIN);
+int sauvegarderCandidatures(Candidature *tcand, int nbCand, char *filename) {
+    return err(ERR_NOT_IMPLEMENTED, sauvegarderCandidaturesTxt);
 }

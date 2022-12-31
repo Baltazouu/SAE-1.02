@@ -23,9 +23,11 @@
  *  et la décision du département.
  */
 typedef struct {
+    int numChoix; /*!< numéro du choix */
     Ville villeChoisie; /*!< ville choisie */
     Departement dept; /*!< département */
     Decision decs; /*!< décision du département */
+    bool validation; /*!< validation du choix */
 } Choix;
 
 
@@ -45,41 +47,26 @@ typedef struct {
 } Candidature;
 
 
-/*! @struct CandMaillon
- *  @brief Maillon de liste de Candidature
- *
- *  Définie un maillon d'une liste de candidature.
- *  Définie aussi un pointeur sur le premier maillon.
- */
-typedef struct liste {
-    Candidature cand; /*!< pointeur sur struct Candidature */
-    struct liste *suiv; /*!< pointeur sur le maillon suivant */
-} CandMaillon;
 
-/*! @struct Candfile
- *  @brief défini la file des candidats
- * 
- *  Implémentée par 2 pointeurz sur tête et fin de file
- */
-typedef struct {
-    CandMaillon *head; /*!< tête de file */
-    CandMaillon *tail; /*!< queue de files */
-} CandFile;
+// Fonction d'affichage
 
-// Déclaration de fonctions
+void afficherCandidature(Candidature);
+void afficherToutesCandidatures(Candidature *, int);
 
-bool isCandfEmpty(CandFile candf);
-bool researchCand(CandFile candf, int numCand, int *ins);
+// Fonctionns utilitaires
 
-CandFile initCandFile(void);
-CandFile enqueueCand(CandFile candf, Candidature cand);
-CandFile dequeueCand(CandFile candf);
-CandFile supprCand(CandFile candf, int numCand);
+Candidature remplireCandidature(void);
+int ajouterCandidature(Candidature *, int, Candidature);
+int retirerCandidature(Candidature *, int, int);
 
-CandFile chargCand_TXT(CandFile candf, char *filepath, int *nbCand);
-CandFile chargCand_BIN(CandFile candf, char *binpath, int *nbCand);
-int sauvCand(CandFile candf, char *path, int nbCand);
-int exportCand(CandFile candf, char *path, int nbCand);
+int ajouterChoix(Candidature *, int, int, Choix);
+int retirerChoix(Candidature *, int, int, int);
+
+// Fonction de gestion de fichiers
+
+int chargerCandidaturesTxt(Candidature *, char *);
+int chargerCandidaturesBin(Candidature *, char *);
+int sauvegarderCandidatures(Candidature *, int, char *);
 
 
 #endif /* CANDIDATURE_UTILS_H */

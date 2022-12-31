@@ -162,8 +162,7 @@ endif
 
 build: directories $(DEPS) $(TARGET)
 
-test: directories $(DEPS) $(TESTTARG)
-
+test: directories $(DEPS) $(TESTTARG) 	
 # link and create final executable
 $(TARGET): $(OBJS) $(BINDIR)/$(MAINF:.c=.o)
 	@echo "${BLUE}[-] Linking main${RESET} $@"

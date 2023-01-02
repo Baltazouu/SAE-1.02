@@ -13,23 +13,25 @@
 #include<stdio.h>
 #include"part1.h"
 #include<string.h>
-
+#include"affichage.h"
+#include"config.h"
 
 void FGlobale(void)
 {
-    printf("1-Administrateur\n2-Etudiant\n3-Quitter\n");
-    VilleIUT *tiut[SIZE_TIUT];
-    char nomFich[20];
-    strcpy(nomFich,"data/IUT.don");
     
+    VilleIUT *tiut[SIZE_TIUT];
+    char nomFich[20],nomFichBin[20];
+    strcpy(nomFich,"data/IUT.don");
+    strcpy(nomFichBin,"data/IUT.bin");
     int size=SIZE_TIUT;
     
-    int tlog = fChargement(nomFich,tiut,&size);
+    int tlog = fchargementBin(nomFichBin,tiut,size);
     int option=0;
    
-    //afficheVille(tiut,tlog);
-    
-    //fscanf(stdin,"%d",&option);
+    afficheVille(tiut,tlog);
+    //printf("%s",CLEAR_CMD);
+    //fAffichMenu();
+    fscanf(stdin,"%d",&option);
     if (option == 1)
     {
         fonctionGlobaleAdmin(tiut,&tlog,&size,nomFich);
@@ -38,8 +40,12 @@ void FGlobale(void)
     {
         fonctionGlobaleEtudiant(tiut,&tlog,&size,nomFich);
     }
+    if(option == 3)
+    {
+        fSauvegarde(tiut,tlog,nomFich);
+        FsauvegardeBin(tiut,tlog,nomFichBin);
+    }
     
-    fSauvegarde(tiut,tlog,nomFich);
 
 }
 
@@ -48,7 +54,9 @@ void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
 {   
     
     int option=0;
-
+    printf("%s",CLEAR_CMD);
+    fAffichAdmin();
+    fscanf(stdin,"%d",&option);
     while(option!=10)
     {
         if(option==1)

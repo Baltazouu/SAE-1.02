@@ -64,4 +64,38 @@ void fSauvegardeList(FILE *fe,ListDep list);
 */
 void fSauvegarde(VilleIUT **tiut,int size,char *nomFich);
 
+/**
+ * \brief FOnction de sauvegarde d'une liste de départements
+ * \brief en binaire
+ * \param fe fichier de sauvegarde
+ * \param List liste à sauvegarder
+*/
+void fsauvegardeListBin(FILE *fe,ListDep List);
+
+/**
+ * \brief Fonction de sauvegarde d'un tableau de pointeurs
+ * \brief en binaire
+ * \param tiut tableau de pointeurs à sauvegarder
+ * \param size taille du tableau de pointeurs
+ * \param nomFich Nom du fichier où sauver
+*/
+void FsauvegardeBin(VilleIUT **tiut,int tlog,char *nomFich);
+
+/**
+ * \brief Fonction de chargement d'une liste de départements
+ * \brief en binaire
+ * \param fe fichier de chargement
+ * \param nbDept nombre de départements à charger
+*/
+ListDep LectureBin(FILE *fe,int nbDept);
+
+/**
+ * \brief Fonction de chargement d'un tableau de pointeurs
+ * \brief en binaire
+ * \param nomFich Nom du fichier où charger
+ * \param tiut tableau de pointeurs à charger
+ * \param taille taille du tableau de pointeurs
+*/
+int fchargementBin(char *nomFich,VilleIUT **tiut,int *taille);
+
 #endif

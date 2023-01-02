@@ -215,5 +215,3 @@ int FrechList(ListDep ldept,char *Departement)
     }
     return FrechList(ldept->suivant,Departement);
 }
-
-

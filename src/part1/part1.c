@@ -206,6 +206,64 @@ void FsauvegardeBin(VilleIUT **tiut,int tlog,char *nomFich)
 }
 
 
-/// fichier utils.c
+ListDep LectureBin(FILE *fe,int nbDept)
+{
+    if(nbDept==0)
+    {
+        return NULL;
+    }
+    MaillonDept *maillon;
+    maillon=(MaillonDept*)malloc(sizeof(MaillonDept));
+    if(maillon==NULL)
+    {
+        printf("Error Dynamic Allocation !!\n");
+        exit(2);
+    }
+        fread(maillon,sizeof(maillon),1,fe);
+        return maillon->suivant=LectureBin(fe,nbDept-1);
+}
 
+int fchargementBin(char *nomFich, VilleIUT **tiut, int *taille)
+{
+    FILE *fe;
+    int i = 0;
+    fe = fopen(nomFich, "rb");
+    if (fe == NULL)
+    {
+        printf("Error Opening File !!\n");
+        return -1;
+    }
+    tiut[i] = (VilleIUT*)malloc(sizeof(VilleIUT));
+    if (tiut[i] == NULL)
+    {
+        printf("Error Dynamic Allocation !!\n");
+        exit(2);
+    }
+    fread(tiut[i], sizeof(VilleIUT), 1, fe);
+    while (!feof(fe))
+    {
+        if (i == *taille)
+        {
+            tiut = realloc(tiut, (*taille + 10) * sizeof(VilleIUT*));
+            if (tiut == NULL)
+            {
+                printf("Error Dynamic Reallocation !!\n");
+                exit(2);
+            }
+            *taille += 10;
+        }
+        tiut[i]->ldept = LectureBin(fe, tiut[i]->nbDept);
 
+        tiut[i + 1] = (VilleIUT*)malloc(sizeof(VilleIUT));
+        if (tiut[i + 1] == NULL)
+        {
+            printf("Error Dynamic Allocation !!\n");
+            exit(2);
+        }
+
+        fread(tiut[i + 1], sizeof(VilleIUT), 1, fe);
+        i++;
+    }
+    fclose(fe);
+    return i;
+}

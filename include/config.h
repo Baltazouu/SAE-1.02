@@ -24,3 +24,5 @@
 #define STY_FYELLOW "\e[1;33m"
 #define STY_BWHITE  "\e[1;30;47m"
 
+//! Clear screen
+#define CLEAR_CMD "\e[1;1H\e[2J"

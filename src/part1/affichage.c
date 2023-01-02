@@ -79,11 +79,11 @@ void fAffichMenu(void)
 
     printf("\n\n");
 
-    printf("%s      1.   Etudiant\n",STY_FGREEN);
+    printf("%s      1. Administrateur\n",STY_FYELLOW);
     printf("\n");
-    printf("%s      2. Administrateur\n",STY_FYELLOW);
+    printf("%s      2.   Etudiant\n",STY_FGREEN);
     printf("\n");
-
+    printf("%s      3.   Quitter\n",STY_FGREEN);
     printf("%s     Entrez Votre Choix : ",STY_FBLUE);
     
 }
@@ -92,7 +92,7 @@ void fAffichMenu(void)
 void fAffichAdmin(void)
 {
     printf("\n");
-    printf("%s  INFORMATIONS IUT DE FRANCE  %s\n",STY_FBLUE,STY_NULL);
+    printf("%s    GESTION IUT DE FRANCE  %s\n",STY_FBLUE,STY_NULL);
     for(int i=0;i<30;i++)printf("%s",BOX_HORI);
     printf("\n\n");
     printf("%s",BOX_TOPL);
@@ -106,9 +106,15 @@ void fAffichAdmin(void)
 
     printf("\n\n");
 
-    printf("%s      1.   Modifier Le Nombre de places d'un département\n",STY_FGREEN);
+    printf("%s  1.   Modifier Le Nombre de places d'un département\n",STY_FGREEN);
     printf("\n");
-    printf("%s      2. Administrateur\n",STY_FYELLOW);
+    printf("%s  2. Ajouter Un Département Dans un IUT\n",STY_FYELLOW);
+    printf("\n");
+    printf("%s  3.   Suppression d'un département\n",STY_FGREEN);
+    printf("\n");
+    printf("%s  4. Modification de responsable de département\n",STY_FYELLOW);
+    printf("\n");
+    printf("%s  5.   Lancer la procédure d'admission\n",STY_FGREEN);
     printf("\n");
 
     printf("%s     Entrez Votre Choix : ",STY_FBLUE);

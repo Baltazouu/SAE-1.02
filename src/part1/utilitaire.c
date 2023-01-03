@@ -141,6 +141,7 @@ int fSuppressionDept(VilleIUT **tiut,int taille,char *VilleIUT,char *Departement
             if(FrechList(tiut[i]->ldept,Departement)==1)
             {
                 tiut[i]->ldept=suppressionMaillonDept(tiut[i]->ldept,Departement);
+                tiut[i]->nbDept--;
                 printf("%sSuppression effectuée avec succès !!\n",STY_FGREEN);
                 return 1;
             }

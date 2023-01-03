@@ -1,9 +1,14 @@
-#ifdef GLOBALE_H
+#ifndef GLOBALE_H
 #define GLOBALE_H
 
 #include "struct.h"
 
-/// fonctions globales  
+  
+
+/**
+ * @brief Affiche le menu principal
+ */
+void FGlobale(void);
 
 /**
  * @brief Fonction globale de l'administrateur

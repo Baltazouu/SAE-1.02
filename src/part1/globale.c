@@ -15,6 +15,8 @@
 #include<string.h>
 #include"affichage.h"
 #include"config.h"
+#include"globale.h"
+#include"utilitaire.h"
 
 void FGlobale(void)
 {
@@ -25,7 +27,7 @@ void FGlobale(void)
     strcpy(nomFichBin,"data/IUT.bin");
     int size=SIZE_TIUT;
     
-    int tlog = fchargementBin(nomFichBin,tiut,size);
+    int tlog = fchargementBin(nomFichBin,tiut,&size);
     int option=0;
    
     afficheVille(tiut,tlog);

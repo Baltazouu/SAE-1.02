@@ -9,6 +9,8 @@
 #include<stdlib.h>
 #include<string.h>
 #include"config.h"
+#include"affichage.h"
+
 
 int modifnbPlist(ListDep ldept,char *Departement,int nbp)
 {

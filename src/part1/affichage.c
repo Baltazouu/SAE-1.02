@@ -9,6 +9,7 @@
 #include"affichage.h"
 #include<stdio.h>
 #include"config.h"
+#include"string.h"
 
 void affichemaillon(MaillonDept *maillon)
 {

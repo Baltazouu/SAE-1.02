@@ -29,7 +29,7 @@ typedef struct list
 typedef struct 
 {
     char VilleDep[LONGVILLE];
-    ListDep *ldept;
+    ListDep ldept;
     int nbDept;
 } VilleIUT;
 

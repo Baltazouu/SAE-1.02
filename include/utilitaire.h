@@ -73,4 +73,44 @@ int fSuppressionDept(VilleIUT **tiut,int taille,char *VilleIUT,char *Departement
 */
 int FrechList(ListDep ldept,char *Departement);
 
+
+/**
+ * @brief recherche le nombre de places dans un département
+ * @param tiut tableau des villes
+ * @param taille taille du tableau
+ * @param ville ville à modifier
+ * @param Departement nom du departement
+ * @return 1 si le département est trouvé, 0 sinon
+ */
+int FrechnbP(VilleIUT **tiut,int taille,char *Ville,char *Departement);
+
+/**
+ * @brief modifie le nom du responsable de département
+ * @param ldept liste des departements
+ * @param Departement nom du departement
+ * @param resp nom du responsable
+ * @return 1 si le département est trouvé, 0 sinon
+ */
+int fModifRespDept(ListDep ldept,char *Departement,char *resp);
+
+
+/**
+ * @brief modifie le nom du responsable de département
+ * @param tiut tableau des villes
+ * @param taille taille du tableau
+ * @param Departement nom du departement
+ * @param Responsable nom du responsable
+ * @return 1 si le département est trouvé, -1 sinon
+ */
+int FmodifResp(VilleIUT **tiut,int taille,char *Departement,char *Responsable);
+
+/**
+ * @brief recherche la présence d'un département dans une liste
+ * @param ldept liste des departements
+ * @param Departement nom du departement
+ * @return 1 si le département est trouvé, 0 sinon
+ */
+int FrechList(ListDep ldept,char *Departement);
+
+
 #endif

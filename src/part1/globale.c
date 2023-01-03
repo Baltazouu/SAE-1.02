@@ -11,12 +11,14 @@
 
 
 #include<stdio.h>
-#include"part1.h"
 #include<string.h>
+#include"part1.h"
+#include"globale.h"
 #include"affichage.h"
 #include"config.h"
-#include"globale.h"
 #include"utilitaire.h"
+#include"time.h"
+#include"stdlib.h"
 
 void FGlobale(void)
 {
@@ -26,13 +28,13 @@ void FGlobale(void)
     strcpy(nomFich,"data/IUT.don");
     strcpy(nomFichBin,"data/IUT.bin");
     int size=SIZE_TIUT;
-    
     int tlog = fchargementBin(nomFichBin,tiut,&size);
+
     int option=0;
    
-    afficheVille(tiut,tlog);
+    //afficheVille(tiut,tlog);
     //printf("%s",CLEAR_CMD);
-    //fAffichMenu();
+    fAffichMenu();
     fscanf(stdin,"%d",&option);
     if (option == 1)
     {
@@ -47,6 +49,7 @@ void FGlobale(void)
         fSauvegarde(tiut,tlog,nomFich);
         FsauvegardeBin(tiut,tlog,nomFichBin);
     }
+    return;
     
 
 }
@@ -68,10 +71,11 @@ void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
             int nbp;
             char Departement[LONGDEP];
             printf("Entrez le nom de la ville : ");
-            scanf("%s",ville.VilleDep);
+            scanf("%s%*c",ville.VilleDep);
             printf("Entrez le nom du département : ");
             fgets(Departement,LONGDEP,stdin);
             Departement[strlen(Departement)-1]='\0';
+
             printf("Entrez le nouveau nombre de places : ");
             scanf("%d",&nbp);
             modifNbpDepartement(tiut,*tlog,ville,Departement,nbp);
@@ -86,7 +90,7 @@ void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
             int nbp;
 
             printf("Entrez le nom de la ville : ");
-            scanf("%s",ville);
+            scanf("%s%*c",ville);
 
             printf("Entrez le nom du département : ");
             fgets(Departement,LONGDEP,stdin);
@@ -119,7 +123,7 @@ void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
 
         if ( option == 4)
         {
-            // Modifier le nom d'un responsabled de département
+            // Modifier le nom d'un responsable de département
             char ville[LONGVILLE];
             char Departement[LONGDEP];
             char resp[LONGRESP];
@@ -142,6 +146,17 @@ void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
         {
             // lancer et arrêter la procédure d'admission
         }
+
+        if (option == 6)
+        {
+            fSauvegarde(tiut,*tlog,NomFich);
+            printf("\n%s     Sauvegarde Effectuee avec succes !\n",STY_FGREEN);
+            exit(0);
+        }
+        sleep(3);
+        printf("%s",CLEAR_CMD);
+        fAffichAdmin();
+        fscanf(stdin,"%d",&option);
     }
 }
 

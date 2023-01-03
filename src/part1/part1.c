@@ -1,4 +1,4 @@
-/**
+/**tiut[i]tiut[i]
  * \file part1.c
  * \brief Fonctons Essentielles (chargement, déchargement, lecture et globale)
  * \date Dec 30
@@ -11,6 +11,7 @@
 #include<string.h>
 #include"part1.h"
 #include"config.h"
+#include"affichage.h"
 /**
  * \brief Foncton d'initialisation d'une liste
  * \return NULL
@@ -28,7 +29,7 @@ ListDep LireDept(FILE *fe, int nbDept)
     {
         return NULL;
     }
-
+    
     MaillonDept *maillon;
     maillon = (MaillonDept *)malloc(sizeof(MaillonDept));
     if (maillon == NULL)
@@ -36,7 +37,7 @@ ListDep LireDept(FILE *fe, int nbDept)
         printf("Error Dynamic Allocation !!\n");
         exit(2);
     }
-
+   
     fgets(maillon->departement, 30, fe);
     maillon->departement[strlen(maillon->departement) - 1] = '\0';
 
@@ -46,7 +47,7 @@ ListDep LireDept(FILE *fe, int nbDept)
     fgets(maillon->resp, LONGRESP, fe);
     maillon->resp[strlen(maillon->resp) - 1] = '\0';
     fscanf(fe,"\n");
-
+   
     //affichemaillon(maillon);
     maillon->suivant = LireDept(fe, nbDept - 1);
     
@@ -80,7 +81,7 @@ ListDep LireDept(FILE *fe, int nbDept)
     return maillon;
 }
 
-VilleIUT *lireVille(FILE *fe)
+VilleIUT* lireVille(FILE *fe)
 {
     VilleIUT *ville;
     ville = (VilleIUT *)malloc(sizeof(VilleIUT));
@@ -114,8 +115,7 @@ int fChargement(char *nomFich, VilleIUT **tiut, int *taille)
         }
        
         ville=lireVille(fe);
-        //printf("la ville est lue\n");
-        //printf("%s\n",ville->VilleDep);
+
         while(!feof(fe))
         {
             if(i==*taille)
@@ -129,8 +129,10 @@ int fChargement(char *nomFich, VilleIUT **tiut, int *taille)
                 printf("Error Dynamic Allocation !!\n");
                 exit(2);
             }
+            ListDep list=LireDept(fe,ville->nbDept);
+            
             //printf("On arrive ici\n");
-            ville->ldept=LireDept(fe,ville->nbDept);
+            ville->ldept=list;
             tiut[i]=ville;
             ville=lireVille(fe);
             i++;

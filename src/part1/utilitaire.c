@@ -36,19 +36,28 @@ int modifnbPlist(ListDep ldept,char *Departement,int nbp)
 
 void modifNbpDepartement(VilleIUT **tiut,int taille,VilleIUT ville,char *Departement,int nbp)
 {
-    int i;
+    int i,VilleTrouve=0,DepartementTrouve=0;
     for(i=0;i<taille;i++)
     {   
         if(strcmp(tiut[i]->VilleDep,ville.VilleDep)==0)
-        {
+        {   
+            VilleTrouve=1;
             if(FrechList(tiut[i]->ldept,Departement)==1)
             {
-                modifnbPlist(tiut[i]->ldept,Departement,nbp); 
+                DepartementTrouve=modifnbPlist(tiut[i]->ldept,Departement,nbp); 
             }
         }
     }
-    printf("%sErreur Département Introuvable !!\n",STY_FRED);
-    return;
+    if(VilleTrouve==0)
+    {
+        printf("%sErreur Ville Introuvable !!\n",STY_FRED);
+        return;
+    }
+    else if(DepartementTrouve==0)
+    {
+        printf("%sErreur Département Introuvable !!\n",STY_FRED);
+        return;
+    }
 }
 
 ListDep insertionMaillonCroissant(ListDep ldept, MaillonDept *maillon)
@@ -93,6 +102,8 @@ void InsertionDepartement(VilleIUT **tiut,int taille,char *Ville,char *Departeme
             else
             {
                 tiut[i]->ldept=insertionMaillonCroissant(tiut[i]->ldept,maillon);
+                //afficherDepartementsRecursif(tiut[i]->ldept);
+                tiut[i]->nbDept++;
                 printf("%sInsertion effectuée avec succès !!\n",STY_FGREEN);
                 return;
                 

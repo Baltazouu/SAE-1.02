@@ -3,8 +3,6 @@
 
 #include "struct.h"
 
-  
-
 /**
  * @brief Affiche le menu principal
  */

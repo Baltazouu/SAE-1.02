@@ -82,10 +82,10 @@ void fAffichMenu(void)
 
     printf("%s      1. Administrateur\n",STY_FYELLOW);
     printf("\n");
-    printf("%s      2.   Etudiant\n",STY_FGREEN);
+    printf("%s      2. Etudiant\n",STY_FGREEN);
     printf("\n");
-    printf("%s      3.   Quitter\n",STY_FGREEN);
-    printf("%s     Entrez Votre Choix : ",STY_FBLUE);
+    printf("%s      3. Quitter\n\n",STY_FGREEN);
+    printf("%s    Entrez Votre Choix : ",STY_FBLUE);
     
 }
 
@@ -107,15 +107,17 @@ void fAffichAdmin(void)
 
     printf("\n\n");
 
-    printf("%s  1.   Modifier Le Nombre de places d'un département\n",STY_FGREEN);
+    printf("%s  1. Modifier Le Nombre de places d'un département\n",STY_FGREEN);
     printf("\n");
     printf("%s  2. Ajouter Un Département Dans un IUT\n",STY_FYELLOW);
     printf("\n");
-    printf("%s  3.   Suppression d'un département\n",STY_FGREEN);
+    printf("%s  3. Suppression d'un département\n",STY_FGREEN);
     printf("\n");
     printf("%s  4. Modification de responsable de département\n",STY_FYELLOW);
     printf("\n");
-    printf("%s  5.   Lancer la procédure d'admission\n",STY_FGREEN);
+    printf("%s  5. Lancer la procédure d'admission\n",STY_FGREEN);
+    printf("\n");
+    printf("%s  6. Sauvegarder et quitter\n",STY_FYELLOW);
     printf("\n");
 
     printf("%s     Entrez Votre Choix : ",STY_FBLUE);

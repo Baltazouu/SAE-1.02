@@ -17,7 +17,7 @@
 #include"affichage.h"
 #include"config.h"
 #include"utilitaire.h"
-#include"time.h"
+#include"unistd.h"
 #include"stdlib.h"
 
 void FGlobale(void)
@@ -28,6 +28,7 @@ void FGlobale(void)
     strcpy(nomFich,"data/IUT.don");
     strcpy(nomFichBin,"data/IUT.bin");
     int size=SIZE_TIUT;
+    
     int tlog = fChargement(nomFich,tiut,&size);
 
     //printf("Taille ; %d\n",tlog);
@@ -38,22 +39,22 @@ void FGlobale(void)
     //printf("%s",CLEAR_CMD);
     fAffichMenu();
     fscanf(stdin,"%d",&option);
-    if (option == 1)
+    switch (option)
     {
+        case 1:
         fonctionGlobaleAdmin(tiut,&tlog,&size,nomFich);
-    }
-    if (option == 2)
-    {
+        break;
+
+    case 2:
+    
         fonctionGlobaleEtudiant(tiut,&tlog,&size,nomFich);
-    }
-    if(option == 3)
-    {
+        break;
+    
+    case 3:
         fSauvegarde(tiut,tlog,nomFich);
         //FsauvegardeBin(tiut,tlog,nomFichBin);
+    break;
     }
-    return;
-    
-
 }
 
 
@@ -64,14 +65,20 @@ void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
     printf("%s",CLEAR_CMD);
     fAffichAdmin();
     fscanf(stdin,"%d",&option);
+
+    char Departement[LONGDEP];
+    char resp[LONGRESP];
+    int nbp;
+    VilleIUT ville;
+
     while(option!=6)
-    {
-        if(option==1)
+    {   
+        switch (option)
         {
+        
+        case 1:
             //Modifier le nombre de places dans un département
-            VilleIUT ville;
-            int nbp;
-            char Departement[LONGDEP];
+            
             printf("Entrez le nom de la ville : ");
             scanf("%s%*c",ville.VilleDep);
             printf("Entrez le nom du département : ");
@@ -81,18 +88,15 @@ void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
             printf("Entrez le nouveau nombre de places : ");
             scanf("%d",&nbp);
             modifNbpDepartement(tiut,*tlog,ville,Departement,nbp);
-        }
 
-        if (option ==2)
-        {
+            break;
+        
+        case 2:
+            
             //Ajouter un département dans une ville
-            char ville[LONGVILLE];
-            char Departement[LONGDEP];
-            char resp[LONGRESP];
-            int nbp;
-
+            
             printf("Entrez le nom de la ville : ");
-            scanf("%s%*c",ville);
+            scanf("%s%*c",ville.VilleDep);
 
             printf("Entrez le nom du département : ");
             fgets(Departement,LONGDEP,stdin);
@@ -104,34 +108,27 @@ void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
 
             printf("Entrez le nombre de places : ");
             scanf("%d",&nbp);
-            InsertionDepartement(tiut,*tlog,ville,Departement,nbp,resp);
-        }
+            InsertionDepartement(tiut,*tlog,ville.VilleDep,Departement,nbp,resp);
+            break;
 
-        if (option==3)
-        {
+        case 3:
             //suppression d'un département
-            char ville[LONGVILLE];
-            char Departement[LONGDEP];
 
             printf("Entrez le nom de la ville : ");
-            fscanf(stdin,"%s%*c",ville);
+            fscanf(stdin,"%s%*c",ville.VilleDep);
 
             printf("Entrez le nom du département : ");
             fgets(Departement,LONGDEP,stdin);
             Departement[strlen(Departement)-1]='\0';
 
-            fSuppressionDept(tiut,*tlog,ville,Departement);
-        }
+            fSuppressionDept(tiut,*tlog,ville.VilleDep,Departement);
+            break;
 
-        if ( option == 4)
-        {
+        case 4:
             // Modifier le nom d'un responsable de département
-            char ville[LONGVILLE];
-            char Departement[LONGDEP];
-            char resp[LONGRESP];
 
             printf("Entrez le nom de la ville : ");
-            fscanf(stdin,"%s%*c",ville);
+            fscanf(stdin,"%s%*c",ville.VilleDep);
 
             printf("Entrez le nom du département : ");
             fgets(Departement,LONGDEP,stdin);
@@ -142,24 +139,23 @@ void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
             resp[strlen(resp)-1]='\0';
 
             FmodifResp(tiut,*tlog,Departement,resp);
-        }
 
-        if (option == 5)
-        {
+            break;
+
+        case 5:   
+            printf("a faire\n");
             // lancer et arrêter la procédure d'admission
+            break;
         }
 
-        if (option == 6)
-        {
-            fSauvegarde(tiut,*tlog,NomFich);
-            printf("\n%s     Sauvegarde Effectuee avec succes !\n",STY_FGREEN);
-            exit(0);
-        }
         sleep(3);
         printf("%s",CLEAR_CMD);
         fAffichAdmin();
         fscanf(stdin,"%d%*c",&option);
     }
+    fSauvegarde(tiut,*tlog,NomFich);
+    printf("\n%s     Sauvegarde Effectuee avec succes !\n",STY_FGREEN);
+    exit(0);
 }
 
 
@@ -168,52 +164,49 @@ void fonctionGlobaleEtudiant(VilleIUT **tiut,int *tlog,int *size,char *nomFich)
     printf("%s",CLEAR_CMD);
     AffichEtu();
     int option=0;
-    
+    char dept[LONGDEP];
+
     fscanf(stdin,"%d%*c",&option);
     while(option!=5)
     {
-        if (option == 1)
+        switch (option)
         {
+        
+        case 1:
             // Afficher la liste des villes
             //printf("%s",CLEAR_CMD);
             FaffichListIUT(tiut,*tlog);
-            
-        }
+            break;
+        
 
-        if (option == 2)
-        {
+        case 2:
             printf("%s",CLEAR_CMD);
             // Afficher la liste des départements d'un IUT
             fAffichListDept(tiut,*tlog);
             
-        }
+            break;
+        
 
-        if (option == 3)
-        {
+        case 3:
             // Afficher le nombre de places en premiere annee
             affichePlace(tiut,*tlog);
             
-        }
+            break;
+        
+        case 4:
+            // Afficher Un département parmi les IUT
+            printf("Entrez le nom du département : ");
+            fscanf(stdin,"%s%*c",dept);
 
-        if (option == 4)
-        {
-            // Afficher la liste des départements d'une ville
-            char ville[LONGVILLE];
-            printf("Entrez le nom de la ville : ");
-            fscanf(stdin,"%s%*c",ville);
+            //fAffichListDept(tiut,*tlog);
+            FaffichDept(tiut,*tlog,dept);
             
-        }
-
-        if (option == 5)
-        {
-            // quitter
-            exit(0);
-           
+            break;
         }
     sleep(3);
     printf("%s",CLEAR_CMD);
     AffichEtu();
     fscanf(stdin,"%d%*c",&option);
     }
-    
+    exit(0);    
 }

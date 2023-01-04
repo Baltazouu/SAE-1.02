@@ -113,7 +113,7 @@ int fChargement(char *nomFich, VilleIUT **tiut, int *taille)
             printf("Error Dynamic Allocation !!\n");
             exit(2);
         }
-       
+        
         ville=lireVille(fe);
 
         while(!feof(fe))

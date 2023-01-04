@@ -3,6 +3,17 @@
 
 #include"struct.h"
 
+
+/**
+ * @brief Fonction de recherche Dichotomique
+ * d'une ville dans un tableau
+ * @param tiut tableau des villes
+ * @param taille taille du tableau
+ * @param ville ville à rechercher
+ * @return -1 si la ville n'est pas trouvée, l'emplacement de la ville sinon
+ */
+int frechDicho(VilleIUT **tiut,int taille,VilleIUT ville);
+
 /**
  * @brief modifie le nombre de places dans un département
  * @param ldept liste des departements

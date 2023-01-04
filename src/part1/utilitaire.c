@@ -12,11 +12,45 @@
 #include"affichage.h"
 
 
+/*
+
+int frechDicho(VilleIUT **tiut,int taille,VilleIUT ville)
+{
+    int debut=0;
+    int fin=taille-1;
+    int milieu;
+    while(debut<=fin)
+    {
+        milieu=(debut+fin)/2;
+
+        if(strcmp(tiut[milieu]->VilleDep,ville.VilleDep)==0)
+        {
+            return milieu;
+        }
+        if(strcmp(ville.VilleDep,tiut[milieu]->VilleDep)<0)
+        {   
+            fin=milieu-1;
+        }
+        else
+        {
+            debut=milieu+1;
+        }
+    }
+    printf("%s\n",tiut[debut-1]->VilleDep);
+    if (strcmp(tiut[debut-1]->VilleDep,ville.VilleDep)==0)
+    {
+        return debut-1;
+    }
+    return -1;
+}*/
+
+
 int modifnbPlist(ListDep ldept,char *Departement,int nbp)
 {
     if(ldept==NULL)
     {
         return 0;
+        printf("%sErreur Département Introuvable !!\n",STY_FRED);
     }
     if (strcmp(ldept->departement,Departement)==0)
     {   
@@ -36,27 +70,23 @@ int modifnbPlist(ListDep ldept,char *Departement,int nbp)
 
 void modifNbpDepartement(VilleIUT **tiut,int taille,VilleIUT ville,char *Departement,int nbp)
 {
-    int i,VilleTrouve=0,DepartementTrouve=0;
+ 
+    int i;
     for(i=0;i<taille;i++)
-    {   
+    {
         if(strcmp(tiut[i]->VilleDep,ville.VilleDep)==0)
-        {   
-            VilleTrouve=1;
+        {
             if(FrechList(tiut[i]->ldept,Departement)==1)
             {
-                DepartementTrouve=modifnbPlist(tiut[i]->ldept,Departement,nbp); 
+                modifnbPlist(tiut[i]->ldept,Departement,nbp);
+                return; 
             }
+            else
+            {
+                printf("%sErreur Département Introuvable !!\n",STY_FRED);
+            }
+            return;
         }
-    }
-    if(VilleTrouve==0)
-    {
-        printf("%sErreur Ville Introuvable !!\n",STY_FRED);
-        return;
-    }
-    else if(DepartementTrouve==0)
-    {
-        printf("%sErreur Département Introuvable !!\n",STY_FRED);
-        return;
     }
 }
 

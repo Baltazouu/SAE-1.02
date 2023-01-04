@@ -1,0 +1,219 @@
+/**
+ * \brief Fonction de lecture des fichiers
+ * \file globale.c
+ * \author Dudonné Baptiste
+ * \date Dec 31
+ * \version 1.0
+*/
+
+
+/// fonctions globales  
+
+
+#include<stdio.h>
+#include<string.h>
+#include"part1.h"
+#include"globale.h"
+#include"affichage.h"
+#include"config.h"
+#include"utilitaire.h"
+#include"time.h"
+#include"stdlib.h"
+
+void FGlobale(void)
+{
+    
+    VilleIUT *tiut[SIZE_TIUT];
+    char nomFich[20],nomFichBin[20];
+    strcpy(nomFich,"data/IUT.don");
+    strcpy(nomFichBin,"data/IUT.bin");
+    int size=SIZE_TIUT;
+    int tlog = fChargement(nomFich,tiut,&size);
+
+    //printf("Taille ; %d\n",tlog);
+
+    int option=0;
+   
+    //afficheVille(tiut,tlog);
+    //printf("%s",CLEAR_CMD);
+    fAffichMenu();
+    fscanf(stdin,"%d",&option);
+    if (option == 1)
+    {
+        fonctionGlobaleAdmin(tiut,&tlog,&size,nomFich);
+    }
+    if (option == 2)
+    {
+        fonctionGlobaleEtudiant(tiut,&tlog,&size,nomFich);
+    }
+    if(option == 3)
+    {
+        fSauvegarde(tiut,tlog,nomFich);
+        //FsauvegardeBin(tiut,tlog,nomFichBin);
+    }
+    return;
+    
+
+}
+
+
+void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
+{   
+    
+    int option=0;
+    printf("%s",CLEAR_CMD);
+    fAffichAdmin();
+    fscanf(stdin,"%d",&option);
+    while(option!=6)
+    {
+        if(option==1)
+        {
+            //Modifier le nombre de places dans un département
+            VilleIUT ville;
+            int nbp;
+            char Departement[LONGDEP];
+            printf("Entrez le nom de la ville : ");
+            scanf("%s%*c",ville.VilleDep);
+            printf("Entrez le nom du département : ");
+            fgets(Departement,LONGDEP,stdin);
+            Departement[strlen(Departement)-1]='\0';
+
+            printf("Entrez le nouveau nombre de places : ");
+            scanf("%d",&nbp);
+            modifNbpDepartement(tiut,*tlog,ville,Departement,nbp);
+        }
+
+        if (option ==2)
+        {
+            //Ajouter un département dans une ville
+            char ville[LONGVILLE];
+            char Departement[LONGDEP];
+            char resp[LONGRESP];
+            int nbp;
+
+            printf("Entrez le nom de la ville : ");
+            scanf("%s%*c",ville);
+
+            printf("Entrez le nom du département : ");
+            fgets(Departement,LONGDEP,stdin);
+            Departement[strlen(Departement)-1]='\0';
+
+            printf("Entrez le nom du responsable : ");
+            fgets(resp,LONGRESP,stdin);
+            resp[strlen(resp)-1]='\0';
+
+            printf("Entrez le nombre de places : ");
+            scanf("%d",&nbp);
+            InsertionDepartement(tiut,*tlog,ville,Departement,nbp,resp);
+        }
+
+        if (option==3)
+        {
+            //suppression d'un département
+            char ville[LONGVILLE];
+            char Departement[LONGDEP];
+
+            printf("Entrez le nom de la ville : ");
+            fscanf(stdin,"%s%*c",ville);
+
+            printf("Entrez le nom du département : ");
+            fgets(Departement,LONGDEP,stdin);
+            Departement[strlen(Departement)-1]='\0';
+
+            fSuppressionDept(tiut,*tlog,ville,Departement);
+        }
+
+        if ( option == 4)
+        {
+            // Modifier le nom d'un responsable de département
+            char ville[LONGVILLE];
+            char Departement[LONGDEP];
+            char resp[LONGRESP];
+
+            printf("Entrez le nom de la ville : ");
+            fscanf(stdin,"%s%*c",ville);
+
+            printf("Entrez le nom du département : ");
+            fgets(Departement,LONGDEP,stdin);
+            Departement[strlen(Departement)-1]='\0';
+
+            printf("Entrez le nom du responsable : ");
+            fgets(resp,LONGRESP,stdin);
+            resp[strlen(resp)-1]='\0';
+
+            FmodifResp(tiut,*tlog,Departement,resp);
+        }
+
+        if (option == 5)
+        {
+            // lancer et arrêter la procédure d'admission
+        }
+
+        if (option == 6)
+        {
+            fSauvegarde(tiut,*tlog,NomFich);
+            printf("\n%s     Sauvegarde Effectuee avec succes !\n",STY_FGREEN);
+            exit(0);
+        }
+        sleep(3);
+        printf("%s",CLEAR_CMD);
+        fAffichAdmin();
+        fscanf(stdin,"%d%*c",&option);
+    }
+}
+
+
+void fonctionGlobaleEtudiant(VilleIUT **tiut,int *tlog,int *size,char *nomFich)
+{   
+    printf("%s",CLEAR_CMD);
+    AffichEtu();
+    int option=0;
+    
+    fscanf(stdin,"%d%*c",&option);
+    while(option!=5)
+    {
+        if (option == 1)
+        {
+            // Afficher la liste des villes
+            //printf("%s",CLEAR_CMD);
+            FaffichListIUT(tiut,*tlog);
+            
+        }
+
+        if (option == 2)
+        {
+            printf("%s",CLEAR_CMD);
+            // Afficher la liste des départements d'un IUT
+            fAffichListDept(tiut,*tlog);
+            
+        }
+
+        if (option == 3)
+        {
+            // Afficher le nombre de places en premiere annee
+            affichePlace(tiut,*tlog);
+            
+        }
+
+        if (option == 4)
+        {
+            // Afficher la liste des départements d'une ville
+            char ville[LONGVILLE];
+            printf("Entrez le nom de la ville : ");
+            fscanf(stdin,"%s%*c",ville);
+            
+        }
+
+        if (option == 5)
+        {
+            // quitter
+            exit(0);
+           
+        }
+    sleep(3);
+    printf("%s",CLEAR_CMD);
+    AffichEtu();
+    fscanf(stdin,"%d%*c",&option);
+    }
+    
+}

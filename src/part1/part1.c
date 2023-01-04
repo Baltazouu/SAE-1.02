@@ -207,11 +207,6 @@ void FsauvegardeBin(VilleIUT **tiut,int tlog,char *nomFich)
     fclose(fe);
 }
 
-
-<<<<<<< HEAD
-}
-*/
-=======
 ListDep LectureBin(FILE *fe,int nbDept)
 {
     if(nbDept==0)
@@ -273,4 +268,3 @@ int fchargementBin(char *nomFich, VilleIUT **tiut, int *taille)
     fclose(fe);
     return i;
 }
->>>>>>> partie_1

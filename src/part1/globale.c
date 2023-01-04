@@ -12,13 +12,14 @@
 
 #include<stdio.h>
 #include<string.h>
+#include<unistd.h>
+#include<stdlib.h>
+
 #include"part1.h"
 #include"globale.h"
 #include"affichage.h"
 #include"config.h"
 #include"utilitaire.h"
-#include"unistd.h"
-#include"stdlib.h"
 
 void FGlobale(void)
 {

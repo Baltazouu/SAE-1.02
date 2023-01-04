@@ -15,11 +15,21 @@
 #include "errors.h"
 #include "candidature_utils.h"
 
-#define TEST(cond, msg, ret, expt) {(                       \
-    if (!TEST_CHECK_(cond, msg)) {                          \
-        TEST_MSG("return: %d, expected: %d", ret, expt);    \
-    }                                                       \
-)}
+/**
+ * @brief Macro de test
+ * 
+ *  Permet de racourcir la syntaxe des tests unitaires.
+ *  Renvoie le message d'expectation si la condition n'est pas vérifiée.
+ *
+ * @param cond condition à tester
+ * @param msg message d'erreur
+ * @param ret valeur de retour
+ * @param expt valeur attendue
+ */
+#define TEST(cond, msg, ret, expt) ({                       \
+    TEST_CHECK_(cond, msg);                                 \
+    TEST_MSG("return: " #ret "", expected: %d");        \
+})
 
 void test_chargeCandidaturesTxt(void) {
     Candidature *tcand = NULL;
@@ -31,29 +41,31 @@ void test_chargeCandidaturesTxt(void) {
 
     // general errors
 
-    TEST_CHECK_(ret != -ERR_INVALID_FILE, "test invalid file");
-    TEST_CHECK_(ret != -ERR_INVALID_FILE_FORMAT, "test invalid file format");
-    TEST_CHECK_(ret != -ERR_NULL_MALLOC, "test null malloc");
-    TEST_CHECK_(ret != -ERR_TAB_FULL, "test tab full");
+    TEST(ret != -ERR_INVALID_FILE, "test invalid file", ret, ERR_INVALID_FILE);
+    TEST(ret != -ERR_INVALID_FILE_FORMAT, "test invalid file format", ret, ERR_INVALID_FILE_FORMAT);
+    TEST(ret != -ERR_NULL_MALLOC, "test null malloc", ret, ERR_NULL_MALLOC);
+    TEST(ret != -ERR_TAB_FULL, "test tab full", ret, ERR_TAB_FULL);
 
-    TEST_CHECK_(nbCand == ret, "test logic size");
+    TEST(nbCand == ret, "test logic size", nbCand, ret);
 
     // specific errors
 
-    TEST_CHECK_(nbCand == 2, "test file logic size"); TEST
-    TEST_CHECK_(tcand[0].numCand == 1, "test numCand");
-    TEST_CHECK_(!strcmp(tcand[0].nom, "Durand"), "test name");
-    TEST_CHECK_(!strcmp(tcand[0].prenom, "Jean Jaques"), "test surname");
-    TEST_CHECK_(tcand[0].moy[2] == 12.25, "test moy");
-    TEST_CHECK_(tcand[0].nbChoix == 3, "test nbChoix");
-    TEST_CHECK_(tcand[0].choix[1].numChoix == 2, "test num choix");
-    TEST_CHECK_(!strcmp(tcand[0].choix[1].villeChoisie, "Grenoble"), "test choix");
-    TEST_CHECK_(!strcmp(tcand[0].choix[1].dept, "Isere"), "test dept");
-    TEST_CHECK_(tcand[0].choix[1].decs == ADMIS, "test decision");
-    TEST_CHECK_(tcand[0].choix[1].validation == false, "test validation");
+    TEST(nbCand == 2, "test file logic size", nbCand, 2);
+    TEST(tcand[0].numCand == 1, "test numCand", tcand[0].numCand, 1);
+    TEST(!strcmp(tcand[0].nom, "Durand"), "test name", tcand[0].nom, "Durand");
+    TEST(!strcmp(tcand[0].prenom, "Jean Jaques"), "test surname", tcand[0].prenom, "Jean Jaques");
+    TEST(tcand[0].moy[2] == 12.25, "test moy", tcand[0].moy[2], 12.25);
+    TEST(tcand[0].nbChoix == 3, "test nbChoix", tcand[0].nbChoix, 3);
+    TEST(tcand[0].choix[1].numChoix == 2, "test num choix", tcand[0].choix[1].numChoix, 2);
+    TEST(!strcmp(tcand[0].choix[1].villeChoisie, "Grenoble"), "test choix", tcand[0].choix[1].villeChoisie, "Grenoble");
+    TEST(!strcmp(tcand[0].choix[1].dept, "Isere"), "test dept", tcand[0].choix[1].dept, "Isere");
+    TEST(tcand[0].choix[1].decs == ADMIS, "test decision", tcand[0].choix[1].decs, ADMIS);
+
+    TEST(tcand[0].choix[1].validation == false, "test validation", tcand[0].choix[1].validation, false);
 }
 
 
 TEST_LIST = {
-    {NULL, NULL}
+    { "test chargeCandidaturesTxt", test_chargeCandidaturesTxt },
+    { NULL, NULL }
 };

@@ -131,12 +131,12 @@ ListDep suppressionMaillonDept(ListDep ldept,char *Departement)
 }
 
 
-int fSuppressionDept(VilleIUT **tiut,int taille,char *VilleIUT,char *Departement)
+int fSuppressionDept(VilleIUT **tiut,int taille,char *ville,char *Departement)
 {
     int i;
     for(i=0;i<taille;i++)
     {
-        if(strcmp(tiut[i]->VilleDep,VilleIUT)==0)
+        if(strcmp(tiut[i]->VilleDep,ville)==0)
         {
             if(FrechList(tiut[i]->ldept,Departement)==1)
             {

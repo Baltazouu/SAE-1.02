@@ -63,7 +63,7 @@ ListDep suppressionMaillonDept(ListDep ldept,char *Departement);
  * @param nbp nombre de places
  * @return 1 si le département est supprimé, 0 sinon
 */
-int fSuppressionDept(VilleIUT **tiut,int taille,char *VilleIUT,char *Departement);
+int fSuppressionDept(VilleIUT **tiut,int taille,char *ville,char *Departement);
 
 /**
  * @brief Modifie le responsable d'un département

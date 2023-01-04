@@ -10,12 +10,30 @@
 #include<stdio.h>
 #include"config.h"
 #include"string.h"
+#include"utilitaire.h"
+
+
 
 void affichemaillon(MaillonDept *maillon)
 {
     printf("Département : %s\n",maillon->departement);
     printf("Nb de places : %d\n",maillon->nbP);
     printf("Nom Responsable : %s\n",maillon->resp);
+}
+
+
+void affich1Dept(ListDep ldept,char *Departement)
+{
+    if(ldept==NULL)
+    {
+        return;
+    }
+    if (strcmp(ldept->departement,Departement)==0)
+    {   
+        affichemaillon(ldept);
+        return;
+    }
+    affich1Dept(ldept->suivant,Departement);
 }
 
 
@@ -192,5 +210,27 @@ void affichePlace(VilleIUT **tiut,int taille)
         printf("Ville : %s\n",tiut[i]->VilleDep);
         printf("Départements :\n");
         afficherDepartementsRecursif(tiut[i]->ldept);
+    }
+}
+
+void FaffichDept(VilleIUT **tiut,int taille,char * Departement)
+{
+    int i,trouve=0;
+
+    printf("%s Recherche des départements %s : \n\n",STY_FYELLOW,Departement);
+    for (i=0;i<taille;i++)
+    {   
+        if(FrechList(tiut[i]->ldept,Departement)==1)
+        {   
+            trouve=1;
+            printf("Ville : %s\n",tiut[i]->VilleDep);
+            printf("Département :\n");
+            affich1Dept(tiut[i]->ldept,Departement);
+            trouve=1;
+        }
+    }
+    if (trouve==0)
+    {
+        printf("Le département est inexistant !\n");
     }
 }

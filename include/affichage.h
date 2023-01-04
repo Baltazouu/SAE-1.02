@@ -10,6 +10,13 @@
 void affichemaillon(MaillonDept *maillon);
 
 /**
+ * @brief Affiche 1 Maillon si le département entré en paramètre est trouvé
+ * @param ldept liste des départements
+ * @param Departement département recherché
+ */
+void affich1Dept(ListDep ldept,char *Departement);
+
+/**
  * \brief Affiche la liste des départements
  * \param ldept La liste des départements
 */
@@ -62,5 +69,14 @@ void fAffichListDept(VilleIUT **tiut,int taille);
  * @param taille taille du tableau
  */
 void affichePlace(VilleIUT **tiut,int taille);
+
+/**
+ * @brief Affiche un département parmi un IUT si il existe
+ * 
+ * @param tiut tableau de pointeurs de villes
+ * @param taille taille du tableau
+ * @param Departement département recherché 
+ */
+void FaffichDept(VilleIUT **tiut,int taille,char * Departement);
 
 #endif

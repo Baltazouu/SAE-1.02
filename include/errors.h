@@ -15,14 +15,15 @@
  * @brief Enumération des codes d'erreurs
  */
 typedef enum {
-    OK = 0,                 /*!< OK */
-    ERR_NULL_MALLOC,        /*!< Erreur d'allocation mémoire */
-    ERR_NULL_LIST,          /*!< Liste vide */
-    ERR_TAB_FULL,           /*!< Tableau plein */
-    ERR_NOT_IMPLEMENTED,    /*!< Fonctionnalité non implémentée */
-    ERR_INVALID_ARG,        /*!< Argument invalide */
-    ERR_INVALID_FILE,       /*!< Fichier invalide */
-    ERR_INVALID_FILE_FORMAT /*!< Format de fichier invalide */
+    OK = 0,                  /*!< OK */
+    ERR_NULL_MALLOC,         /*!< Erreur d'allocation mémoire */
+    ERR_NULL_LIST,           /*!< Liste vide */
+    ERR_TAB_FULL,            /*!< Tableau plein */
+    ERR_NOT_IMPLEMENTED,     /*!< Fonctionnalité non implémentée */
+    ERR_INVALID_ARG,         /*!< Argument invalide */
+    ERR_INVALID_FILE,        /*!< Fichier invalide */
+    ERR_INVALID_FILE_FORMAT, /*!< Format de fichier invalide */
+    ERR_INVALID_MENU_SELECT  /*!< Choix de menu invalid */
 } ERR_CODE;
 
 /**

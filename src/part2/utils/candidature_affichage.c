@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "config.h"
 #include "candidature_affichage.h"
 
 
@@ -19,14 +20,15 @@
 void afficherMenuCandidatureEtu(void)
 {
     const char menu[] =
-        "\tMenu Candidature\t\t[ ETU ]\n\n"
-        "\t[ 1 ]  Ajouter une candidature\n"
-        "\t[ 2 ]  Supprimer une candidature\n"
-        "\t[ 3 ]  Modifier une candidature\n"
-        "\t[ 4 ]  Afficher les candidatures\n"
-        "\t[ 5 ]  Sauvegarder les candidatures\n"
-        "\t[ 6 ]  Annuler\n"
-        "\t[ 7 ]  Quitter\n";
+        STY_BOLD STY_FCYAN "\tMenu Candidature\t\t[ ETU ]\n\n"
+        STY_BOLD "\t[ 1 ] " STY_NULL STY_FYELLOW " Ajouter une candidature\n"
+        STY_BOLD "\t[ 2 ] " STY_NULL STY_FYELLOW " Supprimer une candidature\n"
+        STY_BOLD "\t[ 3 ] " STY_NULL STY_FYELLOW " Modifier une candidature\n"
+        STY_BOLD "\t[ 4 ] " STY_NULL STY_FMAGEN " Afficher les candidatures\n"
+        STY_BOLD "\t[ 5 ] " STY_NULL STY_FMAGEN " Sauvegarder les candidatures\n"
+        STY_BOLD "\t[ 6 ] " STY_NULL STY_FBLUE " Annuler\n"
+        STY_BOLD "\t[ 7 ] " STY_NULL STY_FBLUE " Quitter\n\n"
+        STY_NULL;
 
     printf( menu );
 }
@@ -36,12 +38,12 @@ void afficherMenuCandidatureAdmin(void)
     const char menu[] =
         "\tMenu Candidature\t\t[ ADMIN ]\n\n"
         "\t[ 1 ]  Voir toutes les candidatures\n"
-        "\t[ 2 ]  Stopper la phase d'admission\n";
+        "\t[ 2 ]  Stopper la phase d'admission\n\n";
 
     printf( menu );
 }
 
-void afficherMenuAjoutCandidature(Candidature cand, size_t nbchoix)
+void afficherMenuAjoutCandidature(Candidature cand)
 {
     const char menu[] =
         "\tAjout d'une candidature\t\t[ ETU ]\n\n"
@@ -54,7 +56,7 @@ void afficherMenuAjoutCandidature(Candidature cand, size_t nbchoix)
 
     printf( menu );
     affichageInfoCandidat(cand);
-    affichageCandidatureSaisie(cand, nbchoix);
+    affichageCandidatureSaisie(cand);
 }
 
 
@@ -63,11 +65,13 @@ void afficherMenuAjoutCandidature(Candidature cand, size_t nbchoix)
 void affichageInfoCandidat(Candidature cand)
 {
     const char info[] =
-        " Nom:\t%s\n"
-        " Prenom:\t%s\n"
-        " Moyennes [maths,français,anglais,spé]: [ %f, %f, %f, %f ]\n\n";
+        "       ID:   %d\n"
+        "      Nom:   %s\n"
+        "   Prenom:   %s\n"
+        " Moyennes: [ maths, français, anglais, spé ]\n"
+        "           [ %.2f,  %.2f,  %.2f,  %.2f ]\n\n";
 
-    printf( info,
+    printf( info, cand.idCandidat,
         cand.nomCandidat, cand.prenomCandidat,
         cand.moyenneCandidat.maths,
         cand.moyenneCandidat.fran,
@@ -75,15 +79,20 @@ void affichageInfoCandidat(Candidature cand)
         cand.moyenneCandidat.spe);
 }
 
-void affichageCandidatureSaisie(Candidature cand, size_t nbchoix)
+void affichageCandidatureSaisie(Candidature cand)
 {
     const char info[] =
-        "[ Choix n°%d ]"
-        " Ville:\t%s\n"
-        " Département:\t%s\n\n";
+        "[ Choix n°%d ]\n"
+        "       Ville:  %s\n"
+        " Département:  %s\n\n";
 
-    for (int i; i < nbchoix; i++) {
-        printf( info, i,
+    if (cand.nbChoix == 0) {
+        printf("( Aucun choix encore fait... )\n\n");
+        return;
+    }
+
+    for (int i; i < cand.nbChoix; i++) {
+        printf( info, i+1,
             cand.choix[i].ville.VilleDep,
             cand.choix[i].departement );
     }

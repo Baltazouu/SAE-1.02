@@ -1,6 +1,7 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
+#include <stdlib.h>
 #include <stdbool.h>
 #include "config.h"
 
@@ -81,7 +82,7 @@ typedef struct {
     Nom nomCandidat;            /*!< nom du candidat */
     Prenom prenomCandidat;      /*!< prenom du candidat */
     Moyenne moyenneCandidat;    /*!< moyennes du candidat [Maths,Fr,Ang,Spé] */
-    int nbChoix;                /*!< nombre de choix choisi */
+    size_t nbChoix;                /*!< nombre de choix choisi */
     Choix choix[MAX_CHOIX];     /*!< tableau des ecoles choisies */
 } Candidature;
 

@@ -17,7 +17,7 @@ void afficherMenuCandidatureAdmin(void);
 void afficherMenuCandidatureEtu(void);
 
 void affichageInfoCandidat(Candidature);
-void afficherMenuAjoutCandidature(Candidature, size_t);
-void affichageCandidatureSaisie(Candidature, size_t);
+void afficherMenuAjoutCandidature(Candidature);
+void affichageCandidatureSaisie(Candidature);
 
 #endif // { ifndef CANDIDATURE_AFFICHAGE_H }

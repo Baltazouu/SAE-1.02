@@ -15,8 +15,7 @@
 
 
 int menuCandidature(void);
-
-
+int testGlobale(void);
 
 
 

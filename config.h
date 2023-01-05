@@ -14,8 +14,10 @@
 // -- PARTIE 2 - Candidatures
 
 // constantes
-#define MAX_CANDIDATURES 100
-#define MAX_CHOIX 10
+#define MAX_CANDIDATURES 100    /*!< Maximum de candidatures */
+#define MAX_CHOIX 10            /*!< Maximum de choix par parsonnes */
+
+#define MALLOC_DYN_INC 5        /*!< valeur d'incrementation de la taille dynamique du tableau de candidature */
 
 
 /** DEFINE STYLES */

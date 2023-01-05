@@ -28,7 +28,7 @@ void FsauvegardeRespBin(char *Nom,char *Passwd,int longNom,int longPasswd);
  * @param tlog taille logique du tableau
  * @param tphys taille physique du tableau
  */
-void globalePart3(Candidature **tcand,int tlog,int tphys,int nbPdept);
+void globalePart3(Candidature **tcand,int tlog,int tphys,VilleIUT ville);
 
 
 

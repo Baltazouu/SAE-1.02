@@ -99,10 +99,10 @@ typedef struct {
 #define DEPTCANDID "Informatique"
 
 
-typedef struct list
+typedef struct listC
 {
     Candidature candidat;
-    struct list *suivant;
+    struct listC *suivant;
 }MaillonCandidat,*ListAdmis;
 
 

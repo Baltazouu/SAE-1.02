@@ -5,6 +5,7 @@
 
 
 /**
+ * //// NOT WORKING (car tableau pas trié)
  * @brief Fonction de recherche Dichotomique
  * d'une ville dans un tableau
  * @param tiut tableau des villes

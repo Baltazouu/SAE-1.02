@@ -32,7 +32,7 @@ DOXOUT  := FALSE
 TESTVER := TRUE
 
 # List the source directories
-DIRS      := part1
+DIRS      := part1 part3
 SRCDIRS    = $(foreach dir, $(DIRS), $(addprefix $(SRCDIR)/, $(dir)))
 
 # name the compiler

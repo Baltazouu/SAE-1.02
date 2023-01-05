@@ -17,7 +17,7 @@ typedef unsigned int ID;
 typedef char Nom[21];
 typedef char Prenom[51];
 typedef float Note;
-typedef enum { ADMIS, LISTE_ATTENTE, REFUSE } Decision;
+typedef enum { ADMIS,   LISTE_ATTENTE, REFUSE } Decision;
 
 
 /* < partie 1 > */
@@ -84,6 +84,26 @@ typedef struct {
     int nbChoix;                /*!< nombre de choix choisi */
     Choix choix[MAX_CHOIX];     /*!< tableau des ecoles choisies */
 } Candidature;
+
+
+// PARTIE 3 
+
+#define LONGRESPLOGIN 8
+#define LONGRESPPASSWD 8
+
+#define LOGIN "login"
+#define PASSWD "password"
+
+// Fonction algorithme candidature
+#define VILLECANDID "Clermont-Ferrand"
+#define DEPTCANDID "Informatique"
+
+
+typedef struct list
+{
+    Candidature candidat;
+    struct list *suivant;
+}MaillonCandidat,*ListAdmis;
 
 
 #endif

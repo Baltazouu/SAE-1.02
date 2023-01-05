@@ -88,6 +88,7 @@ void modifNbpDepartement(VilleIUT **tiut,int taille,VilleIUT ville,char *Departe
             return;
         }
     }
+    printf("%sErreur Ville Introuvable !!\n",STY_FRED);
 }
 
 ListDep insertionMaillonCroissant(ListDep ldept, MaillonDept *maillon)

@@ -12,13 +12,16 @@
 #include <string.h>
 
 #include "candidature_globale.h"
+#include "candidature_affichage.h"
 
 
 int menuCandidature(void)
 {
-    /// TODO: Affichage menu principal
+    // TODO: Initialisation des variables
 
-    /// TODO: Selection choix
+    // TODO: Affichage menu principal
 
-    /// TODO: Sortie du menu (retour vers menu principal)
+    // TODO: Selection choix
+
+    // TODO: Sortie du menu (retour vers menu principal)
 }

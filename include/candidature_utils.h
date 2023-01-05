@@ -13,39 +13,7 @@
 
 #include "config.h"
 #include <stdbool.h>
-
-
-/**
- * @struct Choix
- * @brief Represente un choix d'un étudiant
- * 
- *  Un choix est définie par la ville choisie, le département
- *  et la décision du département.
- */
-typedef struct {
-    int numChoix; /*!< numéro du choix */
-    Ville villeChoisie; /*!< ville choisie */
-    Departement dept; /*!< département */
-    Decision decs; /*!< décision du département */
-    bool validation; /*!< validation du choix */
-} Choix;
-
-
-/*! @struct Candidature
- *  @brief Candidature d'un étudiant
- * 
- *  Une candidature est définie par le nom de l'étudiant, son prénom
- *  et ses notes en Maths, Français, Anglais et de Spécialité.
- */
-typedef struct {
-    int numCand; /*!< numéro du candidat */
-    Nom nom; /*!< nom du candidat */
-    Prenom prenom; /*!< prénom du candidat */
-    Moyennes moy; /*!< Tableau des moyennes [Maths, Franç, Angl, Spé] */
-    int nbChoix; /*!< nombre de choix */
-    Choix choix[MAX_CHOIX]; /*!< tableau des choix */
-} Candidature;
-
+#include "struct.h"
 
 
 // Fonction d'affichage

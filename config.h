@@ -17,14 +17,6 @@
 #define MAX_CANDIDATURES 100
 #define MAX_CHOIX 10
 
-// definition des variable
-typedef char Nom[21];
-typedef char Prenom[21];
-typedef float Moyennes[4];
-typedef char Ville[31];
-typedef char Departement[31];
-typedef enum { ADMIS, LISTE_ATTENTE, REFUSE } Decision ;
-
 
 /** DEFINE STYLES */
 

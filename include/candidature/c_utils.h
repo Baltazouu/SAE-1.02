@@ -13,8 +13,9 @@
 
 
 #include <stdbool.h>
-
 #include "struct.h"
+
+#define max(n1, n2) ( n1 > n2 ? n1 : n2 )
 
 
 Candidature* initCanditature(void);

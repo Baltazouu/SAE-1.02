@@ -17,19 +17,37 @@
 
 #include "candidature.h"
 
-int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc, uint *idmax) {
 
-    Candidature *cand = initCanditature();
-    cand->idCandidat = *idmax+1; (*idmax)++;
+
+
+int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc, uint *idmax, const char mode) {
+
+    Candidature *cand; uint id; size_t ins; char fin[9];
+    switch (mode) {
+        case 'a':
+            cand = initCanditature();
+            cand->idCandidat = *idmax+1; (*idmax)++;
+            strcpy(fin, "ANULLER");
+            break;
+        case 'm':
+            printf("[ MODIF CANDIDAT ]\n- id:  "); scanf("%d%*c", &id);
+            ins = rechcand(tcand, *nbcand, id);
+            cand = tcand[ins];
+            strcpy(fin, "TERMINER");
+            break;
+        default:
+            exit( err(ERR_INVALID_ARG, menuAjoutCandidature) );
+    }
+
     bool sortie = false;
     int menuSelect;
     
     while ( !sortie )
     {
         clrscrcmd();
-        afficherMenuAjoutCandidature(*cand);
+        afficherMenuAjoutCandidature(*cand, fin);
         int out;
-        
+
         do {
             menuSelect = saisieMenu(6);
         } while (menuSelect == -ERR_INVALID_MENU_SELECT);
@@ -117,7 +135,7 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
                 break;
 
             case 6:     // menu: ANNULER
-                printf("ANULLATION...\n");
+                printf("%s...\n", fin);
                 sortie = true;
                 free(cand);
                 sleep(2);

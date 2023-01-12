@@ -42,20 +42,20 @@ void afficherMenuCandidatureAdmin(void)
     printf( menu );
 }
 
-void afficherMenuAjoutCandidature(Candidature cand)
+void afficherMenuAjoutCandidature(Candidature cand, const char *fin)
 {
     const char menu[] =
-        "\tAjout d'une candidature\t\t[ ETU ]\n\n"
+        "\tEdition d'une candidature\t\t[ ETU ]\n\n"
         "\t[ 1 ]  Modifier 'Nom'\n"
         "\t[ 2 ]  Modifier 'Prenom'\n"
         "\t[ 3 ]  Modifier 'Moyennes'\n"
         "\t[ 4 ]  Ajouter une candidature\n"
         "\t[ 5 ]  Enregistrer\n"
-        "\t[ 6 ]  Annuler\n"
+        "\t[ 6 ]  %s\n"
         "\n"
         "Informations candidature :\n\n";
 
-    printf( menu );
+    printf( menu, fin );
     affichageInfoCandidat(cand);
     affichageCandidatureSaisie(cand);
 }
@@ -116,6 +116,5 @@ int affichageToutCandidats(Candidature *tcand[], size_t nbCand)
     }
 
     printf("\n\n");
-    printf("Appuier sur <ENTRER> pour revenir au menu... "); getchar();
     return i;
 }

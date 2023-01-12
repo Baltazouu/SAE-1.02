@@ -8,7 +8,7 @@
  */
 
 #include <stdio.h>
-#include <string.h>
+#include <string.h> 
 
 #include "candidature.h"
 #include "errors.h"
@@ -43,6 +43,8 @@ int saisieNom(char *nom) {
     fgets(nom, MAX_LEN_STRNOM, stdin);
     nom[strlen(nom)-1] = '\0';
 
+    if (nom[0] >= 'a') nom[0] -= 32;
+
     for (int i = 0; nom[i] != '\0'; i++) {
         if ( nom[i] >= '0' && nom[i] <= '9' )    
             return err(ERR_INVALID_STR_FORMAT, saisieNom);
@@ -56,6 +58,8 @@ int saisiePrenom(char *prenom) {
     printf("[ Saisie prenom ]:  ");
     fgets(prenom, MAX_LEN_STRPRENOM, stdin);
     prenom[strlen(prenom)-1] = '\0';
+
+    if (prenom[0] >= 'a') prenom[0] -= 32;
 
     for (int i = 0; prenom[i] != '\0'; i++) {
         if ( prenom[i] >= '0' && prenom[i] <= '9' )    

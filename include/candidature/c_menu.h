@@ -13,7 +13,7 @@
 #include "candidature.h"
 
 
-int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc, uint *idmax);
+int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc, uint *idmax, const char mode);
 int menuSuppCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc);
 
 int menuAjoutChoix(Candidature *cand);

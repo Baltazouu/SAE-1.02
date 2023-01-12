@@ -27,10 +27,10 @@ int menuCandidature(void)
 
     size_t nbCand = 0;
     size_t curralloc = MALLOC_DYN_INC;
-    uint idmax = 12;
+    uint idmax = 0;
     int menuSelect;
 
-    if ( chargementCand(tcand, &nbCand, &curralloc, "data/candidatures.txt") == ERR_NB_ELEM )
+    if ( chargementCand(tcand, &nbCand, &curralloc, &idmax, "data/candidatures.txt") == ERR_NB_ELEM )
         printf("(/!\\) tout le fichier n'a pas été chargé...\n");
 
     bool sortie = false;
@@ -49,7 +49,7 @@ int menuCandidature(void)
         // TODO: Selection choix
         switch (menuSelect) {
             case 1:     // menu: AJOUT CANDIDATURE
-                menuAjoutCandidature(tcand, &nbCand, &curralloc, &idmax);
+                menuAjoutCandidature(tcand, &nbCand, &curralloc, &idmax, 'a');
                 break;
 
             case 2:     // menu: SUPPRESSION CANDIDATURE
@@ -57,11 +57,12 @@ int menuCandidature(void)
                 break;
 
             case 3:     // menu: MODIFICATION CANDIDATURE
-                exit( err(ERR_NOT_IMPLEMENTED, menuCandidature) );
+                menuAjoutCandidature(tcand, &nbCand, &curralloc, &idmax, 'm');
                 break;
 
             case 4:     // menu: AFFICHAGE DES CANDIDATURES
                 affichageToutCandidats(tcand, nbCand);
+                printf("\nAppuier sur <ENTRER> pour revenir au menu... "); getchar();
                 break;
 
             case 5:     // menu: SAUVGARDE DES CANDIDATURES
@@ -124,8 +125,8 @@ int testGlobale(void)
         { }
     };
 
-    afficherMenuAjoutCandidature(cand);
-    afficherMenuAjoutCandidature(cand2);
+    afficherMenuAjoutCandidature(cand, "...");
+    afficherMenuAjoutCandidature(cand2, "...");
 
     return 0;
 }

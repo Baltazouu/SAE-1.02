@@ -15,6 +15,7 @@
 #include "candidature.h"
 
 
+
 Candidature* initCanditature(void) {
 
     Candidature* cand = (Candidature *)malloc(sizeof(Candidature));
@@ -54,9 +55,8 @@ int ajouterCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, 
             if (cmp == 0) return err(ERR_ALREADY_EXIST, ajouterCandidature);
             if (i == MAX_CANDIDATURES-1) return err(ERR_TAB_FULL, ajouterCandidature);
             i++;
-        } while (cmp > 0 && i < *nbCand);
+        } while (cmp < 0 && i < *nbCand);
     }
-
 
     if (*nbCand == *curralloc) {
         *curralloc += MALLOC_DYN_INC;

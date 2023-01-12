@@ -56,7 +56,7 @@ void ecrireCand(FILE *fe, Candidature cand)
     }
 }
 
-int chargementCand(Candidature *tcand[], size_t *nbcand, size_t *curralloc, const char *nomfichier)
+int chargementCand(Candidature *tcand[], size_t *nbcand, size_t *curralloc, uint *idmax, const char *nomfichier)
 {
     FILE *fe = fopen(nomfichier, "r");
     if (fe == NULL) exit( err(ERR_INVALID_FILE, chargementCand) );
@@ -78,6 +78,7 @@ int chargementCand(Candidature *tcand[], size_t *nbcand, size_t *curralloc, cons
         cand = initCanditature();
         *cand = lireCand(fe);
         ajouterCandidature(tcand, nbcand, curralloc, cand);
+        *idmax = max(*idmax, cand->idCandidat);
     }
 
     if (!feof(fe) || *nbcand != nbcandfichier) {

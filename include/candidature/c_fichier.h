@@ -14,7 +14,7 @@
 
 Candidature lireCand(FILE *fe);
 void ecrireCand(FILE *fe, Candidature cand);
-int chargementCand(Candidature *tcand[], size_t *nbcand, size_t *curralloc, const char *nomfichier);
+int chargementCand(Candidature *tcand[], size_t *nbcand, size_t *curralloc, uint *idmax, const char *nomfichier);
 int sauvegardeCand(Candidature *tcand[], size_t nbcand, const char *nomfichier);
 
 #endif

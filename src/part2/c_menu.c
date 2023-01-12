@@ -31,7 +31,7 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
         int out;
         
         do {
-            menuSelect = saisieMenu(5);
+            menuSelect = saisieMenu(6);
         } while (menuSelect == -ERR_INVALID_MENU_SELECT);
 
         switch ( menuSelect ) {
@@ -49,7 +49,6 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
                             printf("(err) erreur...\n");
                     }
                 } while (out != OK);
-                sleep(3);
                 clrscrcmd();
                 break;
 
@@ -66,7 +65,6 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
                             printf("(err) erreur...\n");
                     }
                 } while (out != OK);
-                sleep(3);
                 clrscrcmd();
                 break;
 
@@ -83,15 +81,28 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
                             printf("(err) erreur...\n");
                     }
                 } while (out != OK);
-                sleep(3);
+                clrscrcmd();
+                break;
+            
+            case 4:     // menu: AJOUTER CANDIDATURE
+                switch (menuAjoutChoix(cand)) {
+                    case OK:
+                        break;
+                    case ERR_TAB_FULL:
+                        printf("(err) nombre de choix maximum attein...\n");
+                        break;
+                    default:
+                        printf("(err) erreur...\n");
+                }
                 clrscrcmd();
                 break;
 
-            case 4:     // menu: AJOUTER CANDIDATURE
+            case 5:     // menu: ENREGISTRER
                 switch ( ajouterCandidature(tcand, nbcand, curralloc, cand) ) {
                     case OK:
                         printf("(ok) Ajout de candidature réussi !\n");
                         sortie = true;
+                        break;
                     case ERR_ALREADY_EXIST:
                         printf("(err) candidature déjà existante...\n");
                         break;
@@ -101,25 +112,41 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
                     default:
                         printf("(err) erreur...\n");
                 }
-                sleep(3);
+                sleep(2);
                 clrscrcmd();
                 break;
 
-            case 5:     // menu: ANNULER
+            case 6:     // menu: ANNULER
                 printf("ANULLATION...\n");
                 sortie = true;
                 free(cand);
-                sleep(3);
+                sleep(2);
                 clrscrcmd();
                 break;
 
             default:    // erreur d'argument (-> regarder saisie menu)
                 exit( err(ERR_INVALID_ARG, menuCandidature) );
-                sleep(3);
+                sleep(2);
                 clrscrcmd();
         }
     }
 
+    return OK;
+}
+
+int menuAjoutChoix(Candidature *cand) {
+
+    if (cand->nbChoix >= MAX_CHOIX) {
+        return err(ERR_TAB_FULL, menuAjoutChoix);
+    }
+    
+    printf("\n[ CHOIX ECOLE ]\n");
+    printf("- VILLE:        "); scanf("%s%*c", cand->choix[cand->nbChoix].ville.VilleDep);
+    printf("- DEPARTEMENT:  "); scanf("%s%*c", cand->choix[cand->nbChoix].departement);
+    cand->choix[cand->nbChoix].decision = LISTE_ATTENTE;
+    cand->choix[cand->nbChoix].validation = false;
+
+    cand->nbChoix++;
     return OK;
 }
 
@@ -133,7 +160,7 @@ int menuSuppCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc)
         "    n° candidat:  ";
 
     int idCand;
-    printf(menutext); scanf("%d", &idCand);
+    printf(menutext); scanf("%d%*c", &idCand);
 
     const char confirmtext[] =
         STY_FRED "\n\nETES-VOUS SUR DE VOULOIR SUPPRIMER LE CANDIDAT (%d) ? (y/N)" STY_NULL;
@@ -145,7 +172,7 @@ int menuSuppCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc)
         return 1;
     }
 
-    sleep(3);
+    sleep(2);
     clrscrcmd();
     return 0;
 }

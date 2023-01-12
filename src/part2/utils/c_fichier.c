@@ -39,7 +39,7 @@ Candidature lireCand(FILE *fe)
 
 void ecrireCand(FILE *fe, Candidature cand)
 {
-    fprintf(fe, "%d\n", cand.idCandidat);
+    fprintf(fe, "\n%d\n", cand.idCandidat);
     fprintf(fe, "%s\n", cand.nomCandidat);
     fprintf(fe, "%s\n", cand.prenomCandidat);
     fprintf(fe, "%.2f %.2f %.2f %.2f\n",
@@ -47,7 +47,7 @@ void ecrireCand(FILE *fe, Candidature cand)
         cand.moyenneCandidat.fran,
         cand.moyenneCandidat.angl,
         cand.moyenneCandidat.spe);
-    fprintf(fe, "%d", (int)cand.nbChoix);
+    fprintf(fe, "%d\n", (int)cand.nbChoix);
     for (int i = 0; i < cand.nbChoix; i++) {
         fprintf(fe, "%s\n", cand.choix[i].ville.VilleDep);
         fprintf(fe, "%s\n", cand.choix[i].departement);

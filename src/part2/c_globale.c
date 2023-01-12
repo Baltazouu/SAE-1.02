@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "config.h"
 #include "errors.h"
@@ -49,12 +50,10 @@ int menuCandidature(void)
         switch (menuSelect) {
             case 1:     // menu: AJOUT CANDIDATURE
                 menuAjoutCandidature(tcand, &nbCand, &curralloc, &idmax);
-                clrscrcmd();
                 break;
 
             case 2:     // menu: SUPPRESSION CANDIDATURE
                 menuSuppCandidature(tcand, &nbCand, &curralloc);
-                clrscrcmd();
                 break;
 
             case 3:     // menu: MODIFICATION CANDIDATURE
@@ -63,12 +62,12 @@ int menuCandidature(void)
 
             case 4:     // menu: AFFICHAGE DES CANDIDATURES
                 affichageToutCandidats(tcand, nbCand);
-                printf("Appuier sur <ENTRER> pour revenir au menu... "); getchar();
-                clrscrcmd();
                 break;
 
             case 5:     // menu: SAUVGARDE DES CANDIDATURES
-                exit( err(ERR_NOT_IMPLEMENTED, menuCandidature) );
+                sauvegardeCand(tcand, nbCand, "data/candidatures.txt");
+                printf("Sauvegarde...");
+                sleep(2);
                 break;
 
             case 6:     // menu: ANNULER
@@ -85,7 +84,7 @@ int menuCandidature(void)
     }
 
     // TODO: Sortie du menu (retour vers menu principal)
-
+    free(tcand);
     return OK;
 }
 

@@ -50,7 +50,8 @@ void afficherMenuAjoutCandidature(Candidature cand)
         "\t[ 2 ]  Modifier 'Prenom'\n"
         "\t[ 3 ]  Modifier 'Moyennes'\n"
         "\t[ 4 ]  Ajouter une candidature\n"
-        "\t[ 5 ]  Annuler\n"
+        "\t[ 5 ]  Enregistrer\n"
+        "\t[ 6 ]  Annuler\n"
         "\n"
         "Informations candidature :\n\n";
 
@@ -100,7 +101,7 @@ void affichageCandidatureSaisie(Candidature cand)
 
 int affichageToutCandidats(Candidature *tcand[], size_t nbCand)
 {
-    const char entete[] = "[ Liste candidats ]\n\n";
+    const char entete[] = "\n[ Liste candidats ]\n\n";
     const char ligne[]  = " -  [ %d ] %s %s \t\t(NC: %ld)\n";
 
     printf( entete );
@@ -114,5 +115,7 @@ int affichageToutCandidats(Candidature *tcand[], size_t nbCand)
             tcand[i]->nbChoix );
     }
 
+    printf("\n\n");
+    printf("Appuier sur <ENTRER> pour revenir au menu... "); getchar();
     return i;
 }

@@ -26,7 +26,11 @@ void ecrireMaillonCandid(FILE *fe,ListCandidat list)
 }
 
 void FsauvegardeLcandid(char *nomFich,ListCandidat list)
-{
+{   
+    if(list==NULL)
+    {
+        return;
+    }
     FILE *fe;
     fe=fopen(nomFich,"w");
     if(fe==NULL)

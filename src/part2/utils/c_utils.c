@@ -12,16 +12,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "candidature_utils.h"
-#include "errors.h"
+#include "candidature.h"
 
 
-Candidature* initCanditature(uint id) {
+Candidature* initCanditature(void) {
 
     Candidature* cand = (Candidature *)malloc(sizeof(Candidature));
     if (cand == NULL) exit( err(ERR_NULL_MALLOC, initCanditature) );
 
-    cand->idCandidat = id;
     strcpy(cand->nomCandidat, "");
     strcpy(cand->prenomCandidat, "");
     cand->moyenneCandidat.maths = .0;
@@ -58,7 +56,7 @@ int ajouterCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, 
 
     if (*nbCand == *curralloc) {
         *curralloc += MALLOC_DYN_INC;
-        realloc(tcand, *curralloc);
+        tcand = realloc(tcand, *curralloc);
         if (tcand == NULL) exit( err(ERR_NULL_MALLOC, retirerCandidature) );
     }
     
@@ -95,7 +93,7 @@ int retirerCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, 
     *nbCand--;
     if (*curralloc - *nbCand > 5) {
         *curralloc -= MALLOC_DYN_INC;
-        realloc(tcand, *curralloc);
+        tcand = realloc(tcand, *curralloc);
         if (tcand == NULL) exit( err(ERR_NULL_MALLOC, retirerCandidature) );
     }
 

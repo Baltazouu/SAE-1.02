@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "candidature_globale.h"
+#include "candidature.h"
 
 int main(void)
 {

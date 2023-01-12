@@ -14,11 +14,13 @@
 
 #include "config.h"
 #include "errors.h"
+
 #include "candidature.h"
 
-int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc) {
+int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc, uint *idmax) {
 
-    Candidature *cand = initCanditature(tcand[*nbcand-1]->idCandidat+1);
+    Candidature *cand = initCanditature();
+    cand->idCandidat = *idmax+1; *idmax++;
     bool sortie = false;
     int menuSelect;
     

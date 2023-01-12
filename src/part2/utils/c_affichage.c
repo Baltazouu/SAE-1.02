@@ -11,8 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "config.h"
-#include "candidature_affichage.h"
+#include "candidature.h"
 
 
 /* AFFICHAGE DES MENUS */

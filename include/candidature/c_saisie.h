@@ -10,6 +10,7 @@
 #ifndef CANDIDATURE_SAISIE_H
 #define CANDIDATURE_SAISIE_H
 
+#include "struct.h"
 
 int saisieMenu(int limit);
 int saisieNom(char *nom);

@@ -29,7 +29,8 @@ typedef enum {
     ERR_INVALID_STR_FORMAT,     /*!< Saisie de chaine de caractères invalid */
     ERR_INVALID_NUM_FORMAT,     /*!< Saisie de nombre invalid */
     ERR_ALREADY_EXIST,          /*!< Element déjà existant */
-    ERR_DONT_EXIST              /*!< Element non existant */
+    ERR_DONT_EXIST,             /*!< Element non existant */
+    ERR_NB_ELEM                 /*!< Nombre d'éléments inchoérant */
 } ERR_CODE;
 
 /**

@@ -11,13 +11,13 @@
 #ifndef CANDIDATURE_UTILS_H
 #define CANDIDATURE_UTILS_H
 
+
 #include <stdbool.h>
 
-#include "config.h"
 #include "struct.h"
 
 
-Candidature* initCanditature(uint id);
+Candidature* initCanditature(void);
 
 int ajouterCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, Candidature *cand);
 int retirerCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, int numCand);

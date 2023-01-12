@@ -10,7 +10,7 @@
 #ifndef CANDIDATURE_AFFICHAGE_H
 #define CANDIDATURE_AFFICHAGE_H
 
-#include "candidature_utils.h"
+#include "struct.h"
 
 
 void afficherMenuCandidatureAdmin(void);

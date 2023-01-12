@@ -14,22 +14,23 @@
 #include "config.h"
 #include "errors.h"
 
-#include "candidature_globale.h"
-#include "candidature_menu.h"
-#include "candidature_affichage.h"
-#include "candidature_saisie.h"
+#include "candidature.h"
 
 
 int menuCandidature(void)
 {
     // TODO: Initialisation des variables
 
-    Candidature *tcand[] = (Candidature **)malloc(sizeof(Candidature)*MALLOC_DYN_INC);
+    Candidature **tcand = (Candidature **)malloc(sizeof(Candidature)*MALLOC_DYN_INC);
     if (tcand == NULL) exit( err(ERR_NULL_MALLOC, menuCandidature) );
 
     size_t nbCand = 0;
     size_t curralloc = MALLOC_DYN_INC;
+    uint idmax = 12;
     int menuSelect;
+
+    if ( chargementCand(tcand, &nbCand, &curralloc, "data/candidatures.txt") == ERR_NB_ELEM )
+        printf("(/!\\) tout le fichier n'a pas été chargé...");
 
     bool sortie = false;
 
@@ -45,11 +46,11 @@ int menuCandidature(void)
         // TODO: Selection choix
         switch (menuSelect) {
             case 1:     // menu: AJOUT CANDIDATURE
-                menuAjoutCandidature(tcand, &nbCand, &curralloc);
+                menuAjoutCandidature(tcand, &nbCand, &curralloc, &idmax);
                 break;
 
             case 2:     // menu: SUPPRESSION CANDIDATURE
-                men
+                menuSuppCandidature(tcand, &nbCand, &curralloc);
                 break;
 
             case 3:     // menu: MODIFICATION CANDIDATURE

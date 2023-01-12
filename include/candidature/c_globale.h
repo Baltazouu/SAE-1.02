@@ -11,13 +11,8 @@
 #define CANDIDATURE_GLOBALE_H
 
 
-#include "config.h"
-
-
 int menuCandidature(void);
 int testGlobale(void);
-
-
 
 
 #endif // { ifndef CANDIDATURE_GLOBALE_H }

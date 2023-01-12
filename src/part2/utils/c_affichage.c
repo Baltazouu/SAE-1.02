@@ -101,7 +101,7 @@ void affichageCandidatureSaisie(Candidature cand)
 int affichageToutCandidats(Candidature *tcand[], size_t nbCand)
 {
     const char entete[] = "[ Liste candidats ]\n\n";
-    const char ligne[]  = " -  [ %d ] %s %s (NC: %d)\n";
+    const char ligne[]  = " -  [ %d ] %s %s \t\t(NC: %ld)\n";
 
     printf( entete );
 

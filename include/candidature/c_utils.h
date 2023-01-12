@@ -22,6 +22,8 @@ Candidature* initCanditature(void);
 int ajouterCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, Candidature *cand);
 int retirerCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, int numCand);
 
+int cmpcand(Candidature c1, Candidature c2);
+int rechcand(Candidature *tcand[], size_t nbcand, int numCand);
 
 
 

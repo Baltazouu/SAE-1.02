@@ -48,11 +48,15 @@ int ajouterCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, 
     
     int i = 0, cmp;
 
-    while ( (cmp = cmpcand(*cand, *tcand[i])) > 0 ) {
-        if (cmp == 0) return err(ERR_ALREADY_EXIST, ajouterCandidature);
-        if (i == MAX_CANDIDATURES-1) return err(ERR_TAB_FULL, ajouterCandidature);
-        i++;
+    if (*nbCand != 0) {
+        do {
+            cmp = cmpcand(*cand, *tcand[i]);
+            if (cmp == 0) return err(ERR_ALREADY_EXIST, ajouterCandidature);
+            if (i == MAX_CANDIDATURES-1) return err(ERR_TAB_FULL, ajouterCandidature);
+            i++;
+        } while (cmp > 0 && i < *nbCand);
     }
+
 
     if (*nbCand == *curralloc) {
         *curralloc += MALLOC_DYN_INC;
@@ -66,7 +70,7 @@ int ajouterCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, 
     }
 
     tcand[i] = cand;
-    *nbCand++;
+    (*nbCand)++;
 
     return OK;
 }
@@ -90,7 +94,7 @@ int retirerCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, 
         tcand[i] = tcand[i+1];
     }
 
-    *nbCand--;
+    (*nbCand)--;
     if (*curralloc - *nbCand > 5) {
         *curralloc -= MALLOC_DYN_INC;
         tcand = realloc(tcand, *curralloc);

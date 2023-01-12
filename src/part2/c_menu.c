@@ -20,7 +20,7 @@
 int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc, uint *idmax) {
 
     Candidature *cand = initCanditature();
-    cand->idCandidat = *idmax+1; *idmax++;
+    cand->idCandidat = *idmax+1; (*idmax)++;
     bool sortie = false;
     int menuSelect;
     
@@ -125,7 +125,7 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
 
 int menuSuppCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc) {
 
-    affichageToutCandidats(tcand, nbcand);
+    affichageToutCandidats(tcand, *nbcand);
 
     const char menutext[] =
         " [ SUPPRESSION CANDIDATURE ]\n"

@@ -63,7 +63,7 @@ int menuCandidature(void)
 
             case 4:     // menu: AFFICHAGE DES CANDIDATURES
                 affichageToutCandidats(tcand, nbCand);
-                printf("Appuier sur une touche pour revenir au menu"); getchar();
+                printf("Appuier sur <ENTRER> pour revenir au menu... "); getchar();
                 clrscrcmd();
                 break;
 

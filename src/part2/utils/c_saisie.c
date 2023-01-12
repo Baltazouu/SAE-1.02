@@ -44,7 +44,7 @@ int saisieNom(char *nom) {
     nom[strlen(nom)-1] = '\0';
 
     for (int i = 0; nom[i] != '\0'; i++) {
-        if ( nom[i] <= '0' || nom[i] > '9' )    
+        if ( nom[i] >= '0' && nom[i] <= '9' )    
             return err(ERR_INVALID_STR_FORMAT, saisieNom);
     }
 
@@ -58,7 +58,7 @@ int saisiePrenom(char *prenom) {
     prenom[strlen(prenom)-1] = '\0';
 
     for (int i = 0; prenom[i] != '\0'; i++) {
-        if ( prenom[i] <= '0' || prenom[i] > '9' )    
+        if ( prenom[i] >= '0' && prenom[i] <= '9' )    
             return err(ERR_INVALID_STR_FORMAT, saisiePrenom);
     }
 

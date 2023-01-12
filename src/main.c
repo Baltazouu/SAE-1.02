@@ -10,6 +10,8 @@ int main(void)
 {
     //FGlobale();
     Candidature **tcand;
+    // charger via les fonctions d'alex
+
     VilleIUT ville;
     int tlog,tphys;
 
@@ -20,5 +22,4 @@ int main(void)
     //globalePart3(tcand,tlog,tphys,ville);
     globalePart3(tcand,tlog,tphys,ville);
 
-    
 }

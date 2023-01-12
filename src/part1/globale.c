@@ -116,6 +116,8 @@ void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
             printf("Entrez le nombre de places : ");
             scanf("%d%*c",&nbp);
             InsertionDepartement(tiut,*tlog,ville.VilleDep,Departement,nbp,resp);
+
+            
             break;
 
         case 3:

@@ -36,13 +36,6 @@ void ecrireMaillonLatt(FILE *fe,ListAttente list);
  */
 void FsauvegardeLatt(char *nomFich,ListAttente list);
 
-/**
- * @brief Fonction globale partie 3
- * @param tcand tableau de pointeur des candidatures
- * @param tlog taille logique du tableau
- * @param tphys taille physique du tableau
- */
-void globalePart3(Candidature **tcand,int tlog,int tphys,VilleIUT ville);
 
 /**
  * @brief fonction qui permet de trier les candidatures par ordre croissant de rang

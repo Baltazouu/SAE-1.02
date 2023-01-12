@@ -28,6 +28,13 @@ int FrechChoix(Choix *choix,int nbchoix,char *ville,char *dept);
 MaillonCandidat* copieMaillon(Candidature cand);
 
 /**
+ * @brief fonction de copie d'un maillon Candidat en attente
+ * @param cand candidat a copier dans le maillon
+ * @return MaillonCandidatatt* 
+ */
+MaillonCandidatatt* copieMaillonAtt(Candidature cand);
+
+/**
  * @brief FOnction qui calcule la moyenne d'un candidat
  * @param cand candidature du candidat
  * @return la moyenne du candidat

@@ -12,6 +12,8 @@
 #include"struct.h"
 #include"string.h"
 #include"part3_utilitaire.h"
+#include"utilitaire.h"
+
 
 void ecrireMaillonAdmis(FILE *fe,ListAdmis list)
 {
@@ -43,7 +45,7 @@ void ecrireMaillonLatt(FILE *fe,ListAttente list)
         return;
     }
     fprintf(fe,"%d %s %s %f %f %f %f %d ",list->candidat.idCandidat,list->candidat.nomCandidat,list->candidat.prenomCandidat,list->candidat.moyenneCandidat.maths,list->candidat.moyenneCandidat.fran,list->candidat.moyenneCandidat.angl,list->candidat.moyenneCandidat.spe,list->candidat.nbChoix);
-    ecrireMaillon(fe,list->suivant);
+    ecrireMaillonLatt(fe,list->suivant);
     fclose(fe);
 }
 
@@ -79,7 +81,7 @@ int AlgorithmeParcoursup(Candidature **tcand,int tlog,VilleIUT ville)
         fprintf(stderr,"%sError Dynamic Allocation !!\n",STY_FRED);
         exit(2);
     }
-    listAttente=(MaillonCandidat*)malloc(sizeof(MaillonCandidat));
+    listAttente=(MaillonCandidatatt*)malloc(sizeof(MaillonCandidatatt));
     if(listAttente==NULL)
     {
         fprintf(stderr,"%sError Dynamic Allocation !!\n",STY_FRED);

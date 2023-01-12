@@ -7,6 +7,7 @@
  */
 
 #include<stdio.h>
+#include<string.h>
 
 #include "part3_globale.h"
 #include"struct.h"

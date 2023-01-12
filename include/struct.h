@@ -88,8 +88,8 @@ typedef struct {
 
 // PARTIE 3 
 
-#define LONGRESPLOGIN 8
-#define LONGRESPPASSWD 8
+#define LONGRESPLOGIN 10
+#define LONGRESPPASSWD 10
 
 #define LOGIN "login"
 #define PASSWD "password"
@@ -99,12 +99,20 @@ typedef struct {
 #define DEPTCANDID "Informatique"
 
 
+
+/**
+ * @brief Liste des candidats admis
+ */
 typedef struct listCadmis
 {
     Candidature candidat;
     struct listCadmis *suivant;
 }MaillonCandidat,*ListAdmis;
 
+
+/**
+ * @brief Liste des candidats en attente
+ */
 typedef struct listCattente
 {
     Candidature candidat;

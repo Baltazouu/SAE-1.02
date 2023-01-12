@@ -107,7 +107,31 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
                 clrscrcmd();
         }
     }
-    
+
     return OK;
 }
 
+int menuSuppCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc) {
+
+    const char menutext[] =
+        " [ SUPPRESSION CANDIDATURE ]\n"
+        "\n"
+        "    n° candidat:  ";
+
+    int idCand;
+    printf(menutext); scanf("%d", &idCand);
+
+    const char confirmtext[] =
+        STY_FRED "\n\nETES-VOUS SUR DE VOULOIR SUPPRIMER LE CANDIDAT (%d) ? (y/N)" STY_NULL;
+    
+    printf(confirmtext, idCand);
+    char confirm = getchar();
+    if (confirm == 'y') {
+        retirerCandidature(tcand, nbcand, curralloc, idCand);
+        return 1;
+    }
+
+    sleep(3);
+    clrscrcmd();
+    return 0;
+}

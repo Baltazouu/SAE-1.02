@@ -11,4 +11,5 @@
 #include "candidature_utils.h"
 
 
-int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc)
+int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc);
+int menuSuppCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc);

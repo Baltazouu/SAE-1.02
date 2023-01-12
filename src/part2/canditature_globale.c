@@ -49,7 +49,7 @@ int menuCandidature(void)
                 break;
 
             case 2:     // menu: SUPPRESSION CANDIDATURE
-                exit( err(ERR_NOT_IMPLEMENTED, menuCandidature) );
+                men
                 break;
 
             case 3:     // menu: MODIFICATION CANDIDATURE

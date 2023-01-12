@@ -20,6 +20,7 @@
 Candidature* initCanditature(uint id);
 
 int ajouterCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, Candidature *cand);
+int retirerCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, int numCand);
 
 
 

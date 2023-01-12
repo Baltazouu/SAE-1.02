@@ -28,7 +28,7 @@ int saisieMenu(int limit)
     int menu;
 
     printf( "[ MENU SELECTION ]:\t" );
-    scanf( "%d", &menu);
+    scanf( "%d%*c", &menu);
 
     if (menu > limit) {
         printf("(err) Choix invalide, retapez...\n");
@@ -69,13 +69,13 @@ int saisieMoyennes(Moyenne *moy) {
 
     printf("[ Saisie moyennes ]\n");
 
-    printf("  - MATHEMATIQUES:  "); scanf("%f", &moy->maths);
+    printf("  - MATHEMATIQUES:  "); scanf("%f%*c", &moy->maths);
     if (moy->maths < 0) return err(ERR_INVALID_NUM_FORMAT, saisieMoyennes);
-    printf("  - ANGLAIS:        "); scanf("%f", &moy->angl);
+    printf("  - ANGLAIS:        "); scanf("%f%*c", &moy->angl);
     if (moy->angl < 0) return err(ERR_INVALID_NUM_FORMAT, saisieMoyennes);
-    printf("  - FRANCAIS:       "); scanf("%f", &moy->fran);
+    printf("  - FRANCAIS:       "); scanf("%f%*c", &moy->fran);
     if (moy->fran < 0) return err(ERR_INVALID_NUM_FORMAT, saisieMoyennes);
-    printf("  - SPECIALITE:     "); scanf("%f", &moy->spe);
+    printf("  - SPECIALITE:     "); scanf("%f%*c", &moy->spe);
     if (moy->spe < 0) return err(ERR_INVALID_NUM_FORMAT, saisieMoyennes);
     
     return OK;

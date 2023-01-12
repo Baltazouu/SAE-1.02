@@ -30,7 +30,7 @@ int menuCandidature(void)
     int menuSelect;
 
     if ( chargementCand(tcand, &nbCand, &curralloc, "data/candidatures.txt") == ERR_NB_ELEM )
-        printf("(/!\\) tout le fichier n'a pas été chargé...");
+        printf("(/!\\) tout le fichier n'a pas été chargé...\n");
 
     bool sortie = false;
 
@@ -38,7 +38,9 @@ int menuCandidature(void)
     while ( !sortie ) {
 
         // TODO: Affichage menu principal
+        clrscrcmd();
         afficherMenuCandidatureEtu();
+
         do {
             menuSelect = saisieMenu(7);
         } while (menuSelect == -ERR_INVALID_MENU_SELECT);
@@ -47,10 +49,12 @@ int menuCandidature(void)
         switch (menuSelect) {
             case 1:     // menu: AJOUT CANDIDATURE
                 menuAjoutCandidature(tcand, &nbCand, &curralloc, &idmax);
+                clrscrcmd();
                 break;
 
             case 2:     // menu: SUPPRESSION CANDIDATURE
                 menuSuppCandidature(tcand, &nbCand, &curralloc);
+                clrscrcmd();
                 break;
 
             case 3:     // menu: MODIFICATION CANDIDATURE
@@ -58,7 +62,9 @@ int menuCandidature(void)
                 break;
 
             case 4:     // menu: AFFICHAGE DES CANDIDATURES
-                exit( err(ERR_NOT_IMPLEMENTED, menuCandidature) );
+                affichageToutCandidats(tcand, nbCand);
+                printf("Appuier sur une touche pour revenir au menu"); getchar();
+                clrscrcmd();
                 break;
 
             case 5:     // menu: SAUVGARDE DES CANDIDATURES

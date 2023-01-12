@@ -26,6 +26,7 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
     
     while ( !sortie )
     {
+        clrscrcmd();
         afficherMenuAjoutCandidature(*cand);
         int out;
         
@@ -36,45 +37,54 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
         switch ( menuSelect ) {
 
             case 1:     // menu: MODIFICATION NOM
-                while ( !(out = saisieNom(cand->nomCandidat)) ) {
+                do {
+                    out = saisieNom(cand->nomCandidat);
                     switch (out) {
+                        case OK:
+                            break;
                         case ERR_INVALID_STR_FORMAT:
                             printf("(err) Format de nom invalide, retaper...\n");
                             break;
                         default:
                             printf("(err) erreur...\n");
                     }
-                    sleep(3);
-                    clrscrcmd();
-                }
+                } while (out != OK);
+                sleep(3);
+                clrscrcmd();
                 break;
 
             case 2:     // menu: MODIFICATION PRENOM
-                while ( !(out = saisiePrenom(cand->prenomCandidat)) ) {
+                do {
+                    out = saisiePrenom(cand->prenomCandidat);
                     switch (out) {
+                        case OK:
+                            break;
                         case ERR_INVALID_STR_FORMAT:
                             printf("(err) Format de prenom invalide, retaper...\n");
                             break;
                         default:
                             printf("(err) erreur...\n");
                     }
-                    sleep(3);
-                    clrscrcmd();
-                }
+                } while (out != OK);
+                sleep(3);
+                clrscrcmd();
                 break;
 
             case 3:     // menu: MODIFICATION MOYENNE
-                while ( !(out = saisieMoyennes(&cand->moyenneCandidat)) ) {
+                do {
+                    out = saisieMoyennes(&cand->moyenneCandidat);
                     switch (out) {
+                        case OK:
+                            break;
                         case ERR_INVALID_NUM_FORMAT:
                             printf("(err) nombre invalide, retaper...\n");
                             break;
                         default:
                             printf("(err) erreur...\n");
                     }
-                    sleep(3);
-                    clrscrcmd();
-                }
+                } while (out != OK);
+                sleep(3);
+                clrscrcmd();
                 break;
 
             case 4:     // menu: AJOUTER CANDIDATURE
@@ -114,6 +124,8 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
 }
 
 int menuSuppCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc) {
+
+    affichageToutCandidats(tcand, nbcand);
 
     const char menutext[] =
         " [ SUPPRESSION CANDIDATURE ]\n"

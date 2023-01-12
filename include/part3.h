@@ -10,7 +10,7 @@
  * @param fe fichier de destination
  * @param list list a ecrire
  */
-void ecrireMaillonAdmis(FILE *fe,ListAdmis list);
+void ecrireMaillonCandid(FILE *fe,ListCandidat list);
 
 /**
  * @brief Fonction qui permet de sauvegarder une liste de candidats admis 
@@ -18,23 +18,8 @@ void ecrireMaillonAdmis(FILE *fe,ListAdmis list);
  * @param nomFich nom du fichier 
  * @param list list des candidats a ecrire
  */
-void FsauvegardeLadmis(char *nomFich,ListAdmis list);
+void FsauvegardeLcandid(char *nomFich,ListCandidat list);
 
-/**
- * @brief Fonction qui permet d'ecrire un maillon
- *  candidat en attente dans un fichier
- * @param fe fichier de destination
- * @param list list a ecrire
- */
-void ecrireMaillonLatt(FILE *fe,ListAttente list);
-
-/**
- * @brief Fonction qui sauvegarde la liste des candidats en attente
- *  dans un fichier 
- * @param nomFich nom du fichier
- * @param list list des candidats
- */
-void FsauvegardeLatt(char *nomFich,ListAttente list);
 
 
 /**
@@ -45,7 +30,7 @@ void FsauvegardeLatt(char *nomFich,ListAttente list);
  * @param ville ville de l'IUT dans lequel on veut admettre les etudiants 
  * @return int
  */
-int AlgorithmeParcoursup(Candidature **tcand,int tlog,VilleIUT ville);
+int AlgorithmeParcoursup(Candidature **tcand,int tlog);
 
 
 #endif

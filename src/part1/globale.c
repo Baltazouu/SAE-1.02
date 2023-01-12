@@ -20,6 +20,8 @@
 #include"affichage.h"
 #include"config.h"
 #include"utilitaire.h"
+#include"candidature.h"
+#include"part3_globale.h"
 
 void FGlobale(void)
 {
@@ -152,8 +154,8 @@ void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
             break;
 
         case 5:   
-            printf("a faire\n");
-            // lancer et arrêter la procédure d'admission
+            menuCandidature();
+            
             break;
         }
 

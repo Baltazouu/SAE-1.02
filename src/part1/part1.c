@@ -12,6 +12,8 @@
 #include"part1.h"
 #include"config.h"
 #include"affichage.h"
+#include "candidature.h"
+
 /**
  * \brief Foncton d'initialisation d'une liste
  * \return NULL
@@ -154,7 +156,7 @@ void fSauvegardeList(FILE *fe,ListDep list)
         return;
     }
     printf("\n");
-    printf("Sauvegarde du departement : %s\n",list->departement);
+    //printf("Sauvegarde du departement : %s\n",list->departement);
     fprintf(fe,"%s\n",list->departement);
     fprintf(fe,"%d\n",list->nbP);
     fprintf(fe,"%s\n",list->resp);

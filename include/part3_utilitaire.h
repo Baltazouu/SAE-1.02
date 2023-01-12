@@ -27,12 +27,6 @@ int FrechChoix(Choix *choix,int nbchoix,char *ville,char *dept);
  */
 MaillonCandidat* copieMaillon(Candidature cand);
 
-/**
- * @brief fonction de copie d'un maillon Candidat en attente
- * @param cand candidat a copier dans le maillon
- * @return MaillonCandidatatt* 
- */
-MaillonCandidatatt* copieMaillonAtt(Candidature cand);
 
 /**
  * @brief FOnction qui calcule la moyenne d'un candidat
@@ -41,23 +35,24 @@ MaillonCandidatatt* copieMaillonAtt(Candidature cand);
  */
 float FcalculMoyenne(Candidature cand);
 
-
-/**
- * @brief fonction qui permet de trier les candidats par ordre croissant de rang
- * @param list liste des candidats en attente
- * @param cand candidature du candidat
- * @return la liste des candidats triee par ordre croissant de moyenne
- */
-ListAttente FonctionInsertionCroissanteAtt(ListAttente list,Candidature cand);
-
 /**
  * @brief fonction qui permet de trier les candidats par ordre croissant de rang
  * @param list liste des candidats
  * @param cand candidature du candidat
  * @return la liste des candidats triee par ordre croissant de moyenne
  */
-ListAdmis FonctionInsertionCroissante(ListAdmis list,Candidature cand,ListAttente listatt,int noteAttente);
+ListCandidat FonctionInsertionCroissante(ListCandidat list,Candidature cand);
 
+
+
+/**
+ * @brief fonction qui permet de trier les candidats par ordre croissant de rang
+ * @param list list des candidats qui seront admis
+ * @param listAttente liste des candidats qui vont etres places en attente
+ * @param nbPlaces nomnbre de places disponibles
+ * @return ListCandidat liste des candidats admis les candidats en attentes seront renvoyees par pointeurs
+ */
+ListCandidat fonctionSelection(ListCandidat list,ListCandidat latt,int nbPlaces);
 
 
 #endif

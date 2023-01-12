@@ -1,4 +1,4 @@
-#ifdef PART3_GLOBALE_H
+#ifndef PART3_GLOBALE_H
 #define PART3_GLOBALE_H
 
 #include "part3.h"
@@ -10,7 +10,7 @@
  * @param tlog taille logique du tableau
  * @param tphys taille physique du tableau
  */
-void globalePart3(Candidature **tcand,int tlog,int tphys,VilleIUT ville);
+void globalePart3(Candidature **tcand,int tlog);
 
 
 #endif

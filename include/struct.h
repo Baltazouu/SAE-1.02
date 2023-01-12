@@ -100,27 +100,16 @@ typedef struct {
 // Fonction algorithme candidature
 #define VILLECANDID "Clermont-Ferrand"
 #define DEPTCANDID "Informatique"
-
-
-
-/**
- * @brief Liste des candidats admis
- */
-typedef struct listCadmis
-{
-    Candidature candidat;
-    struct listCadmis *suivant;
-}MaillonCandidat,*ListAdmis;
-
+#define PLACES 100
 
 /**
- * @brief Liste des candidats en attente
+ * @brief Liste des candidats
  */
-typedef struct listCattente
+typedef struct listcandidats
 {
     Candidature candidat;
-    struct listCattente *suivant;
-}MaillonCandidatatt,*ListAttente;
+    struct listcandidats *suivant;
+}MaillonCandidat,*ListCandidat;
 
 
 #endif

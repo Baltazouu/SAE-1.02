@@ -15,17 +15,17 @@
 #include"utilitaire.h"
 
 
-void ecrireMaillonAdmis(FILE *fe,ListAdmis list)
+void ecrireMaillonCandid(FILE *fe,ListCandidat list)
 {
     if(list==NULL)
     {
         return;
     }
-    fprintf(fe,"%d %s %s %f %f %f %f %d ",list->candidat.idCandidat,list->candidat.nomCandidat,list->candidat.prenomCandidat,list->candidat.moyenneCandidat.maths,list->candidat.moyenneCandidat.fran,list->candidat.moyenneCandidat.angl,list->candidat.moyenneCandidat.spe,list->candidat.nbChoix);
-    ecrireMaillonAdmis(fe,list->suivant);
+    fprintf(fe,"%d %s %s %f %f %f %f %ld\n",list->candidat.idCandidat,list->candidat.nomCandidat,list->candidat.prenomCandidat,list->candidat.moyenneCandidat.maths,list->candidat.moyenneCandidat.fran,list->candidat.moyenneCandidat.angl,list->candidat.moyenneCandidat.spe,list->candidat.nbChoix);
+    ecrireMaillonCandid(fe,list->suivant);
 }
 
-void FsauvegardeLadmis(char *nomFich,ListAdmis list)
+void FsauvegardeLcandid(char *nomFich,ListCandidat list)
 {
     FILE *fe;
     fe=fopen(nomFich,"w");
@@ -34,44 +34,21 @@ void FsauvegardeLadmis(char *nomFich,ListAdmis list)
         fprintf(stderr,"%sError Open File !!\n",STY_FRED);
         exit(2);
     }
-    ecrireMaillonAdmis(fe,list);
+    ecrireMaillonCandid(fe,list);
     fclose(fe);
 }
 
-void ecrireMaillonLatt(FILE *fe,ListAttente list)
-{
-    if (list==NULL)
-    {
-        return;
-    }
-    fprintf(fe,"%d %s %s %f %f %f %f %d ",list->candidat.idCandidat,list->candidat.nomCandidat,list->candidat.prenomCandidat,list->candidat.moyenneCandidat.maths,list->candidat.moyenneCandidat.fran,list->candidat.moyenneCandidat.angl,list->candidat.moyenneCandidat.spe,list->candidat.nbChoix);
-    ecrireMaillonLatt(fe,list->suivant);
-    fclose(fe);
-}
 
-void FsauvegardeLatt(char *nomFich,ListAttente list)
-{
-    FILE *fe;
-    fe=fopen(nomFich,"w");
-    if(fe==NULL)
-    {
-        fprintf(stderr,"%sError Open File !!\n",STY_FRED);
-        exit(2);
-    }
-    ecrireMaillonLatt(fe,list);
-}
-
-
-
-int AlgorithmeParcoursup(Candidature **tcand,int tlog,VilleIUT ville)
+int AlgorithmeParcoursup(Candidature **tcand,int tlog)
 {   
     int noteAttente;
     printf("Entrez la note pallier pour la mise en attente :");
     scanf("%d",&noteAttente);
-
-    int i=0;
-    ListAdmis listAdmis;
-    ListAttente listAttente;
+    // inutile ?? on prend les meilleurs jusqu'au nombre de place
+    // atteintes apres, on mets les autres en attente
+    int i,j;
+    ListCandidat listAdmis;
+    ListCandidat listAttente;
     
 
     listAdmis=(MaillonCandidat*)malloc(sizeof(MaillonCandidat));
@@ -81,35 +58,29 @@ int AlgorithmeParcoursup(Candidature **tcand,int tlog,VilleIUT ville)
         fprintf(stderr,"%sError Dynamic Allocation !!\n",STY_FRED);
         exit(2);
     }
-    listAttente=(MaillonCandidatatt*)malloc(sizeof(MaillonCandidatatt));
+    listAttente=(MaillonCandidat*)malloc(sizeof(MaillonCandidat));
     if(listAttente==NULL)
     {
         fprintf(stderr,"%sError Dynamic Allocation !!\n",STY_FRED);
         exit(2);
     }
-
-    if(strcmp(ville.VilleDep,VILLECANDID)==0)
+    for(i=0;i<tlog;i++)
     {
-        if(FrechList(ville.ldept,DEPTCANDID)==0)
+        
+        for(j=0;j<tcand[i]->nbChoix;j++)
         {
-          for (i=0;i<tlog;i++)
-          {
-            if (FrechChoix(tcand[i]->choix,tcand[i]->nbChoix,VILLECANDID,DEPTCANDID)==1)
-                {
-                    listAdmis=FonctionInsertionCroissante(listAdmis,*tcand[i],listAttente,noteAttente);
-                }
-          }
-        }
-        else
-        {
-            fprintf(stderr,"%sErreur La ville spécifiée en paramètre ne contient pas le département !%s\n",STY_FRED,STY_NULL);
-            return -1;
+            if(strcmp(tcand[i]->choix[j].ville.VilleDep,VILLECANDID)==0
+                && strcmp(tcand[i]->choix[j].departement,DEPTCANDID)==0)
+            {
+                listAdmis=FonctionInsertionCroissante(listAdmis,*tcand[i]); 
+            }
         }
     }
-    fprintf(stderr,"%sErreur La ville spécifiée en paramètre n'est pas la bonne !%s\n",STY_FRED,STY_NULL);
-    return -1;
+    // on arrive ici
 
-
-    FsauvegardeLadmis("ListeAdmis.don",listAdmis);
-    FsauvegardeLatt("ListeAttente.don",listAttente);
+    listAdmis=fonctionSelection(listAdmis,listAttente,PLACES);
+    
+    FsauvegardeLcandid("data/ListeAdmis.don",listAdmis);
+    FsauvegardeLcandid("data/ListeAttente.don",listAttente);
+    return 0;
 }

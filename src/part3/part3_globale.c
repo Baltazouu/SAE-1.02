@@ -16,13 +16,13 @@
 #include"part3.h"
 
 
-void globalePart3(Candidature **tcand,int tlog,int tphys,VilleIUT ville)
+void globalePart3(Candidature **tcand,int tlog)
 {
     char Login[LONGRESPLOGIN], Password[LONGRESPPASSWD];
     strcpy(Login,"login");
     strcpy(Password,"password");
 
-    printf("%s",CLEAR_CMD);
+    printf(CLEAR_CMD);
     printf("%sTraitement des dossiers de candidature\n%s",STY_BOLD,STY_NULL);
 
     printf("Entrez le login administrateur : ");
@@ -33,7 +33,7 @@ void globalePart3(Candidature **tcand,int tlog,int tphys,VilleIUT ville)
 
     if (strcmp(Login,LOGIN)==0 && strcmp(Password,PASSWD)==0)
     {
-        AlgorithmeParcoursup(tcand,tlog,ville);
+        AlgorithmeParcoursup(tcand,tlog);
     }
     else{
 

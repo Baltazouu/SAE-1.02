@@ -7,28 +7,7 @@
 #include"part3.h"
 
 int main(void)
-{
+{   
+    // fonction globale de la partie 1
     FGlobale();
-    /*
-    Candidature **tcand;
-    // charger via les fonctions d'alex
-
-    VilleIUT ville;
-    int tlog,tphys;
-
-    strcpy(ville.VilleDep,"Clermont-Ferrand");
-    // faire la suite
-    // inserer dans la liste informatique
-
-    //globalePart3(tcand,tlog,tphys,ville);
-    globalePart3(tcand,tlog,tphys,ville);
-
-
-    // partie2;
-    //menuCandidature();
-
-    return 0;
-
-    */
-
 }

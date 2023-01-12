@@ -25,7 +25,7 @@ void afficherMenuCandidatureEtu(void)
         STY_BOLD "\t[ 3 ] " STY_NULL STY_FYELLOW " Modifier une candidature\n" STY_FMAGEN
         STY_BOLD "\t[ 4 ] " STY_NULL STY_FMAGEN " Afficher les candidatures\n"
         STY_BOLD "\t[ 5 ] " STY_NULL STY_FMAGEN " Sauvegarder les candidatures\n" STY_FBLUE
-        STY_BOLD "\t[ 6 ] " STY_NULL STY_FBLUE " Annuler\n"
+        STY_BOLD "\t[ 6 ] " STY_NULL STY_FBLUE " Traitement des dossiers de candidatures\n"
         STY_BOLD "\t[ 7 ] " STY_NULL STY_FBLUE " Quitter\n\n"
         STY_NULL;
 

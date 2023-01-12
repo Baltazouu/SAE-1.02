@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "candidature_saisie.h"
+#include "candidature.h"
 #include "errors.h"
 
 
@@ -30,6 +30,53 @@ int saisieMenu(int limit)
     printf( "[ MENU SELECTION ]:\t" );
     scanf( "%d", &menu);
 
-    if (menu > limit) return -err(ERR_INVALID_MENU_SELECT, saisieMenu);
+    if (menu > limit) {
+        printf("(err) Choix invalide, retapez...\n");
+        return -err(ERR_INVALID_MENU_SELECT, saisieMenu);
+    }
     return menu;
+}
+
+int saisieNom(char *nom) {
+
+    printf("[ Saisie nom ]:  ");
+    fgets(nom, MAX_LEN_STRNOM, stdin);
+    nom[strlen(nom)-1] = '\0';
+
+    for (int i = 0; nom[i] != '\0'; i++) {
+        if ( nom[i] <= '0' || nom[i] > '9' )    
+            return err(ERR_INVALID_STR_FORMAT, saisieNom);
+    }
+
+    return OK;
+}
+
+int saisiePrenom(char *prenom) {
+
+    printf("[ Saisie prenom ]:  ");
+    fgets(prenom, MAX_LEN_STRPRENOM, stdin);
+    prenom[strlen(prenom)-1] = '\0';
+
+    for (int i = 0; prenom[i] != '\0'; i++) {
+        if ( prenom[i] <= '0' || prenom[i] > '9' )    
+            return err(ERR_INVALID_STR_FORMAT, saisiePrenom);
+    }
+
+    return OK;
+}
+
+int saisieMoyennes(Moyenne *moy) {
+
+    printf("[ Saisie moyennes ]\n");
+
+    printf("  - MATHEMATIQUES:  "); scanf("%f", &moy->maths);
+    if (moy->maths < 0) return err(ERR_INVALID_NUM_FORMAT, saisieMoyennes);
+    printf("  - ANGLAIS:        "); scanf("%f", &moy->angl);
+    if (moy->angl < 0) return err(ERR_INVALID_NUM_FORMAT, saisieMoyennes);
+    printf("  - FRANCAIS:       "); scanf("%f", &moy->fran);
+    if (moy->fran < 0) return err(ERR_INVALID_NUM_FORMAT, saisieMoyennes);
+    printf("  - SPECIALITE:     "); scanf("%f", &moy->spe);
+    if (moy->spe < 0) return err(ERR_INVALID_NUM_FORMAT, saisieMoyennes);
+    
+    return OK;
 }

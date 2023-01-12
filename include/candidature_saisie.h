@@ -12,6 +12,9 @@
 
 
 int saisieMenu(int limit);
+int saisieNom(char *nom);
+int saisiePrenom(char *prenom);
+int saisieMoyennes(Moyenne *moy);
 
 
 #endif /* define CANDIDATURE_SAISIE_H */

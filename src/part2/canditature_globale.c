@@ -15,6 +15,7 @@
 #include "errors.h"
 
 #include "candidature_globale.h"
+#include "candidature_menu.h"
 #include "candidature_affichage.h"
 #include "candidature_saisie.h"
 
@@ -23,24 +24,62 @@ int menuCandidature(void)
 {
     // TODO: Initialisation des variables
 
-    //Candidature **tcand = (Candidature **)malloc(sizeof(Candidature)*MALLOC_DYN_INC);
-    //if (tcand == NULL) return -err(ERR_NULL_MALLOC, menuCandidature);
+    Candidature *tcand[] = (Candidature **)malloc(sizeof(Candidature)*MALLOC_DYN_INC);
+    if (tcand == NULL) exit( err(ERR_NULL_MALLOC, menuCandidature) );
 
-    int nbCand = 0;
+    size_t nbCand = 0;
+    size_t curralloc = MALLOC_DYN_INC;
     int menuSelect;
 
-    // TODO: Affichage menu principal
-    afficherMenuCandidatureEtu();
-    menuSelect = saisieMenu(7);
+    bool sortie = false;
 
-    printf("\nmenu selection: %d\n\n", menuSelect);
+    //! Boucle principale
+    while ( !sortie ) {
 
+        // TODO: Affichage menu principal
+        afficherMenuCandidatureEtu();
+        do {
+            menuSelect = saisieMenu(7);
+        } while (menuSelect == -ERR_INVALID_MENU_SELECT);
 
-    // TODO: Selection choix
+        // TODO: Selection choix
+        switch (menuSelect) {
+            case 1:     // menu: AJOUT CANDIDATURE
+                menuAjoutCandidature(tcand, &nbCand, &curralloc);
+                break;
+
+            case 2:     // menu: SUPPRESSION CANDIDATURE
+                exit( err(ERR_NOT_IMPLEMENTED, menuCandidature) );
+                break;
+
+            case 3:     // menu: MODIFICATION CANDIDATURE
+                exit( err(ERR_NOT_IMPLEMENTED, menuCandidature) );
+                break;
+
+            case 4:     // menu: AFFICHAGE DES CANDIDATURES
+                exit( err(ERR_NOT_IMPLEMENTED, menuCandidature) );
+                break;
+
+            case 5:     // menu: SAUVGARDE DES CANDIDATURES
+                exit( err(ERR_NOT_IMPLEMENTED, menuCandidature) );
+                break;
+
+            case 6:     // menu: ANNULER
+                exit( err(ERR_NOT_IMPLEMENTED, menuCandidature) );
+                break;
+
+            case 7:     // menu: QUITTER
+                sortie = true;
+                break;
+
+            default:    // erreur d'argument (-> regarder saisie menu)
+                exit(err(ERR_INVALID_ARG, menuCandidature));
+        }
+    }
 
     // TODO: Sortie du menu (retour vers menu principal)
 
-    return 0;
+    return OK;
 }
 
 int testGlobale(void)

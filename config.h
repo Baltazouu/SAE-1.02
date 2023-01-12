@@ -11,13 +11,17 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+
+// config erreurs
+#define ERR_VERBOSE 1   /*!< Affiche les messages d'erreurs. 0-Aucun affichage; 1-Tout afficher */
+
 // -- PARTIE 2 - Candidatures
 
 // constantes
 #define MAX_CANDIDATURES 100    /*!< Maximum de candidatures */
 #define MAX_CHOIX 10            /*!< Maximum de choix par parsonnes */
 
-#define MALLOC_DYN_INC 5        /*!< valeur d'incrementation de la taille dynamique du tableau de candidature */
+#define MALLOC_DYN_INC 5        /*!< valeur d'incrementation de la taille dynamique d'un tableau */
 
 
 /** DEFINE STYLES */
@@ -50,5 +54,6 @@
 
 //! Clear screen
 #define CLEAR_CMD "\e[1;1H\e[2J"
+#define clrscrcmd() printf(CLEAR_CMD)
 
 #endif /* CONFIG_H */

@@ -20,12 +20,12 @@
 void afficherMenuCandidatureEtu(void)
 {
     const char menu[] =
-        STY_BOLD STY_FCYAN "\tMenu Candidature\t\t[ ETU ]\n\n"
+        STY_BOLD STY_FCYAN "\tMenu Candidature\t\t[ ETU ]\n\n" STY_FYELLOW
         STY_BOLD "\t[ 1 ] " STY_NULL STY_FYELLOW " Ajouter une candidature\n"
         STY_BOLD "\t[ 2 ] " STY_NULL STY_FYELLOW " Supprimer une candidature\n"
-        STY_BOLD "\t[ 3 ] " STY_NULL STY_FYELLOW " Modifier une candidature\n"
+        STY_BOLD "\t[ 3 ] " STY_NULL STY_FYELLOW " Modifier une candidature\n" STY_FMAGEN
         STY_BOLD "\t[ 4 ] " STY_NULL STY_FMAGEN " Afficher les candidatures\n"
-        STY_BOLD "\t[ 5 ] " STY_NULL STY_FMAGEN " Sauvegarder les candidatures\n"
+        STY_BOLD "\t[ 5 ] " STY_NULL STY_FMAGEN " Sauvegarder les candidatures\n" STY_FBLUE
         STY_BOLD "\t[ 6 ] " STY_NULL STY_FBLUE " Annuler\n"
         STY_BOLD "\t[ 7 ] " STY_NULL STY_FBLUE " Quitter\n\n"
         STY_NULL;
@@ -51,6 +51,7 @@ void afficherMenuAjoutCandidature(Candidature cand)
         "\t[ 2 ]  Modifier 'Prenom'\n"
         "\t[ 3 ]  Modifier 'Moyennes'\n"
         "\t[ 4 ]  Ajouter une candidature\n"
+        "\t[ 5 ]  Annuler\n"
         "\n"
         "Informations candidature :\n\n";
 
@@ -96,4 +97,23 @@ void affichageCandidatureSaisie(Candidature cand)
             cand.choix[i].ville.VilleDep,
             cand.choix[i].departement );
     }
+}
+
+int affichageToutCandidats(Candidature *tcand[], size_t nbCand)
+{
+    const char entete[] = "[ Liste candidats ]\n\n";
+    const char ligne[]  = " -  [ %d ] %s %s (NC: %d)\n";
+
+    printf( entete );
+
+    int i;
+    for (i = 0; i < nbCand; i++) {
+        printf( ligne,
+            tcand[i]->idCandidat,
+            tcand[i]->nomCandidat,
+            tcand[i]->prenomCandidat,
+            tcand[i]->nbChoix );
+    }
+
+    return i;
 }

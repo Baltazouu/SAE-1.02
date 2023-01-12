@@ -10,14 +10,15 @@
 #ifndef CANDIDATURE_AFFICHAGE_H
 #define CANDIDATURE_AFFICHAGE_H
 
-#include "candidature_utils.h"
+#include "struct.h"
 
 
 void afficherMenuCandidatureAdmin(void);
 void afficherMenuCandidatureEtu(void);
 
 void affichageInfoCandidat(Candidature);
-void afficherMenuAjoutCandidature(Candidature, size_t);
-void affichageCandidatureSaisie(Candidature, size_t);
+void afficherMenuAjoutCandidature(Candidature);
+void affichageCandidatureSaisie(Candidature);
+int affichageToutCandidats(Candidature **, size_t);
 
 #endif // { ifndef CANDIDATURE_AFFICHAGE_H }

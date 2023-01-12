@@ -11,18 +11,26 @@
 #ifndef ERRORS_H
 #define ERRORS_H
 
+#include "config.h"
+
 /**
  * @brief Enumération des codes d'erreurs
  */
 typedef enum {
-    OK = 0,                 /*!< OK */
-    ERR_NULL_MALLOC,        /*!< Erreur d'allocation mémoire */
-    ERR_NULL_LIST,          /*!< Liste vide */
-    ERR_TAB_FULL,           /*!< Tableau plein */
-    ERR_NOT_IMPLEMENTED,    /*!< Fonctionnalité non implémentée */
-    ERR_INVALID_ARG,        /*!< Argument invalide */
-    ERR_INVALID_FILE,       /*!< Fichier invalide */
-    ERR_INVALID_FILE_FORMAT /*!< Format de fichier invalide */
+    OK = 0,                     /*!< OK */
+    ERR_NULL_MALLOC,            /*!< Erreur d'allocation mémoire */
+    ERR_NULL_LIST,              /*!< Liste vide */
+    ERR_TAB_FULL,               /*!< Tableau plein */
+    ERR_NOT_IMPLEMENTED,        /*!< Fonctionnalité non implémentée */
+    ERR_INVALID_ARG,            /*!< Argument invalide */
+    ERR_INVALID_FILE,           /*!< Fichier invalide */
+    ERR_INVALID_FILE_FORMAT,    /*!< Format de fichier invalide */
+    ERR_INVALID_MENU_SELECT,    /*!< Choix de menu invalid */
+    ERR_INVALID_STR_FORMAT,     /*!< Saisie de chaine de caractères invalid */
+    ERR_INVALID_NUM_FORMAT,     /*!< Saisie de nombre invalid */
+    ERR_ALREADY_EXIST,          /*!< Element déjà existant */
+    ERR_DONT_EXIST,             /*!< Element non existant */
+    ERR_NB_ELEM                 /*!< Nombre d'éléments inchoérant */
 } ERR_CODE;
 
 /**
@@ -31,7 +39,10 @@ typedef enum {
  *
  * @param errmsg message d'erreur
  */
-#define eprintf(errmsg) fprintf(stderr, "\e[31m" errmsg "\e[0m\n")
+#define eprintf(errmsg) ({                              \
+    if (ERR_VERBOSE)                                    \
+        fprintf(stderr, "\e[31m" errmsg "\e[0m\n");     \
+})
 
 /**
  * @brief Affiche un message d'erreur avec son code d'erreur re retourne le code d'erreur
@@ -42,7 +53,7 @@ typedef enum {
 #define err(errcode, fun) ({                            \
     if (errcode != OK)                                  \
         eprintf("error: " #errcode " on (" #fun ")");   \
-    -errcode;                                           \
+    errcode;                                           \
 })
 
 

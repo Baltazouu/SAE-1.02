@@ -1,6 +1,7 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
+#include <stdlib.h>
 #include <stdbool.h>
 #include "config.h"
 
@@ -10,12 +11,14 @@
 #define SIZE_TIUT 15
 #define MAX_LONGFICH 15
 
+#define MAX_LEN_STRNOM 21
+#define MAX_LEN_STRPRENOM 51
 
 /* < typdef simples > */
 
 typedef unsigned int ID;
-typedef char Nom[21];
-typedef char Prenom[51];
+typedef char Nom[MAX_LEN_STRNOM];
+typedef char Prenom[MAX_LEN_STRPRENOM];
 typedef float Note;
 typedef enum { ADMIS,   LISTE_ATTENTE, REFUSE } Decision;
 
@@ -81,7 +84,7 @@ typedef struct {
     Nom nomCandidat;            /*!< nom du candidat */
     Prenom prenomCandidat;      /*!< prenom du candidat */
     Moyenne moyenneCandidat;    /*!< moyennes du candidat [Maths,Fr,Ang,Spé] */
-    int nbChoix;                /*!< nombre de choix choisi */
+    size_t nbChoix;                /*!< nombre de choix choisi */
     Choix choix[MAX_CHOIX];     /*!< tableau des ecoles choisies */
 } Candidature;
 

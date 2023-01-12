@@ -1,10 +1,10 @@
 #include "globale.h"
-#include<stdio.h>
-#include"struct.h"
-#include<stdlib.h>
-#include<string.h> 
-#include"part3.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "candidature.h"
+#include"part3.h"
 
 int main(void)
 {
@@ -22,4 +22,8 @@ int main(void)
     //globalePart3(tcand,tlog,tphys,ville);
     globalePart3(tcand,tlog,tphys,ville);
 
+    // partie2;
+    //menuCandidature();
+
+    return 0;
 }

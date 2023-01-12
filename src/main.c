@@ -8,14 +8,15 @@
 int main(void)
 {
     //FGlobale();
-    Candidature **tcand;
-    VilleIUT ville;
-    int tlog,tphys;
+    //Candidature **tcand;
+    //VilleIUT ville;
+    //int tlog,tphys;
 
-    strcpy(ville.VilleDep,"Clermont-Ferrand");
+    //strcpy(ville.VilleDep,"Clermont-Ferrand");
     // faire la suite
     // inserer dans la liste informatique
 
-    globalePart3(tcand,tlog,tphys,ville);
+    //globalePart3(tcand,tlog,tphys,ville);
+    FGlobale();
     return 0;
 }

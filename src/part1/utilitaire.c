@@ -90,20 +90,28 @@ void modifNbpDepartement(VilleIUT **tiut,int taille,VilleIUT ville,char *Departe
     }
 }
 
+
+// a corriger 
 ListDep insertionMaillonCroissant(ListDep ldept, MaillonDept *maillon)
 {
     if(ldept==NULL)
     {
-        ldept=maillon;
-        return ldept;
+        return maillon;
     }
     if(strcmp(ldept->departement,maillon->departement)>0)
     {
-        maillon->suivant=ldept;
-        ldept=maillon;
+        MaillonDept *maillontemp;
+        maillontemp=ldept;
+
+        strcpy(ldept->departement,maillon->departement);
+        strcpy(ldept->resp,maillon->resp);
+        ldept->nbP=maillon->nbP;
+        ldept->suivant=maillontemp;
+
         return ldept;
     }
-    return insertionMaillonCroissant(ldept->suivant,maillon);
+    ldept->suivant=insertionMaillonCroissant(ldept->suivant,maillon);
+    return ldept;
 }
 
 
@@ -135,6 +143,8 @@ void InsertionDepartement(VilleIUT **tiut,int taille,char *Ville,char *Departeme
                 //afficherDepartementsRecursif(tiut[i]->ldept);
                 tiut[i]->nbDept++;
                 printf("%sInsertion effectuée avec succès !!\n",STY_FGREEN);
+
+                afficherDepartementsRecursif(tiut[i]->ldept); 
                 return;
                 
             }

@@ -13,7 +13,6 @@
 
 
 /*
-
 int frechDicho(VilleIUT **tiut,int taille,VilleIUT ville)
 {
     int debut=0;
@@ -44,7 +43,7 @@ int frechDicho(VilleIUT **tiut,int taille,VilleIUT ville)
     return -1;
 }*/
 
-
+// modifie le nombre de places ds un dept
 int modifnbPlist(ListDep ldept,char *Departement,int nbp)
 {
     if(ldept==NULL)
@@ -67,7 +66,7 @@ int modifnbPlist(ListDep ldept,char *Departement,int nbp)
     return modifnbPlist(ldept->suivant,Departement,nbp);
 }
 
-
+// modif un nbp dans un dept
 void modifNbpDepartement(VilleIUT **tiut,int taille,VilleIUT ville,char *Departement,int nbp)
 {
  
@@ -91,7 +90,6 @@ void modifNbpDepartement(VilleIUT **tiut,int taille,VilleIUT ville,char *Departe
 }
 
 
-
 ListDep insertionMaillonCroissant(ListDep ldept, MaillonDept *maillon)
 {
     if(ldept==NULL)
@@ -106,6 +104,7 @@ ListDep insertionMaillonCroissant(ListDep ldept, MaillonDept *maillon)
     ldept->suivant=insertionMaillonCroissant(ldept->suivant,maillon);
     return ldept;
 }
+
 
 void InsertionDepartement(VilleIUT **tiut,int taille,char *Ville,char *Departement,int nbp,char *resp)
 {

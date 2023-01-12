@@ -8,7 +8,8 @@
 
 int main(void)
 {
-    //FGlobale();
+    FGlobale();
+    /*
     Candidature **tcand;
     // charger via les fonctions d'alex
 
@@ -22,8 +23,12 @@ int main(void)
     //globalePart3(tcand,tlog,tphys,ville);
     globalePart3(tcand,tlog,tphys,ville);
 
+
     // partie2;
     //menuCandidature();
 
     return 0;
+
+    */
+
 }

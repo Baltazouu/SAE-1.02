@@ -34,22 +34,23 @@ MaillonCandidat* copieMaillon(Candidature cand);
  */
 float FcalculMoyenne(Candidature cand);
 
+
+/**
+ * @brief fonction qui permet de trier les candidats par ordre croissant de rang
+ * @param list liste des candidats en attente
+ * @param cand candidature du candidat
+ * @return la liste des candidats triee par ordre croissant de moyenne
+ */
+ListAttente FonctionInsertionCroissanteAtt(ListAttente list,Candidature cand);
+
 /**
  * @brief fonction qui permet de trier les candidats par ordre croissant de rang
  * @param list liste des candidats
  * @param cand candidature du candidat
  * @return la liste des candidats triee par ordre croissant de moyenne
  */
-ListAdmis FonctionInsertionCroissante(ListAdmis list,Candidature *cand);
+ListAdmis FonctionInsertionCroissante(ListAdmis list,Candidature cand,ListAttente listatt,int noteAttente);
 
-/**
- * @brief fonction qui permet de trier les candidatures par ordre croissant de rang
- * 
- * @param tcand tableau des candidatures 
- * @param tlog taille du tableau
- * @param ville ville de l'IUT dans lequel on veut admettre les etudiants 
- * @return int
- */
-int AlgorithmeParcoursup(Candidature **tcand,int tlog,VilleIUT ville);
+
 
 #endif

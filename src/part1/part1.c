@@ -53,27 +53,27 @@ ListDep LireDept(FILE *fe, int nbDept)
     
     //tri par insertion ordre alphabétique
     MaillonDept *current = maillon;
-    MaillonDept *next = maillon->suivant;
-    while (next != NULL)
+    MaillonDept *suivant = maillon->suivant;
+    while (suivant != NULL)
     {
-        if (strcmp(current->departement, next->departement) > 0)
+        if (strcmp(current->departement, suivant->departement) > 0)
         {
-            char temp[30];
-            strcpy(temp, current->departement);
-            strcpy(current->departement, next->departement);
-            strcpy(next->departement, temp);
+            char departement[30];
+            strcpy(departement, current->departement);
+            strcpy(current->departement, suivant->departement);
+            strcpy(suivant->departement, departement);
             
-            int tempInt = current->nbP;
-            current->nbP = next->nbP;
-            next->nbP = tempInt;
+            int nbP = current->nbP;
+            current->nbP = suivant->nbP;
+            suivant->nbP = nbP;
             
-            char tempChar[LONGRESP];
-            strcpy(tempChar, current->resp);
-            strcpy(current->resp, next->resp);
-            strcpy(next->resp, tempChar);
+            char resp[LONGRESP];
+            strcpy(resp, current->resp);
+            strcpy(current->resp, suivant->resp);
+            strcpy(suivant->resp, resp);
         }
         current = current->suivant;
-        next = current->suivant;
+        suivant = current->suivant;
     }
     
     //printf("Maillon Actuel %s\n",maillon->departement);
@@ -120,7 +120,12 @@ int fChargement(char *nomFich, VilleIUT **tiut, int *taille)
         {
             if(i==*taille)
             {
-                tiut=realloc(tiut, *taille+10 * sizeof(VilleIUT*));
+                tiut=realloc(tiut,(*taille+10)*sizeof(VilleIUT*));
+                if(tiut==NULL)
+                {
+                    printf("Error Dynamic reallocation !!\n");
+                    exit(2);
+                }
                 *taille+=10;
             }
             tiut[i]=(VilleIUT*)malloc(sizeof(VilleIUT));
@@ -247,7 +252,7 @@ int fchargementBin(char *nomFich, VilleIUT **tiut, int *taille)
     {
         if (i == *taille)
         {
-            tiut = realloc(tiut, (*taille + 10) * sizeof(VilleIUT*));
+            tiut = realloc(tiut,(*taille+10)*sizeof(VilleIUT*));
             if (tiut == NULL)
             {
                 printf("Error Dynamic Reallocation !!\n");
@@ -264,7 +269,7 @@ int fchargementBin(char *nomFich, VilleIUT **tiut, int *taille)
             exit(2);
         }
 
-        fread(tiut[i + 1], sizeof(VilleIUT), 1, fe);
+        fread(tiut[i+1], sizeof(VilleIUT), 1, fe);
         i++;
     }
     fclose(fe);

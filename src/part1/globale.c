@@ -24,7 +24,13 @@
 void FGlobale(void)
 {
     
-    VilleIUT *tiut[SIZE_TIUT];
+    VilleIUT **tiut;
+    tiut=(VilleIUT**)malloc(SIZE_TIUT*sizeof(VilleIUT*));
+    if(tiut==NULL)
+    {
+        printf("%sErreur Dynamic Allocation !!\n",STY_FRED);
+        exit(2);
+    }
     char nomFich[20],nomFichBin[20];
     strcpy(nomFich,"data/IUT.don");
     strcpy(nomFichBin,"data/IUT.bin");
@@ -108,7 +114,7 @@ void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
             resp[strlen(resp)-1]='\0';
 
             printf("Entrez le nombre de places : ");
-            scanf("%d",&nbp);
+            scanf("%d%*c",&nbp);
             InsertionDepartement(tiut,*tlog,ville.VilleDep,Departement,nbp,resp);
             break;
 

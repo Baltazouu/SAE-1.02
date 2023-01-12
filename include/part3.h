@@ -3,24 +3,38 @@
 
 #include"struct.h"
 
-/**
- * @brief Fonction de chargement du responsable des admissions
- * @param Nom nom du responsable (login)
- * @param Passwd password du responsable
- * @param longNom longeur de nom
- * @param longPasswd longueur passwd
- * @return -1 si pb durant chargement 0 sinon
- */
-int FchargementRespBin(char *Nom,char *Passwd);
 
 /**
- * @brief Fonction de sauvegarde des données du responsable d'admissions
- * @param Nom nom du responsable (login)
- * @param Passwd mot de passe du responsable
- * @param longNom longeur tableau nom
- * @param longPasswd longueur tableua password
+ * @brief fonction qui permet d'ecrire un maillon de candidat admis
+ * dasn un fichier fe
+ * @param fe fichier de destination
+ * @param list list a ecrire
  */
-void FsauvegardeRespBin(char *Nom,char *Passwd,int longNom,int longPasswd);
+void ecrireMaillonAdmis(FILE *fe,ListAdmis list);
+
+/**
+ * @brief Fonction qui permet de sauvegarder une liste de candidats admis 
+ * dans un fichier
+ * @param nomFich nom du fichier 
+ * @param list list des candidats a ecrire
+ */
+void FsauvegardeLadmis(char *nomFich,ListAdmis list);
+
+/**
+ * @brief Fonction qui permet d'ecrire un maillon
+ *  candidat en attente dans un fichier
+ * @param fe fichier de destination
+ * @param list list a ecrire
+ */
+void ecrireMaillonLatt(FILE *fe,ListAttente list);
+
+/**
+ * @brief Fonction qui sauvegarde la liste des candidats en attente
+ *  dans un fichier 
+ * @param nomFich nom du fichier
+ * @param list list des candidats
+ */
+void FsauvegardeLatt(char *nomFich,ListAttente list);
 
 /**
  * @brief Fonction globale partie 3
@@ -30,6 +44,15 @@ void FsauvegardeRespBin(char *Nom,char *Passwd,int longNom,int longPasswd);
  */
 void globalePart3(Candidature **tcand,int tlog,int tphys,VilleIUT ville);
 
+/**
+ * @brief fonction qui permet de trier les candidatures par ordre croissant de rang
+ * 
+ * @param tcand tableau des candidatures 
+ * @param tlog taille du tableau
+ * @param ville ville de l'IUT dans lequel on veut admettre les etudiants 
+ * @return int
+ */
+int AlgorithmeParcoursup(Candidature **tcand,int tlog,VilleIUT ville);
 
 
 #endif

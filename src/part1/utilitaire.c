@@ -91,7 +91,7 @@ void modifNbpDepartement(VilleIUT **tiut,int taille,VilleIUT ville,char *Departe
 }
 
 
-// a corriger 
+
 ListDep insertionMaillonCroissant(ListDep ldept, MaillonDept *maillon)
 {
     if(ldept==NULL)
@@ -100,20 +100,12 @@ ListDep insertionMaillonCroissant(ListDep ldept, MaillonDept *maillon)
     }
     if(strcmp(ldept->departement,maillon->departement)>0)
     {
-        MaillonDept *maillontemp;
-        maillontemp=ldept;
-
-        strcpy(ldept->departement,maillon->departement);
-        strcpy(ldept->resp,maillon->resp);
-        ldept->nbP=maillon->nbP;
-        ldept->suivant=maillontemp;
-
-        return ldept;
+        maillon->suivant=ldept;
+        return maillon;
     }
     ldept->suivant=insertionMaillonCroissant(ldept->suivant,maillon);
     return ldept;
 }
-
 
 void InsertionDepartement(VilleIUT **tiut,int taille,char *Ville,char *Departement,int nbp,char *resp)
 {
@@ -125,13 +117,15 @@ void InsertionDepartement(VilleIUT **tiut,int taille,char *Ville,char *Departeme
         printf("Error Dynamic Allocation !!\n");
         exit(2);
     }
+    
     strcpy(maillon->departement,Departement);
     strcpy(maillon->resp,resp);
     maillon->nbP=nbp;
     for(i=0;i<taille;i++)
     {
         if(strcmp(tiut[i]->VilleDep,Ville)==0)
-        {
+        {   
+           
             if(FrechList(tiut[i]->ldept,Departement)==1)
             {
                 printf("%sErreur Département Existant !!\n",STY_FRED);
@@ -139,12 +133,12 @@ void InsertionDepartement(VilleIUT **tiut,int taille,char *Ville,char *Departeme
             }
             else
             {
+
                 tiut[i]->ldept=insertionMaillonCroissant(tiut[i]->ldept,maillon);
-                //afficherDepartementsRecursif(tiut[i]->ldept);
                 tiut[i]->nbDept++;
                 printf("%sInsertion effectuée avec succès !!\n",STY_FGREEN);
 
-                afficherDepartementsRecursif(tiut[i]->ldept); 
+                //afficherDepartementsRecursif(tiut[i]->ldept); 
                 return;
                 
             }

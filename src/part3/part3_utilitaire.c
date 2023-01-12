@@ -47,7 +47,7 @@ MaillonCandidat* copieMaillon(Candidature cand)
     Maillon->candidat.moyenneCandidat.angl=cand.moyenneCandidat.angl;
     Maillon->candidat.moyenneCandidat.spe=cand.moyenneCandidat.spe;
     Maillon->candidat.nbChoix=cand.nbChoix;
-    Maillon->candidat.choix[MAX_CHOIX];
+    //Maillon->candidat.choix[MAX_CHOIX];
     for(i=0;i<cand.nbChoix;i++)
     {   
         Maillon->candidat.choix[i]=cand.choix[i];
@@ -67,8 +67,8 @@ float FcalculMoyenne(Candidature cand)
 }
 
 
-ListAdmis FonctionInsertionCroissante(ListAdmis list,Candidature cand)
-{   
+ListAttente FonctionInsertionCroissanteAtt(ListAttente list,Candidature cand)
+{
     MaillonCandidat *Maillon;
     Maillon=(MaillonCandidat*)malloc(sizeof(MaillonCandidat));
     if(Maillon==NULL)
@@ -130,40 +130,80 @@ ListAdmis FonctionInsertionCroissante(ListAdmis list,Candidature cand)
             
             }
 
-        return list->suivant=FonctionInsertionCroissante(list->suivant,cand);
+        return list->suivant=FonctionInsertionCroissanteAtt(list->suivant,cand);
     }
 }
 
-
-
-int AlgorithmeParcoursup(Candidature **tcand,int tlog,VilleIUT ville)
+ListAdmis FonctionInsertionCroissante(ListAdmis list,Candidature cand,ListAttente listatt,int noteAttente)
 {   
-    int i=0;
-    ListAdmis list;
-    list=(MaillonCandidat*)malloc(sizeof(MaillonCandidat));
-    if(list==NULL)
+    MaillonCandidat *Maillon;
+    Maillon=(MaillonCandidat*)malloc(sizeof(MaillonCandidat));
+    if(Maillon==NULL)
     {
         fprintf(stderr,"%sError Dynamic Allocation !!\n",STY_FRED);
         exit(2);
     }
-    if(strcmp(ville.VilleDep,VILLECANDID)==0)
+    Maillon=copieMaillon(cand);
+
+    if(FcalculMoyenne(cand)<noteAttente)
     {
-        if(FrechList(ville.ldept,DEPTCANDID)==0)
-        {
-          for (i=0;i<tlog;i++)
-          {
-            if (FrechChoix(tcand[i]->choix,tcand[i]->nbChoix,VILLECANDID,DEPTCANDID)==1)
-                {
-                    list=FonctionInsertionCroissante(list,*tcand[i]);
-                }
-          }
-        }
-        else
-        {
-            fprintf(stderr,"%sErreur La ville spécifiée en paramètre ne contient pas le département !%s\n",STY_FRED,STY_NULL);
-            return -1;
-        }
+        listatt=FonctionInsertionCroissanteAtt(listatt,cand);
     }
-    fprintf(stderr,"%sErreur La ville spécifiée en paramètre n'est pas la bonne !%s\n",STY_FRED,STY_NULL);
-    return -1;
+
+    if(list==NULL)
+    {
+        return Maillon;
+    }
+    else
+    {
+        if(FcalculMoyenne(cand)>FcalculMoyenne(list->candidat))
+        {
+            MaillonCandidat *tmp;
+            tmp=(MaillonCandidat*)malloc(sizeof(MaillonCandidat));
+            if (tmp==NULL)
+            {
+                fprintf(stderr,"%sError Dynamic Allocation !!\n",STY_FRED);
+                exit(2);
+            }
+            tmp=list;
+            list=Maillon;
+            list->suivant=tmp;
+            return list;
+        }
+        if(FcalculMoyenne(cand)==FcalculMoyenne(list->candidat))
+            {
+                if(cand.moyenneCandidat.spe>list->candidat.moyenneCandidat.spe)
+                {
+                    MaillonCandidat *tmp;
+                    tmp=(MaillonCandidat*)malloc(sizeof(MaillonCandidat));
+                    if (tmp==NULL)
+                    {
+                        fprintf(stderr,"%sError Dynamic Allocation !!\n",STY_FRED);
+                        exit(2);
+                    }
+                    tmp=list;
+                    list=Maillon;
+                    list->suivant=tmp;
+                    return list;
+                }
+                {
+                    MaillonCandidat *tmp;
+                    tmp=(MaillonCandidat*)malloc(sizeof(MaillonCandidat));
+                    if (tmp==NULL)
+                    {
+                        fprintf(stderr,"%sError Dynamic Allocation !!\n",STY_FRED);
+                        exit(2);
+                    }
+                    tmp=list;
+                    list=Maillon;
+                    list->suivant=tmp;
+                    return list;
+                }
+            
+            }
+
+        return list->suivant=FonctionInsertionCroissante(list->suivant,cand,listatt,noteAttente);
+    }
 }
+
+

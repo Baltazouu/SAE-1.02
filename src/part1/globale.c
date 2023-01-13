@@ -48,22 +48,28 @@ void FGlobale(void)
     //printf("%s",CLEAR_CMD);
     fAffichMenu();
     fscanf(stdin,"%d",&option);
-    switch (option)
+    while(option!=3)
     {
-        case 1:
-        fonctionGlobaleAdmin(tiut,&tlog,&size,nomFich);
-        break;
+        switch (option)
+        {
+            case 1:
+            fonctionGlobaleAdmin(tiut,&tlog,&size,nomFich);
+            break;
 
-    case 2:
-    
-        fonctionGlobaleEtudiant(tiut,&tlog,&size,nomFich);
-        break;
-    
-    case 3:
-        fSauvegarde(tiut,tlog,nomFich);
-        //FsauvegardeBin(tiut,tlog,nomFichBin);
-    break;
+        case 2:
+        
+            fonctionGlobaleEtudiant(tiut,&tlog,&size,nomFich);
+            break;
+            
+        }
+        printf(CLEAR_CMD);
+        fAffichMenu();
+        fscanf(stdin,"%d",&option);
     }
+    fSauvegarde(tiut,tlog,nomFich);
+    //FsauvegardeBin(tiut,tlog,nomFichBin);
+    printf("\n%s    Sauvegarde Effectuee avec succes !\n",STY_FGREEN);
+
 }
 
 
@@ -164,9 +170,8 @@ void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
         fAffichAdmin();
         fscanf(stdin,"%d%*c",&option);
     }
-    fSauvegarde(tiut,*tlog,NomFich);
-    printf("\n%s     Sauvegarde Effectuee avec succes !\n",STY_FGREEN);
-    exit(0);
+    return ;
+    
 }
 
 
@@ -219,5 +224,5 @@ void fonctionGlobaleEtudiant(VilleIUT **tiut,int *tlog,int *size,char *nomFich)
     AffichEtu();
     fscanf(stdin,"%d%*c",&option);
     }
-    exit(0);    
+    
 }

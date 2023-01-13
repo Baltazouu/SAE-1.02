@@ -155,7 +155,7 @@ void fSauvegardeList(FILE *fe,ListDep list)
     {
         return;
     }
-    printf("\n");
+    //printf("\n");
     //printf("Sauvegarde du departement : %s\n",list->departement);
     fprintf(fe,"%s\n",list->departement);
     fprintf(fe,"%d\n",list->nbP);

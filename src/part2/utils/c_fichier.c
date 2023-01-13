@@ -69,7 +69,7 @@ int chargementCand(Candidature *tcand[], size_t *nbcand, size_t *curralloc, uint
     }
     if (nbcandfichier > *curralloc) {
         *curralloc = (nbcandfichier/MALLOC_DYN_INC +1) * MALLOC_DYN_INC;
-        tcand = realloc(tcand, *curralloc);
+        tcand = realloc(tcand, sizeof(Candidature) * (*curralloc));
         if (tcand == NULL) exit( err(ERR_NULL_MALLOC, chargementCand) );
     }
 

@@ -30,6 +30,7 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
             strcpy(fin, "ANULLER");
             break;
         case 'm':
+            affichageToutCandidats(tcand, *nbcand);
             printf("[ MODIF CANDIDAT ]\n- id:  "); scanf("%d%*c", &id);
             ins = rechcand(tcand, *nbcand, id);
             cand = tcand[ins];
@@ -137,13 +138,15 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
             case 6:     // menu: ANNULER
                 printf("%s...\n", fin);
                 sortie = true;
-                free(cand);
+                if (mode == 'a')
+                    free(cand);
                 sleep(2);
                 clrscrcmd();
                 break;
 
             default:    // erreur d'argument (-> regarder saisie menu)
-                exit( err(ERR_INVALID_ARG, menuCandidature) );
+                err(ERR_INVALID_ARG, menuCandidature);
+                scanf("%*s");
                 sleep(2);
                 clrscrcmd();
         }

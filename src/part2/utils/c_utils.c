@@ -46,23 +46,21 @@ Candidature* initCanditature(void) {
  * @return int le nouveau nombre de candidatures ou -<ERRCODE> en cas d'erreur
  */
 int ajouterCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, Candidature *cand) {
-    
-    int i = 0, cmp;
+ 
+    int i = 0, cmp = 1;
 
-    if (*nbCand != 0) {
-        do {
-            cmp = cmpcand(*cand, *tcand[i]);
-            if (cmp == 0) return err(ERR_ALREADY_EXIST, ajouterCandidature);
-            if (i == MAX_CANDIDATURES-1) return err(ERR_TAB_FULL, ajouterCandidature);
-            i++;
-        } while (cmp < 0 && i < *nbCand);
-    }
-
-    if (*nbCand == *curralloc) {
+    if (*nbCand == (*curralloc)-1) {
         *curralloc += MALLOC_DYN_INC;
-        tcand = realloc(tcand, *curralloc);
+        tcand = realloc(tcand, sizeof(Candidature) * (*curralloc));
         if (tcand == NULL) exit( err(ERR_NULL_MALLOC, retirerCandidature) );
     }
+
+    while (cmp < 0 && i < *nbCand) {
+        cmp = cmpcand(*tcand[i], *cand);
+        if (cmp == 0) return err(ERR_ALREADY_EXIST, ajouterCandidature);
+        if (i == MAX_CANDIDATURES-1) return err(ERR_TAB_FULL, ajouterCandidature);
+        i++;
+    } 
     
     int j;
     for (j = *nbCand; j > i; j--) {
@@ -97,7 +95,7 @@ int retirerCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, 
     (*nbCand)--;
     if (*curralloc - *nbCand > 5) {
         *curralloc -= MALLOC_DYN_INC;
-        tcand = realloc(tcand, *curralloc);
+        tcand = realloc(tcand, sizeof(Candidature) * (*curralloc));
         if (tcand == NULL) exit( err(ERR_NULL_MALLOC, retirerCandidature) );
     }
 

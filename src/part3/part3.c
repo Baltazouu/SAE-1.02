@@ -27,6 +27,8 @@ void ecrireMaillonCandid(FILE *fe,ListCandidat list)
 
 void FsauvegardeLcandid(char *nomFich,ListCandidat list)
 {   
+    //printf("Fichier : %s",nomFich);
+    //printf("Liste : %s",list->candidat.nomCandidat);
     if(list==NULL)
     {
         return;
@@ -62,12 +64,14 @@ int AlgorithmeParcoursup(Candidature **tcand,int tlog)
         fprintf(stderr,"%sError Dynamic Allocation !!\n",STY_FRED);
         exit(2);
     }
+    listAdmis=NULL;
     listAttente=(MaillonCandidat*)malloc(sizeof(MaillonCandidat));
     if(listAttente==NULL)
     {
         fprintf(stderr,"%sError Dynamic Allocation !!\n",STY_FRED);
         exit(2);
     }
+    listAttente=NULL;
     for(i=0;i<tlog;i++)
     {
         
@@ -84,7 +88,7 @@ int AlgorithmeParcoursup(Candidature **tcand,int tlog)
 
     listAdmis=fonctionSelection(listAdmis,listAttente,PLACES);
     
-    FsauvegardeLcandid("data/ListeAdmis.don",listAdmis);
-    FsauvegardeLcandid("data/ListeAttente.don",listAttente);
+    //FsauvegardeLcandid("data/ListeAdmis.don",listAdmis);
+    //FsauvegardeLcandid("data/ListeAttente.don",listAttente);
     return 0;
 }

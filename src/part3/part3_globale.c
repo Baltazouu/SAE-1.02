@@ -34,10 +34,12 @@ void globalePart3(Candidature **tcand,int tlog)
     if (strcmp(Login,LOGIN)==0 && strcmp(Password,PASSWD)==0)
     {
         AlgorithmeParcoursup(tcand,tlog);
+        printf("%sTraitement terminé\n%s",STY_BOLD,STY_NULL);
+        sleep(2);
+        return;
     }
-    else{
-
-        fprintf(stderr,"%sLogin/Password Incorrect !!\n%s",STY_FRED,STY_NULL);
-    }
+    fprintf(stderr,"%sLogin/Password Incorrect !!\n%s",STY_FRED,STY_NULL);
+    sleep(2);
+    
 
 }

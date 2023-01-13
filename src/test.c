@@ -13,7 +13,7 @@
 #include "acutest.h"
 #include "config.h"
 #include "errors.h"
-#include "candidature_utils.h"
+#include "candidature/c_utils.h"
 
 /**
  * @brief Macro de test

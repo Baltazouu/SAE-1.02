@@ -32,9 +32,9 @@ DOXOUT  := FALSE
 TESTVER := TRUE
 
 # List the source directories
-DIRS     := part1			\
-			part2			\
-			part2/utils
+DIRS     := 	part1		\
+		part2		\
+		part2/utils
 
 SRCDIRS    = $(foreach dir, $(DIRS), $(addprefix $(SRCDIR)/, $(dir)))
 
@@ -43,7 +43,7 @@ CC := gcc
 
 # generate compiler param
 ifeq ($(DEBUG), TRUE)
-	DEBUGFLAG = -g
+	DEBUGFLAG = -ggdb3 -fno-omit-frame-pointer
 else
 	DEBUGFLAG =
 endif
@@ -184,7 +184,7 @@ clflags: compile_flags.txt
 
 compile_flags.txt:
 	@echo "${PURPLE}[-] Generate $@...${RESET}"
-	$(HIDE)echo "$(foreach inc, $(INCLUDES), $(addprefix \n, $(inc)))" > $@
+	$(HIDE)echo -e "$(foreach inc, $(INCLUDES), $(addprefix \n, $(inc)))" > $@
 
 init:
 	$(HIDE)$(MKDIR) $(subst /,$(PSEP),$(SRCDIR))

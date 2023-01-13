@@ -13,6 +13,8 @@
 #include <string.h>
 
 #include "candidature.h"
+#include "struct.h"
+
 
 
 
@@ -49,14 +51,14 @@ int ajouterCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, 
  
     int i = 0, cmp = 1;
 
-    if (*nbCand == (*curralloc)-1) {
+    if (*nbCand == (*curralloc)) {
         *curralloc += MALLOC_DYN_INC;
-        tcand = realloc(tcand, sizeof(Candidature) * (*curralloc));
+        tcand = (Candidature **)realloc(tcand, sizeof(Candidature *) * (*curralloc));
         if (tcand == NULL) exit( err(ERR_NULL_MALLOC, retirerCandidature) );
     }
 
-    while (cmp < 0 && i < *nbCand) {
-        cmp = cmpcand(*tcand[i], *cand);
+    while (cmp > 0 && i < *nbCand) {
+        cmp = cmpcand(*cand, *tcand[i]);
         if (cmp == 0) return err(ERR_ALREADY_EXIST, ajouterCandidature);
         if (i == MAX_CANDIDATURES-1) return err(ERR_TAB_FULL, ajouterCandidature);
         i++;
@@ -64,7 +66,7 @@ int ajouterCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, 
     
     int j;
     for (j = *nbCand; j > i; j--) {
-        tcand[i] = tcand[i-1];
+        tcand[j] = tcand[j-1];
     }
 
     tcand[i] = cand;
@@ -95,7 +97,7 @@ int retirerCandidature(Candidature *tcand[], size_t *nbCand, size_t *curralloc, 
     (*nbCand)--;
     if (*curralloc - *nbCand > 5) {
         *curralloc -= MALLOC_DYN_INC;
-        tcand = realloc(tcand, sizeof(Candidature) * (*curralloc));
+        tcand = (Candidature **)realloc(tcand, sizeof(Candidature *) * (*curralloc));
         if (tcand == NULL) exit( err(ERR_NULL_MALLOC, retirerCandidature) );
     }
 

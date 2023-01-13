@@ -1,4 +1,4 @@
-3
+5
 1
 Durand
 Jean Jaques
@@ -17,10 +17,10 @@ Bio-Informatique
 0
 0
 
-2
-Carrfour
-Beinjamin
-12.70 8.30 16.40 13.10
+14
+Dudonne
+Baptiste
+0.00 0.00 0.00 0.00
 0
 
 13
@@ -31,4 +31,16 @@ Agostinho
 Lyon
 Informatique
 1
+0
+
+2
+Carrfour
+Beinjamin
+12.70 8.30 16.40 13.10
+0
+
+15
+Kashmir
+Zlenek
+0.00 0.00 0.00 0.00
 0

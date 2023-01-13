@@ -22,7 +22,7 @@ int menuCandidature(void)
 {
     // TODO: Initialisation des variables
 
-    Candidature **tcand = (Candidature **)malloc(sizeof(Candidature)*MALLOC_DYN_INC);
+    Candidature **tcand = (Candidature **)malloc(sizeof(Candidature *) * MALLOC_DYN_INC);
     if (tcand == NULL) exit( err(ERR_NULL_MALLOC, menuCandidature) );
 
     size_t nbCand = 0;

@@ -6,7 +6,10 @@
 
 ### Compétences
 * Optimiser des applications informatiques (Compétence 2)
----
+
+## Compte-rendu
+Le compte rendu de cette sae se trouve ici en fichier *markdown*:  
+  - [***FICHIER 'SAE1-02.md'***](./SAE-1.02.md)
 
 ## Structure du projet
 ```
@@ -76,3 +79,5 @@
   - La partie 4 n'est actuellement pas dévloppée.
   - Certaines fonctionnalitées de la partie 2 peuvent encore se montrer instables. (-> allocation dynamique, affichages, ...)
   - D'après nos divers tests, le reste du progmrame devrait se montrer stable.
+  - Nous n'avons travaillé et testé notre projet uniquement sur un environnement *Linux*. Aucune promesses que cela fonctionne sur *Windows* ou autre environnement système.
+  - Je (Alexandre), m'excuse d'avance pour les fautes d'orthographes. J'essayerais de les corriger au plus vite.

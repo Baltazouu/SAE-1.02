@@ -135,7 +135,7 @@ void fAffichAdmin(void)
     printf("\n");
     printf("%s  5. Lancer la procédure d'admission\n",STY_FGREEN);
     printf("\n");
-    printf("%s  6. Sauvegarder et quitter\n",STY_FYELLOW);
+    printf("%s  6. Quitter et retoruner au menu principal\n",STY_FYELLOW);
     printf("\n");
 
     printf("%s     Entrez Votre Choix : ",STY_FBLUE);
@@ -168,7 +168,7 @@ void AffichEtu(void)
     printf("\n");
     printf("%s  4. Rechercher un departement parmi tous les IUT\n",STY_FYELLOW);
     printf("\n");
-    printf("%s  5. Quitter\n",STY_FYELLOW);
+    printf("%s  5. Quitter et retour au menu principal\n",STY_FYELLOW);
     printf("\n");
 
     printf("%s     Entrez Votre Choix : ",STY_FBLUE);

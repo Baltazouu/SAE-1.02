@@ -13,7 +13,6 @@
 
 
 /*
-
 int frechDicho(VilleIUT **tiut,int taille,VilleIUT ville)
 {
     int debut=0;
@@ -44,7 +43,7 @@ int frechDicho(VilleIUT **tiut,int taille,VilleIUT ville)
     return -1;
 }*/
 
-
+// modifie le nombre de places ds un dept
 int modifnbPlist(ListDep ldept,char *Departement,int nbp)
 {
     if(ldept==NULL)
@@ -67,7 +66,7 @@ int modifnbPlist(ListDep ldept,char *Departement,int nbp)
     return modifnbPlist(ldept->suivant,Departement,nbp);
 }
 
-
+// modif un nbp dans un dept
 void modifNbpDepartement(VilleIUT **tiut,int taille,VilleIUT ville,char *Departement,int nbp)
 {
  
@@ -90,20 +89,20 @@ void modifNbpDepartement(VilleIUT **tiut,int taille,VilleIUT ville,char *Departe
     }
 }
 
+
 ListDep insertionMaillonCroissant(ListDep ldept, MaillonDept *maillon)
 {
     if(ldept==NULL)
     {
-        ldept=maillon;
-        return ldept;
+        return maillon;
     }
     if(strcmp(ldept->departement,maillon->departement)>0)
     {
         maillon->suivant=ldept;
-        ldept=maillon;
-        return ldept;
+        return maillon;
     }
-    return insertionMaillonCroissant(ldept->suivant,maillon);
+    ldept->suivant=insertionMaillonCroissant(ldept->suivant,maillon);
+    return ldept;
 }
 
 
@@ -117,13 +116,15 @@ void InsertionDepartement(VilleIUT **tiut,int taille,char *Ville,char *Departeme
         printf("Error Dynamic Allocation !!\n");
         exit(2);
     }
+    
     strcpy(maillon->departement,Departement);
     strcpy(maillon->resp,resp);
     maillon->nbP=nbp;
     for(i=0;i<taille;i++)
     {
         if(strcmp(tiut[i]->VilleDep,Ville)==0)
-        {
+        {   
+           
             if(FrechList(tiut[i]->ldept,Departement)==1)
             {
                 printf("%sErreur Département Existant !!\n",STY_FRED);
@@ -131,10 +132,12 @@ void InsertionDepartement(VilleIUT **tiut,int taille,char *Ville,char *Departeme
             }
             else
             {
+
                 tiut[i]->ldept=insertionMaillonCroissant(tiut[i]->ldept,maillon);
-                //afficherDepartementsRecursif(tiut[i]->ldept);
                 tiut[i]->nbDept++;
                 printf("%sInsertion effectuée avec succès !!\n",STY_FGREEN);
+
+                //afficherDepartementsRecursif(tiut[i]->ldept); 
                 return;
                 
             }

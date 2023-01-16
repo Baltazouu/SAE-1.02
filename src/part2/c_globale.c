@@ -15,8 +15,9 @@
 #include "config.h"
 #include "errors.h"
 
+#include"utilitaire.h"
 #include "candidature.h"
-
+#include"part3_globale.h"
 
 int menuCandidature(void)
 {
@@ -72,7 +73,12 @@ int menuCandidature(void)
                 break;
 
             case 6:     // menu: ANNULER
-                exit( err(ERR_NOT_IMPLEMENTED, menuCandidature) );
+                //exit( err(ERR_NOT_IMPLEMENTED, menuCandidature) );
+                // ICI jointure partie 3 traitement dossiers candidatures
+                
+                globalePart3(tcand,nbCand);
+
+
                 break;
 
             case 7:     // menu: QUITTER

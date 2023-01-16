@@ -20,11 +20,19 @@
 #include"affichage.h"
 #include"config.h"
 #include"utilitaire.h"
+#include"candidature.h"
+#include"part3_globale.h"
 
 void FGlobale(void)
 {
     
-    VilleIUT *tiut[SIZE_TIUT];
+    VilleIUT **tiut;
+    tiut=(VilleIUT**)malloc(SIZE_TIUT*sizeof(VilleIUT*));
+    if(tiut==NULL)
+    {
+        printf("%sErreur Dynamic Allocation !!\n",STY_FRED);
+        exit(2);
+    }
     char nomFich[20],nomFichBin[20];
     strcpy(nomFich,"data/IUT.don");
     strcpy(nomFichBin,"data/IUT.bin");
@@ -40,22 +48,28 @@ void FGlobale(void)
     //printf("%s",CLEAR_CMD);
     fAffichMenu();
     fscanf(stdin,"%d",&option);
-    switch (option)
+    while(option!=3)
     {
-        case 1:
-        fonctionGlobaleAdmin(tiut,&tlog,&size,nomFich);
-        break;
+        switch (option)
+        {
+            case 1:
+            fonctionGlobaleAdmin(tiut,&tlog,&size,nomFich);
+            break;
 
-    case 2:
-    
-        fonctionGlobaleEtudiant(tiut,&tlog,&size,nomFich);
-        break;
-    
-    case 3:
-        fSauvegarde(tiut,tlog,nomFich);
-        //FsauvegardeBin(tiut,tlog,nomFichBin);
-    break;
+        case 2:
+        
+            fonctionGlobaleEtudiant(tiut,&tlog,&size,nomFich);
+            break;
+            
+        }
+        printf(CLEAR_CMD);
+        fAffichMenu();
+        fscanf(stdin,"%d",&option);
     }
+    fSauvegarde(tiut,tlog,nomFich);
+    //FsauvegardeBin(tiut,tlog,nomFichBin);
+    printf("\n%s    Sauvegarde Effectuee avec succes !\n",STY_FGREEN);
+
 }
 
 
@@ -108,8 +122,10 @@ void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
             resp[strlen(resp)-1]='\0';
 
             printf("Entrez le nombre de places : ");
-            scanf("%d",&nbp);
+            scanf("%d%*c",&nbp);
             InsertionDepartement(tiut,*tlog,ville.VilleDep,Departement,nbp,resp);
+
+            
             break;
 
         case 3:
@@ -144,8 +160,8 @@ void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
             break;
 
         case 5:   
-            printf("a faire\n");
-            // lancer et arrêter la procédure d'admission
+            menuCandidature();
+            
             break;
         }
 
@@ -154,9 +170,8 @@ void fonctionGlobaleAdmin(VilleIUT **tiut,int *tlog,int *tphys,char *NomFich)
         fAffichAdmin();
         fscanf(stdin,"%d%*c",&option);
     }
-    fSauvegarde(tiut,*tlog,NomFich);
-    printf("\n%s     Sauvegarde Effectuee avec succes !\n",STY_FGREEN);
-    exit(0);
+    return ;
+    
 }
 
 
@@ -209,5 +224,5 @@ void fonctionGlobaleEtudiant(VilleIUT **tiut,int *tlog,int *size,char *nomFich)
     AffichEtu();
     fscanf(stdin,"%d%*c",&option);
     }
-    exit(0);    
+    
 }

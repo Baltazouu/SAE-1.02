@@ -12,6 +12,8 @@
 #include"part1.h"
 #include"config.h"
 #include"affichage.h"
+#include "candidature.h"
+
 /**
  * \brief Foncton d'initialisation d'une liste
  * \return NULL
@@ -53,27 +55,27 @@ ListDep LireDept(FILE *fe, int nbDept)
     
     //tri par insertion ordre alphabétique
     MaillonDept *current = maillon;
-    MaillonDept *next = maillon->suivant;
-    while (next != NULL)
+    MaillonDept *suivant = maillon->suivant;
+    while (suivant != NULL)
     {
-        if (strcmp(current->departement, next->departement) > 0)
+        if (strcmp(current->departement, suivant->departement) > 0)
         {
-            char temp[30];
-            strcpy(temp, current->departement);
-            strcpy(current->departement, next->departement);
-            strcpy(next->departement, temp);
+            char departement[30];
+            strcpy(departement, current->departement);
+            strcpy(current->departement, suivant->departement);
+            strcpy(suivant->departement, departement);
             
-            int tempInt = current->nbP;
-            current->nbP = next->nbP;
-            next->nbP = tempInt;
+            int nbP = current->nbP;
+            current->nbP = suivant->nbP;
+            suivant->nbP = nbP;
             
-            char tempChar[LONGRESP];
-            strcpy(tempChar, current->resp);
-            strcpy(current->resp, next->resp);
-            strcpy(next->resp, tempChar);
+            char resp[LONGRESP];
+            strcpy(resp, current->resp);
+            strcpy(current->resp, suivant->resp);
+            strcpy(suivant->resp, resp);
         }
         current = current->suivant;
-        next = current->suivant;
+        suivant = current->suivant;
     }
     
     //printf("Maillon Actuel %s\n",maillon->departement);
@@ -97,50 +99,54 @@ VilleIUT* lireVille(FILE *fe)
 }
 
 int fChargement(char *nomFich, VilleIUT **tiut, int *taille)
+{
+    FILE *fe;
+    int i=0;
+    fe=fopen(nomFich,"r");
+    if (fe==NULL)
     {
-        FILE *fe;
-        int i=0;
-        fe=fopen(nomFich,"r");
-        if (fe==NULL)
+        printf("Error Opening File !!\n");
+        return -1;
+    }
+    VilleIUT *ville;
+    ville=(VilleIUT*)malloc(sizeof(VilleIUT));
+    if(ville==NULL)
+    {
+        printf("Error Dynamic Allocation !!\n");
+        exit(2);
+    }
+    
+    ville=lireVille(fe);
+
+    while(!feof(fe))
+    {
+        if(i==*taille)
         {
-            printf("Error Opening File !!\n");
-            return -1;
+            tiut=realloc(tiut,(*taille+10)*sizeof(VilleIUT*));
+            if(tiut==NULL)
+            {
+                printf("Error Dynamic reallocation !!\n");
+                exit(2);
+            }
+            *taille+=10;
         }
-        VilleIUT *ville;
-        ville=(VilleIUT*)malloc(sizeof(VilleIUT));
-        if(ville==NULL)
+        tiut[i]=(VilleIUT*)malloc(sizeof(VilleIUT));
+        if(tiut[i]==NULL)
         {
             printf("Error Dynamic Allocation !!\n");
             exit(2);
         }
+        ListDep list=LireDept(fe,ville->nbDept);
         
+        //printf("On arrive ici\n");
+        ville->ldept=list;
+        tiut[i]=ville;
         ville=lireVille(fe);
-
-        while(!feof(fe))
-        {
-            if(i==*taille)
-            {
-                tiut=realloc(tiut, *taille+10 * sizeof(VilleIUT*));
-                *taille+=10;
-            }
-            tiut[i]=(VilleIUT*)malloc(sizeof(VilleIUT));
-            if(tiut[i]==NULL)
-            {
-                printf("Error Dynamic Allocation !!\n");
-                exit(2);
-            }
-            ListDep list=LireDept(fe,ville->nbDept);
-            
-            //printf("On arrive ici\n");
-            ville->ldept=list;
-            tiut[i]=ville;
-            ville=lireVille(fe);
-            i++;
-        }
-        fclose(fe);
-        return i;
-        
+        i++;
     }
+    fclose(fe);
+    return i; 
+}
 
 
 void fSauvegardeList(FILE *fe,ListDep list)
@@ -149,12 +155,13 @@ void fSauvegardeList(FILE *fe,ListDep list)
     {
         return;
     }
+    //printf("\n");
+    //printf("Sauvegarde du departement : %s\n",list->departement);
     fprintf(fe,"%s\n",list->departement);
     fprintf(fe,"%d\n",list->nbP);
     fprintf(fe,"%s\n",list->resp);
     fSauvegardeList(fe,list->suivant);
 }
-
 
 
 void fSauvegarde(VilleIUT **tiut,int size,char *nomFich)
@@ -176,6 +183,11 @@ void fSauvegarde(VilleIUT **tiut,int size,char *nomFich)
     fclose(fe);
 }
 
+
+
+
+
+/* ** Fonctions Binaires **
 
 void fsauvegardeListBin(FILE *fe,ListDep List)
 {
@@ -206,6 +218,10 @@ void FsauvegardeBin(VilleIUT **tiut,int tlog,char *nomFich)
     printf("%s saved successfully !\n",STY_FGREEN);
     fclose(fe);
 }
+
+
+
+
 
 ListDep LectureBin(FILE *fe,int nbDept)
 {
@@ -245,7 +261,7 @@ int fchargementBin(char *nomFich, VilleIUT **tiut, int *taille)
     {
         if (i == *taille)
         {
-            tiut = realloc(tiut, (*taille + 10) * sizeof(VilleIUT*));
+            tiut = realloc(tiut,(*taille+10)*sizeof(VilleIUT*));
             if (tiut == NULL)
             {
                 printf("Error Dynamic Reallocation !!\n");
@@ -262,9 +278,10 @@ int fchargementBin(char *nomFich, VilleIUT **tiut, int *taille)
             exit(2);
         }
 
-        fread(tiut[i + 1], sizeof(VilleIUT), 1, fe);
+        fread(tiut[i+1], sizeof(VilleIUT), 1, fe);
         i++;
     }
     fclose(fe);
     return i;
 }
+ */

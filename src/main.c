@@ -1,16 +1,13 @@
 #include "globale.h"
-#include "struct.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "candidature.h"
+#include"part3.h"
 
 int main(void)
-{
-    //FGlobale();
-
-    //testGlobale();
-    menuCandidature();
-
-    return 0;
+{   
+    // fonction globale de la partie 1
+    FGlobale();
 }

@@ -56,4 +56,10 @@
 #define CLEAR_CMD "\e[1;1H\e[2J"
 #define clrscrcmd() printf(CLEAR_CMD)
 
+
+// PARTIE 3 - Options des admissions
+
+
+
+
 #endif /* CONFIG_H */

@@ -71,3 +71,8 @@
 ---
 
 ## Notes
+  - Suite à certains problèmes techniques, aucun tests unitaire n'a réellement été fait.
+  - Les fonctions de la partie 2 n'ont pas été, ou sont incomplétement commentées. Ces commentaires devrais être écrits sous peu.
+  - La partie 4 n'est actuellement pas dévloppée.
+  - Certaines fonctionnalitées de la partie 2 peuvent encore se montrer instables. (-> allocation dynamique, affichages, ...)
+  - D'après nos divers tests, le reste du progmrame devrait se montrer stable.

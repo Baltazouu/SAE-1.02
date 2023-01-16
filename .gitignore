@@ -1,3 +1,18 @@
+# ---> exe
+sae1.02*
+
+# ---> Doc
+doc
+
+# ---> vscode
+.vscode
+
+# ---> tags
+tags
+
+# ---> CLANG
+compile_flags.txt
+
 # ---> C
 # Prerequisites
 *.d

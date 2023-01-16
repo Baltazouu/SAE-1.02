@@ -1,0 +1,46 @@
+5
+1
+Durand
+Jean Jaques
+15.75 12.25 9.50 17.00
+3
+Clermont-Ferrand
+Informatique
+0
+0
+Grenoble
+Informatique
+0
+0
+Aurillac
+Bio-Informatique
+0
+0
+
+14
+Dudonne
+Baptiste
+0.00 0.00 0.00 0.00
+0
+
+13
+Alexandre
+Agostinho
+0.00 0.00 0.00 0.00
+1
+Lyon
+Informatique
+1
+0
+
+2
+Carrfour
+Beinjamin
+12.70 8.30 16.40 13.10
+0
+
+15
+Kashmir
+Zlenek
+0.00 0.00 0.00 0.00
+0

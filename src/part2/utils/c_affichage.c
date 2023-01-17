@@ -61,7 +61,7 @@ void afficherMenuAjoutCandidature(Candidature cand, const char *fin)
 }
 
 
-/* AFFICHAGES UTILITAIRES */
+/* AFFICHAGES UTILITAIRES (avec des infos en plus) */
 
 void affichageInfoCandidat(Candidature cand)
 {

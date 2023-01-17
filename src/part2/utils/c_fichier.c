@@ -14,6 +14,14 @@
 #include "candidature.h"
 
 
+
+/*! @brief Lecture d'une candidature entière depuis un flux
+ *
+ *  Lit une candidature depuis un flux et la retourne.
+ * 
+ *  @param fe Flux d'entrée
+ *  @return Candidature
+ */
 Candidature lireCand(FILE *fe)
 {
     Candidature cand;
@@ -37,6 +45,15 @@ Candidature lireCand(FILE *fe)
     return cand;
 }
 
+
+
+/*! @brief Lecture d'une candidature entière depuis un flux
+ *
+ *  Lit une candidature depuis un flux et la retourne.
+ * 
+ *  @param fe Flux d'entrée
+ *  @return Candidature
+ */
 void ecrireCand(FILE *fe, Candidature cand)
 {
     fprintf(fe, "\n%d\n", cand.idCandidat);
@@ -56,6 +73,19 @@ void ecrireCand(FILE *fe, Candidature cand)
     }
 }
 
+
+
+/*! @brief Chargement d'un tableau de candidatures depuis un fichier
+ *
+ *  Charge un tableau de candidatures depuis un fichier.
+ * 
+ *  @param tcand Tableau de candidatures
+ *  @param nbcand Nombre de candidatures
+ *  @param curralloc Nombre d'éléments alloués (taille physuque du tableau)
+ *  @param idmax ID maximum
+ *  @param nomfichier Nom du fichier
+ *  @return Code d'erreur
+ */
 int chargementCand(Candidature *tcand[], size_t *nbcand, size_t *curralloc, uint *idmax, const char *nomfichier)
 {
     FILE *fe = fopen(nomfichier, "r");
@@ -90,6 +120,17 @@ int chargementCand(Candidature *tcand[], size_t *nbcand, size_t *curralloc, uint
     return OK;
 }
 
+
+
+/*! @brief Sauvegarde d'un tableau de candidatures dans un fichier
+ *
+ *  Sauvegarde un tableau de candidatures dans un fichier.
+ * 
+ *  @param tcand Tableau de candidatures
+ *  @param nbcand Nombre de candidatures
+ *  @param nomfichier Nom du fichier
+ *  @return Code d'erreur
+ */
 int sauvegardeCand(Candidature *tcand[], size_t nbcand, const char *nomfichier)
 {
     FILE *fe = fopen(nomfichier, "w");

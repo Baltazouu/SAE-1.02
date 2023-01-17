@@ -19,7 +19,28 @@
 
 
 
-
+/*! @brief Menu d'ajout de candidatures
+ *
+ *  Affiche le menu d'ajout de candidatures et permet de modifier les informations
+ *  de la candidature en cours d'ajout.
+ * 
+ *  Ce menu possède 2 modes :
+ *    - mode 'a' : ajout de candidature, initialise une nouvelle candidature et l'ajoute au tableau,
+ *    - mode 'm' : modification de candidature, modifie une candidature existante dans le tableau.
+ * 
+ *  Utilise les fonctions de saisie de candidature pour la saisie des informations,
+ *  et une serie de switch pour la gestion des erreurs.
+ * 
+ *  @note La réallocation mémoire du tableau de candidatures ne fonctionne actuellement pas.
+ * 
+ *  @param tcand Tableau pointeurs de candidatures
+ *  @param nbcand Nombre de candidatures
+ *  @param curralloc Taille de l'allocation mémoire du tableau
+ *  @param idmax ID max présente parmis les candidatures chargées
+ *  @param mode Mode d'ajout (a: ajout, m: modification)
+ * 
+ *  @return OK
+ */
 int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc, uint *idmax, const char mode) {
 
     Candidature *cand; uint id; size_t ins; char fin[9];
@@ -68,7 +89,6 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
                             printf("(err) erreur...\n");
                     }
                 } while (out != OK);
-                clrscrcmd();
                 break;
 
             case 2:     // menu: MODIFICATION PRENOM
@@ -84,7 +104,6 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
                             printf("(err) erreur...\n");
                     }
                 } while (out != OK);
-                clrscrcmd();
                 break;
 
             case 3:     // menu: MODIFICATION MOYENNE
@@ -100,7 +119,6 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
                             printf("(err) erreur...\n");
                     }
                 } while (out != OK);
-                clrscrcmd();
                 break;
             
             case 4:     // menu: AJOUTER CANDIDATURE
@@ -113,7 +131,6 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
                     default:
                         printf("(err) erreur...\n");
                 }
-                clrscrcmd();
                 break;
 
             case 5:     // menu: ENREGISTRER
@@ -132,7 +149,6 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
                         printf("(err) erreur...\n");
                 }
                 sleep(2);
-                clrscrcmd();
                 break;
 
             case 6:     // menu: ANNULER
@@ -141,20 +157,27 @@ int menuAjoutCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc
                 if (mode == 'a')
                     free(cand);
                 sleep(2);
-                clrscrcmd();
                 break;
 
             default:    // erreur d'argument (-> regarder saisie menu)
                 err(ERR_INVALID_ARG, menuCandidature);
                 scanf("%*s");
                 sleep(2);
-                clrscrcmd();
         }
     }
 
     return OK;
 }
 
+
+
+/*! @brief Gère dans un menu une saisie de choix
+ *
+ *  Gère dans un menu une saisie de choix comprenant une ville et un département
+ * 
+ *  @param cand Candidature à laquelle ajouter le choix
+ *  @return OK
+ */
 int menuAjoutChoix(Candidature *cand) {
 
     if (cand->nbChoix >= MAX_CHOIX) {
@@ -171,6 +194,19 @@ int menuAjoutChoix(Candidature *cand) {
     return OK;
 }
 
+
+
+/*! @brief Gère dans un menu la suppression d'une candidature
+ *
+ *  Affiche les cadidatures enregistrées et demande à l'utilisateur de choisir
+ *  laquelle supprimer. Une confirmation est demandée avant la suppression.
+ * 
+ *  @param tcand Tableau de candidatures
+ *  @param nbcand Nombre de candidatures enregistrées
+ *  @param curralloc Taille de l'allocation mémoire du tableau
+ * 
+ *  @return 1 si une candidature a été supprimée, 0 sinon
+ */
 int menuSuppCandidature(Candidature *tcand[], size_t *nbcand, size_t *curralloc) {
 
     affichageToutCandidats(tcand, *nbcand);

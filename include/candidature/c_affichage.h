@@ -16,9 +16,10 @@
 void afficherMenuCandidatureAdmin(void);
 void afficherMenuCandidatureEtu(void);
 
-void affichageInfoCandidat(Candidature);
 void afficherMenuAjoutCandidature(Candidature cand, const char *fin);
-void affichageCandidatureSaisie(Candidature);
-int affichageToutCandidats(Candidature **, size_t);
+void affichageInfoCandidat(Candidature cand);
+void affichageCandidatureSaisie(Candidature cand);
+int affichageToutCandidats(Candidature *tcand[], size_t nbCand);
+
 
 #endif // { ifndef CANDIDATURE_AFFICHAGE_H }

@@ -15,6 +15,7 @@
 
 
 
+
 /*! @brief saisie d'un choix dans un menu
  *
  *  Affiche un prompt et lis un entier sur l'entrée standard.
@@ -37,6 +38,18 @@ int saisieMenu(int limit)
     return menu;
 }
 
+
+
+/*! @brief saisie d'un nom
+ *
+ *  Affiche un prompt et lis une chaîne de caractères sur l'entrée standard.
+ *  Le nom y est demandé.
+ *  Met la première lettre en majuscule automatiquement.
+ *  Test si le nom contient des chiffres.
+ * 
+ *  @param nom pointeur vers la chaîne de caractères correspondant au nom
+ *  @return int code d'erreur
+ */
 int saisieNom(char *nom) {
 
     printf("[ Saisie nom ]:  ");
@@ -53,6 +66,18 @@ int saisieNom(char *nom) {
     return OK;
 }
 
+
+
+/*! @brief saisie d'un prenom
+ *
+ *  Affiche un prompt et lis une chaîne de caractères sur l'entrée standard.
+ *  Le prenom y est demandé.
+ *  Met la première lettre en majuscule automatiquement.
+ *  Test si le prenom contient des chiffres.
+ * 
+ *  @param nom pointeur vers la chaîne de caractères correspondant au prenom
+ *  @return int code d'erreur
+ */
 int saisiePrenom(char *prenom) {
 
     printf("[ Saisie prenom ]:  ");
@@ -69,6 +94,16 @@ int saisiePrenom(char *prenom) {
     return OK;
 }
 
+
+
+/*! @brief saisie des moyennes d'un candidat
+ *
+ *  Affiche un prompt et lis des flottants sur l'entrée standard.
+ *  Les moyennes de certaines matières y sont demandées.
+ * 
+ *  @param moy pointeur vers la structure Moyenne
+ *  @return int code d'erreur
+ */
 int saisieMoyennes(Moyenne *moy) {
 
     printf("[ Saisie moyennes ]\n");

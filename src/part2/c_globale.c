@@ -19,6 +19,20 @@
 #include "candidature.h"
 #include"part3_globale.h"
 
+
+/*! @brief Menu principal de la gestion des candidatures
+ *
+ *  Affiche le menu principal de la gestion des candidatures et permet de selectionner
+ *  une option.
+ *
+ *  Les candidatures sont chargées depuis le fichier "data/candidatures.txt" et sont
+ *  stockées dans un tableau dynamique de pointeurs de candidatures. Ce tableau est
+ *  initialisé ici.
+ *
+ *  A la fin, le tableau est libéré de la memoire et le programme retourne au menu général.
+ * 
+ *  @return OK
+ */
 int menuCandidature(void)
 {
     // TODO: Initialisation des variables
@@ -95,6 +109,12 @@ int menuCandidature(void)
     return OK;
 }
 
+
+
+/*! @brief fonction de test de la partie 2?
+ *
+ *  @note Fonction temporaire pour tester les fonctions de la partie 2. Ne pas prendre en compte.
+ */
 int testGlobale(void)
 {
     afficherMenuCandidatureEtu();
